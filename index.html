@@ -29,6 +29,9 @@
 
         body {
             background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.08), transparent 25%);
             color: var(--text-main);
             font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
@@ -45,8 +48,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.9), transparent);
-            /* backdrop-filter: blur(2px); */
+            /* backdrop-filter: blur(10px); */
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .logo {
@@ -62,7 +65,10 @@
             color: var(--text-main);
             text-decoration: none;
             font-size: 0.9rem;
-            opacity: 0.7;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
             transition: 0.3s;
             display: flex;
             align-items: center;
@@ -70,27 +76,28 @@
         }
 
         .back-btn:hover {
-            opacity: 1;
+            background: rgba(255,255,255,0.1);
             transform: translateX(-5px);
         }
 
         /* Hero Title */
         .hero-section {
-            height: 60vh;
+            height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 2rem;
+            position: relative;
         }
 
         .hero-title {
-            font-size: clamp(3rem, 5vw, 5rem);
+            font-size: clamp(3.5rem, 6vw, 6rem);
             font-weight: 800;
             line-height: 1.1;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, #6366f1);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff 20%, #6366f1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -99,15 +106,18 @@
             color: var(--text-muted);
             font-size: 1.2rem;
             max-width: 600px;
+            line-height: 1.6;
         }
 
         .scroll-indicator {
-            margin-top: 3rem;
+            position: absolute;
+            bottom: 2rem;
             animation: bounce 2s infinite;
             opacity: 0.5;
+            cursor: pointer;
         }
 
-        /* Main Layout - Zig Zag */
+        /* Main Layout */
         .showcase-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -118,10 +128,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            min-height: 80vh;
+            min-height: 100vh; /* Full height for better viewing */
             padding: 4rem 2rem;
             gap: 4rem;
-            opacity: 0; /* Hidden initially for animation */
+            opacity: 0;
             transform: translateY(50px);
             transition: var(--transition);
         }
@@ -131,85 +141,100 @@
             transform: translateY(0);
         }
 
-        /* Alternating Order Logic */
-        /* Even sections (2, 4...) - Text Left, Image Right */
-        .app-section:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-        
-        /* Odd sections (1, 3...) - Image Left, Text Right (Default) */
-        .app-section:nth-child(odd) {
-            flex-direction: row;
-        }
+        /* Alternating Order */
+        .app-section:nth-child(even) { flex-direction: row-reverse; }
+        .app-section:nth-child(odd) { flex-direction: row; }
 
-        /* Columns */
         .visual-col, .info-col {
             flex: 1;
             width: 50%;
+            display: flex;
+            justify-content: center;
         }
 
-        /* Phone Mockup Styling */
+        .info-col {
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* Phone Mockup Styling - FIXED DIMENSIONS */
         .phone-mockup {
             position: relative;
-            width: 320px;
+            /* Set a standard mobile width to prevent zooming issues */
+            width: 320px; 
             height: 650px;
-            margin: 0 auto;
             background: #000;
             border-radius: 40px;
-            border: 8px solid #222;
+            border: 8px solid #1a1a1a;
             overflow: hidden;
-            box-shadow: 
-                0 0 0 2px #333,
-                0 20px 50px -10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 0 2px #333, 0 20px 50px -10px rgba(0,0,0,0.5);
             transition: transform 0.5s ease;
+            z-index: 10;
         }
 
-        /* Specific glow colors for apps */
-        .glow-adhyan { box-shadow: 0 0 100px -20px rgba(139, 92, 246, 0.4); }
-        .glow-wosafe { box-shadow: 0 0 100px -20px rgba(236, 72, 153, 0.4); }
-        .glow-expense { box-shadow: 0 0 100px -20px rgba(16, 185, 129, 0.4); }
-        .glow-quickgo { box-shadow: 0 0 100px -20px rgba(245, 158, 11, 0.4); }
-        .glow-fauran { box-shadow: 0 0 100px -20px rgba(59, 130, 246, 0.4); }
+        /* Camera Notch */
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 25px;
+            background: #1a1a1a;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            z-index: 20;
+        }
 
         .phone-mockup:hover {
             transform: scale(1.02) translateY(-10px);
         }
 
+        /* Glow Colors */
+        .glow-adhyan { box-shadow: 0 0 120px -30px rgba(139, 92, 246, 0.3); }
+        .glow-wosafe { box-shadow: 0 0 120px -30px rgba(236, 72, 153, 0.3); }
+        .glow-expense { box-shadow: 0 0 120px -30px rgba(16, 185, 129, 0.3); }
+        .glow-quickgo { box-shadow: 0 0 120px -30px rgba(245, 158, 11, 0.3); }
+        .glow-fauran { box-shadow: 0 0 120px -30px rgba(59, 130, 246, 0.3); }
+
+        /* Iframe Styling */
         .app-iframe {
             width: 100%;
             height: 100%;
             border: none;
             background: #fff;
+            display: block; /* Removes weird iframe gaps */
         }
 
-        /* Info Column Styling */
-        .info-col {
-            padding: 2rem;
-        }
-
+        /* Text Content */
         .app-number {
-            font-size: 5rem;
+            font-size: 6rem;
             font-weight: 800;
-            color: var(--glass-border);
+            color: rgba(255,255,255,0.03);
+            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
             line-height: 1;
-            margin-bottom: 1rem;
+            margin-bottom: -1rem;
             font-family: monospace;
         }
 
         .app-title {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
             color: #fff;
+            line-height: 1.1;
         }
 
         .app-tag {
             display: inline-block;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 50px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            font-size: 0.8rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid;
+            font-size: 0.75rem;
+            font-weight: 600;
             margin-bottom: 1.5rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -217,15 +242,16 @@
 
         .app-desc {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1.7;
+            font-size: 1.15rem;
+            line-height: 1.8;
             margin-bottom: 2.5rem;
-            max-width: 500px;
+            max-width: 480px;
         }
 
         .btn-group {
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -236,7 +262,7 @@
             transition: 0.3s;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
         }
 
         .btn-primary {
@@ -261,7 +287,6 @@
             background: var(--glass);
         }
 
-        /* Animations */
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-10px);}
@@ -270,40 +295,34 @@
 
         /* Responsive Design */
         @media (max-width: 992px) {
+            .nav-bar { padding: 1.5rem; }
+            
             .app-section {
-                flex-direction: column !important; /* Always stack on mobile */
-                text-align: center;
+                flex-direction: column !important;
+                justify-content: center;
                 gap: 3rem;
-                padding: 2rem 1rem;
+                padding: 2rem 1.5rem;
+                min-height: auto;
             }
 
             .visual-col, .info-col {
                 width: 100%;
-            }
-
-            .info-col {
-                order: 2; /* Text always below image on mobile */
-                display: flex;
-                flex-direction: column;
                 align-items: center;
+                text-align: center;
             }
 
-            .visual-col {
-                order: 1;
-            }
+            .info-col { order: 2; }
+            .visual-col { order: 1; }
 
+            /* Adjust phone for mobile screens */
             .phone-mockup {
-                width: 280px;
-                height: 550px;
+                width: 300px;
+                height: 600px;
             }
 
-            .app-title {
-                font-size: 2.5rem;
-            }
-            
-            .app-desc {
-                font-size: 1rem;
-            }
+            .app-title { font-size: 2.8rem; }
+            .app-number { display: none; }
+            .btn-group { justify-content: center; }
         }
     </style>
 </head>
@@ -319,7 +338,7 @@
     <section class="hero-section">
         <h1 class="hero-title">Mobile<br>Experiences</h1>
         <p class="hero-subtitle">A showcase of reactive, safe, and utility-driven mobile applications designed for the modern world.</p>
-        <div class="scroll-indicator">
+        <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'})">
             <i class="fas fa-chevron-down"></i>
         </div>
     </section>
@@ -329,38 +348,39 @@
         <section class="app-section">
             <div class="visual-col">
                 <div class="phone-mockup glow-adhyan">
-                    <iframe class="app-iframe" src="https://shaurya-8055.github.io/adhyan/" title="Adhyan App"></iframe>
+                    <iframe class="app-iframe" src="https://shaurya-8055.github.io/adhyan/" loading="lazy" title="Adhyan App"></iframe>
                 </div>
             </div>
             <div class="info-col">
                 <div class="app-number">01</div>
                 <h2 class="app-title">Adhyan</h2>
-                <span class="app-tag" style="color: #a78bfa; border-color: #a78bfa;">Education Technology</span>
+                <span class="app-tag" style="color: #a78bfa; border-color: rgba(167, 139, 250, 0.3);">Education Technology</span>
                 <p class="app-desc">
-                    An interactive learning platform designed to make education accessible and engaging. Features intuitive course navigation and real-time progress tracking.
+                    An interactive learning platform designed to make education accessible. Features intuitive course navigation and real-time progress tracking.
                 </p>
                 <div class="btn-group">
-                    <a href="https://shaurya-8055.github.io/adhyan/emulator.html" class="btn btn-primary"><i class="fas fa-play"></i> Emulator</a>
-                    <a href="https://shaurya-8055.github.io/adhyan/" target="_blank" class="btn btn-secondary"><i class="fas fa-link"></i> Visit</a>
+                    <a href="https://shaurya-8055.github.io/adhyan/emulator.html" class="btn btn-primary"><i class="fas fa-mobile-alt"></i> Emulator</a>
+                    <a href="https://shaurya-8055.github.io/adhyan/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Visit</a>
                 </div>
             </div>
-        </section
+        </section>
+
         <section class="app-section">
             <div class="visual-col">
                 <div class="phone-mockup glow-wosafe">
-                    <iframe class="app-iframe" src="https://shaurya-8055.github.io/wosafe/" title="WoSafe App"></iframe>
+                    <iframe class="app-iframe" src="https://shaurya-8055.github.io/wosafe/" loading="lazy" title="WoSafe App"></iframe>
                 </div>
             </div>
             <div class="info-col">
                 <div class="app-number">02</div>
                 <h2 class="app-title">WoSafe</h2>
-                <span class="app-tag" style="color: #f472b6; border-color: #f472b6;">Social Impact & Safety</span>
+                <span class="app-tag" style="color: #f472b6; border-color: rgba(244, 114, 182, 0.3);">Social Impact & Safety</span>
                 <p class="app-desc">
-                    A dedicated women's safety application providing one-tap SOS alerts, location tracking, and emergency resource directories to ensure security on the go.
+                    A dedicated women's safety application providing one-tap SOS alerts, location tracking, and emergency resource directories.
                 </p>
                 <div class="btn-group">
-                    <a href="https://shaurya-8055.github.io/wosafe/emulator.html" class="btn btn-primary"><i class="fas fa-play"></i> Emulator</a>
-                    <a href="https://shaurya-8055.github.io/wosafe/" target="_blank" class="btn btn-secondary"><i class="fas fa-link"></i> Visit</a>
+                    <a href="https://shaurya-8055.github.io/wosafe/emulator.html" class="btn btn-primary"><i class="fas fa-mobile-alt"></i> Emulator</a>
+                    <a href="https://shaurya-8055.github.io/wosafe/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Visit</a>
                 </div>
             </div>
         </section>
@@ -368,19 +388,19 @@
         <section class="app-section">
             <div class="visual-col">
                 <div class="phone-mockup glow-expense">
-                    <iframe class="app-iframe" src="https://shaurya-8055.github.io/expense_tracker_app/" title="Expense Tracker"></iframe>
+                    <iframe class="app-iframe" src="https://shaurya-8055.github.io/expense_tracker_app/" loading="lazy" title="Expense Tracker"></iframe>
                 </div>
             </div>
             <div class="info-col">
                 <div class="app-number">03</div>
                 <h2 class="app-title">Expense Tracker</h2>
-                <span class="app-tag" style="color: #34d399; border-color: #34d399;">FinTech Utility</span>
+                <span class="app-tag" style="color: #34d399; border-color: rgba(52, 211, 153, 0.3);">FinTech Utility</span>
                 <p class="app-desc">
-                    Take control of your finances with this sleek tracking tool. Monitor daily spending, categorize expenses, and visualize your financial habits.
+                    Take control of your finances. Monitor daily spending, categorize expenses, and visualize your financial habits.
                 </p>
                 <div class="btn-group">
-                    <a href="https://shaurya-8055.github.io/expense_tracker_app/emulator.html" class="btn btn-primary"><i class="fas fa-play"></i> Emulator</a>
-                    <a href="https://shaurya-8055.github.io/expense_tracker_app/" target="_blank" class="btn btn-secondary"><i class="fas fa-link"></i> Visit</a>
+                    <a href="https://shaurya-8055.github.io/expense_tracker_app/emulator.html" class="btn btn-primary"><i class="fas fa-mobile-alt"></i> Emulator</a>
+                    <a href="https://shaurya-8055.github.io/expense_tracker_app/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Visit</a>
                 </div>
             </div>
         </section>
@@ -388,19 +408,19 @@
         <section class="app-section">
             <div class="visual-col">
                 <div class="phone-mockup glow-quickgo">
-                    <iframe class="app-iframe" src="https://shaurya-8055.github.io/QUICKGO/" title="QuickGo"></iframe>
+                    <iframe class="app-iframe" src="https://shaurya-8055.github.io/QUICKGO/" loading="lazy" title="QuickGo"></iframe>
                 </div>
             </div>
             <div class="info-col">
                 <div class="app-number">04</div>
                 <h2 class="app-title">QuickGo</h2>
-                <span class="app-tag" style="color: #fbbf24; border-color: #fbbf24;">Logistics & Travel</span>
+                <span class="app-tag" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">Logistics & Travel</span>
                 <p class="app-desc">
                     A fast, reliable delivery and transport service interface. Designed for speed, it helps users book rides or deliveries in seconds.
                 </p>
                 <div class="btn-group">
-                    <a href="https://shaurya-8055.github.io/QUICKGO/emulator.html" class="btn btn-primary"><i class="fas fa-play"></i> Emulator</a>
-                    <a href="https://shaurya-8055.github.io/QUICKGO/" target="_blank" class="btn btn-secondary"><i class="fas fa-link"></i> Visit</a>
+                    <a href="https://shaurya-8055.github.io/QUICKGO/emulator.html" class="btn btn-primary"><i class="fas fa-mobile-alt"></i> Emulator</a>
+                    <a href="https://shaurya-8055.github.io/QUICKGO/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Visit</a>
                 </div>
             </div>
         </section>
@@ -408,19 +428,19 @@
         <section class="app-section">
             <div class="visual-col">
                 <div class="phone-mockup glow-fauran">
-                    <iframe class="app-iframe" src="https://shaurya-8055.github.io/fauranfix/" title="FauranFix"></iframe>
+                    <iframe class="app-iframe" src="https://shaurya-8055.github.io/fauranfix/" loading="lazy" title="FauranFix"></iframe>
                 </div>
             </div>
             <div class="info-col">
                 <div class="app-number">05</div>
                 <h2 class="app-title">FauranFix</h2>
-                <span class="app-tag" style="color: #60a5fa; border-color: #60a5fa;">Service Marketplace</span>
+                <span class="app-tag" style="color: #60a5fa; border-color: rgba(96, 165, 250, 0.3);">Service Marketplace</span>
                 <p class="app-desc">
                     Connecting homeowners with skilled professionals instantly. From plumbing to repairs, FauranFix bridges the gap between problem and solution.
                 </p>
                 <div class="btn-group">
-                    <a href="https://shaurya-8055.github.io/fauranfix/emulator.html" class="btn btn-primary"><i class="fas fa-play"></i> Emulator</a>
-                    <a href="https://shaurya-8055.github.io/fauranfix/" target="_blank" class="btn btn-secondary"><i class="fas fa-link"></i> Visit</a>
+                    <a href="https://shaurya-8055.github.io/fauranfix/emulator.html" class="btn btn-primary"><i class="fas fa-mobile-alt"></i> Emulator</a>
+                    <a href="https://shaurya-8055.github.io/fauranfix/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Visit</a>
                 </div>
             </div>
         </section>
@@ -428,10 +448,10 @@
     </main>
 
     <script>
-        // Intersection Observer for Scroll Animations
+        // Intersection Observer for Scroll Animations (Fade in effect)
         const observerOptions = {
             threshold: 0.2,
-            rootMargin: "0px 0px -100px 0px"
+            rootMargin: "0px 0px -50px 0px"
         };
 
         const observer = new IntersectionObserver((entries) => {
