@@ -1,844 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shaurya's App Portfolio</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-deep: #050505;
-            --bg-surface: #0a0a0a;
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.5);
-            --text-main: #ffffff;
-            --text-muted: #9ca3af;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.08), transparent 25%);
-            color: var(--text-main);
-            font-family: 'Outfit', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1.5rem 3rem;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .logo {
-            font-weight: 800;
-            font-size: 1.5rem;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .back-btn {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.9rem;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .back-btn:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateX(-5px);
-        }
-
-        /* Hero Title */
-        .hero-section {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .hero-title {
-            font-size: clamp(3.5rem, 6vw, 6rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #fff 20%, #6366f1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subtitle {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            max-width: 600px;
-            line-height: 1.6;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            animation: bounce 2s infinite;
-            opacity: 0.5;
-            cursor: pointer;
-        }
-
-        /* Resume Section */
-        .resume-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: var(--transition);
-        }
-
-        .resume-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .resume-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .resume-title {
-            font-size: clamp(2.5rem, 4vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .resume-subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .resume-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .resume-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 3rem;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .resume-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(99, 102, 241, 0.05));
-            opacity: 0;
-            transition: 0.3s;
-        }
-
-        .resume-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 60px -10px rgba(99, 102, 241, 0.3);
-        }
-
-        .resume-card:hover::before {
-            opacity: 1;
-        }
-
-        .resume-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .resume-icon.college {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.05));
-            color: #a78bfa;
-        }
-
-        .resume-icon.personal {
-            background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(236, 72, 153, 0.05));
-            color: #f472b6;
-        }
-
-        .resume-card-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .resume-card-desc {
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .resume-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            background: #fff;
-            color: #000;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: 0.3s;
-            position: relative;
-            z-index: 1;
-        }
-
-        .resume-btn:hover {
-            background: var(--primary);
-            color: #fff;
-            transform: translateX(5px);
-            box-shadow: 0 0 30px var(--primary-glow);
-        }
-
-        .divider {
-            max-width: 1400px;
-            margin: 6rem auto 4rem;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--glass-border), transparent);
-        }
-
-        /* Main Layout */
-        .showcase-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-bottom: 10rem;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            font-size: clamp(2.5rem, 4vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .app-section {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-height: 100vh;
-            padding: 4rem 2rem;
-            gap: 4rem;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: var(--transition);
-        }
-
-        .app-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Alternating Order */
-        .app-section:nth-child(even) { flex-direction: row-reverse; }
-        .app-section:nth-child(odd) { flex-direction: row; }
-
-        .visual-col, .info-col {
-            flex: 1;
-            width: 50%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .info-col {
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        /* Phone Mockup Container with Controls */
-        .phone-container {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        /* Emulator Controls */
-        .emulator-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .control-btn {
-            width: 50px;
-            height: 50px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-main);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Phone Mockup Styling */
-        .phone-mockup {
-            position: relative;
-            width: 340px; 
-            height: 680px;
-            background: #000;
-            border-radius: 40px;
-            border: 8px solid #1a1a1a;
-            overflow: hidden;
-            box-shadow: 0 0 0 2px #333, 0 20px 50px -10px rgba(0,0,0,0.5);
-            transition: transform 0.5s ease;
-            z-index: 10;
-        }
-
-        /* Camera Notch */
-        .phone-mockup::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 28px;
-            background: #1a1a1a;
-            border-bottom-left-radius: 18px;
-            border-bottom-right-radius: 18px;
-            z-index: 20;
-        }
-
-        .phone-mockup:hover {
-            transform: scale(1.02) translateY(-10px);
-        }
-
-        /* Iframe Container with proper scaling */
-        .iframe-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        /* Glow Colors */
-        .glow-adhyan { box-shadow: 0 0 120px -30px rgba(139, 92, 246, 0.3); }
-        .glow-wosafe { box-shadow: 0 0 120px -30px rgba(236, 72, 153, 0.3); }
-        .glow-expense { box-shadow: 0 0 120px -30px rgba(16, 185, 129, 0.3); }
-        .glow-quickgo { box-shadow: 0 0 120px -30px rgba(245, 158, 11, 0.3); }
-        .glow-fauran { box-shadow: 0 0 120px -30px rgba(59, 130, 246, 0.3); }
-
-        /* Iframe Styling with zoom adjustment */
-        .app-iframe {
-            width: 400px;
-            height: 800px;
-            border: none;
-            background: #fff;
-            display: block;
-            transform-origin: top left;
-            transform: scale(0.815);
-            margin-left: -2px;
-            margin-top: -2px;
-        }
-
-        /* Text Content */
-        .app-number {
-            font-size: 6rem;
-            font-weight: 800;
-            color: rgba(255,255,255,0.03);
-            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
-            line-height: 1;
-            margin-bottom: -1rem;
-            font-family: monospace;
-        }
-
-        .app-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #fff;
-            line-height: 1.1;
-        }
-
-        .app-tag {
-            display: inline-block;
-            padding: 0.5rem 1.2rem;
-            border-radius: 50px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .app-desc {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            line-height: 1.8;
-            margin-bottom: 2.5rem;
-            max-width: 480px;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .btn-primary {
-            background: #fff;
-            color: #000;
-        }
-        
-        .btn-primary:hover {
-            background: var(--primary);
-            color: #fff;
-            box-shadow: 0 0 30px var(--primary-glow);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--glass-border);
-            color: #fff;
-        }
-
-        .btn-secondary:hover {
-            border-color: #fff;
-            background: var(--glass);
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .nav-bar { padding: 1.5rem; }
-            
-            .resume-cards {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-            }
-
-            .app-section {
-                flex-direction: column !important;
-                justify-content: center;
-                gap: 3rem;
-                padding: 2rem 1.5rem;
-                min-height: auto;
-            }
-
-            .visual-col, .info-col {
-                width: 100%;
-                align-items: center;
-                text-align: center;
-            }
-
-            .info-col { order: 2; }
-            .visual-col { order: 1; }
-
-            .phone-container {
-                flex-direction: row;
-                justify-content: center;
-            }
-
-            .phone-mockup {
-                width: 300px;
-                height: 600px;
-            }
-
-            .app-iframe {
-                width: 400px;
-                height: 800px;
-                transform: scale(0.72);
-                margin-left: -5px;
-                margin-top: -5px;
-            }
-
-            .emulator-controls {
-                flex-direction: column;
-            }
-
-            .control-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1rem;
-            }
-
-            .app-title { font-size: 2.8rem; }
-            .app-number { display: none; }
-            .btn-group { justify-content: center; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shaurya Shakya — Software Engineer</title>
+<meta name="description" content="Software engineer building production backend and full-stack systems in Go, Node.js, Flutter and Next.js — payments, ledgers and offline-capable mobile clients.">
+<meta property="og:title" content="Shaurya Shakya — Software Engineer">
+<meta property="og:description" content="Payments, ledgers, Go microservices, Flutter and Next.js. Currently building at Travafa.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shaurya-8055.github.io/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌘</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08090c; --bg-2:#0d0f14; --line:#1e2129; --line-2:#2a2e38;
+  --fg:#f2f4f8; --fg-2:#a3aab8; --fg-3:#6b7280;
+  --accent:#7c8cff; --accent-2:#4ade9b;
+  --radius:14px; --max:1120px;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --bg:#fbfbfd; --bg-2:#ffffff; --line:#e6e8ee; --line-2:#d3d7e0;
+    --fg:#0d0f14; --fg-2:#4b5262; --fg-3:#858c9b;
+    --accent:#4453d6; --accent-2:#0f9d63;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(60rem 40rem at 78% -10%, color-mix(in srgb,var(--accent) 14%,transparent), transparent 70%),
+    radial-gradient(50rem 30rem at 5% 8%, color-mix(in srgb,var(--accent-2) 9%,transparent), transparent 70%);
+}
+.wrap{width:100%; max-width:var(--max); margin-inline:auto; padding-inline:16px; position:relative; z-index:1}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+
+/* ---------- nav ---------- */
+header{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:blur(14px); background:color-mix(in srgb,var(--bg) 78%,transparent);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex; align-items:center; justify-content:space-between; height:62px; gap:16px}
+.brand{font-weight:700; letter-spacing:-.02em; text-decoration:none; font-size:1rem}
+.brand span{color:var(--accent)}
+.nav-links{display:flex; gap:26px; align-items:center}
+.nav-links a{color:var(--fg-2); text-decoration:none; font-size:.9rem; transition:color .2s}
+.nav-links a:hover{color:var(--fg)}
+@media(max-width:720px){.nav-links a:not(.btn){display:none}}
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+  font-size:.875rem; font-weight:550; padding:9px 16px; border-radius:99px;
+  border:1px solid var(--line-2); color:var(--fg); background:var(--bg-2);
+  transition:transform .2s, border-color .2s, background .2s;
+}
+.btn:hover{transform:translateY(-1px); border-color:var(--accent)}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+
+/* ---------- hero ---------- */
+.hero{padding:96px 0 72px}
+.tag{
+  display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:.78rem;
+  color:var(--fg-2); border:1px solid var(--line); background:var(--bg-2);
+  padding:6px 12px; border-radius:99px; margin-bottom:26px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent-2) 22%,transparent)}
+h1{
+  font-size:clamp(2.4rem,6.4vw,4.2rem); line-height:1.05; letter-spacing:-.035em;
+  font-weight:700; margin-bottom:20px;
+}
+.lede{font-size:clamp(1rem,2.1vw,1.2rem); color:var(--fg-2); max-width:58ch; margin-bottom:32px}
+.lede strong{color:var(--fg); font-weight:600}
+.cta{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:56px}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden}
+.stat{background:var(--bg-2); padding:20px}
+.stat b{display:block; font-size:1.5rem; letter-spacing:-.02em}
+.stat span{font-size:.82rem; color:var(--fg-3)}
+
+/* ---------- sections ---------- */
+section{padding:64px 0; scroll-margin-top:70px}
+.head{display:flex; align-items:baseline; gap:14px; margin-bottom:32px; flex-wrap:wrap}
+h2{font-size:clamp(1.5rem,3vw,2rem); letter-spacing:-.025em; font-weight:700}
+.head .num{font-family:var(--mono); font-size:.8rem; color:var(--accent)}
+h3{font-size:1.06rem; letter-spacing:-.01em; font-weight:650}
+
+.card{
+  background:var(--bg-2); border:1px solid var(--line); border-radius:var(--radius);
+  padding:26px; transition:border-color .25s, transform .25s;
+}
+.card:hover{border-color:var(--line-2); transform:translateY(-2px)}
+.row{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:baseline}
+.muted{color:var(--fg-3); font-size:.85rem; font-family:var(--mono)}
+.role{color:var(--accent); font-size:.9rem; margin-bottom:16px}
+ul.bullets{list-style:none; display:grid; gap:11px}
+ul.bullets li{padding-left:20px; position:relative; color:var(--fg-2); font-size:.94rem}
+ul.bullets li::before{content:""; position:absolute; left:2px; top:.62em; width:6px; height:6px; border-radius:50%; background:var(--accent); opacity:.65}
+ul.bullets li strong{color:var(--fg); font-weight:600}
+
+.grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin-top:16px}
+.chip{
+  font-family:var(--mono); font-size:.74rem; color:var(--fg-2);
+  border:1px solid var(--line); border-radius:6px; padding:3px 8px; background:var(--bg);
+}
+.links{display:flex; gap:16px; margin-top:18px; flex-wrap:wrap}
+.links a{font-size:.85rem; text-decoration:none; color:var(--accent); font-weight:550}
+.links a:hover{text-decoration:underline}
+
+/* ---------- skills ---------- */
+.skill-grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.skill-grid h4{font-size:.78rem; font-family:var(--mono); color:var(--fg-3); text-transform:uppercase; letter-spacing:.08em; margin-bottom:12px; font-weight:500}
+
+/* ---------- demos ---------- */
+.demo{display:grid; gap:26px; grid-template-columns:260px 1fr; align-items:center}
+@media(max-width:760px){.demo{grid-template-columns:1fr}}
+.phone{
+  width:250px; height:512px; margin-inline:auto; border-radius:34px; padding:9px;
+  background:linear-gradient(160deg,var(--line-2),var(--bg-2));
+  border:1px solid var(--line-2); box-shadow:0 24px 60px -24px rgba(0,0,0,.6);
+}
+.phone iframe{width:100%; height:100%; border:0; border-radius:26px; background:#fff; display:block}
+.demo-list{display:grid; gap:44px}
+
+/* ---------- achievements / footer ---------- */
+.ach{display:grid; gap:12px}
+.ach li{list-style:none; display:flex; gap:12px; align-items:flex-start; color:var(--fg-2); font-size:.94rem}
+.ach b{color:var(--fg)}
+.ach .mark{color:var(--accent-2); font-family:var(--mono); font-size:.8rem; padding-top:.15em}
+footer{border-top:1px solid var(--line); padding:56px 0 40px; margin-top:40px}
+.foot{display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:center}
+.foot p{color:var(--fg-3); font-size:.85rem}
+.foot nav{display:flex; gap:18px}
+.foot nav a{color:var(--fg-2); text-decoration:none; font-size:.88rem}
+.foot nav a:hover{color:var(--accent)}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+.reveal.in{opacity:1; transform:none}
+</style>
 </head>
 <body>
 
-    <nav class="nav-bar">
-        <div class="logo">SHAURYA.DEV</div>
-        <a href="../index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Back Home
-        </a>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">shaurya<span>.dev</span></a>
+    <nav class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#apps">Apps</a>
+      <a href="#skills">Skills</a>
+      <a class="btn" href="https://drive.google.com/file/d/1AfOTH5OsW7kgqP7TEAhF5GTGTvBErhaZ/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
     </nav>
+  </div>
+</header>
 
-    <section class="hero-section">
-        <h1 class="hero-title">Mobile<br>Experiences</h1>
-        <p class="hero-subtitle">A showcase of reactive, safe, and utility-driven mobile applications designed for the modern world.</p>
-        <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'})">
-            <i class="fas fa-chevron-down"></i>
-        </div>
-    </section>
+<main id="top">
 
-    <!-- Resume Section -->
-    <section class="resume-section">
-        <div class="resume-header">
-            <h2 class="resume-title">My Resume</h2>
-            <p class="resume-subtitle">Download my professional credentials</p>
-        </div>
-        
-        <div class="resume-cards">
-            <div class="resume-card">
-                <div class="resume-icon college">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h3 class="resume-card-title">College Resume</h3>
-                <p class="resume-card-desc">
-                    Academic focused resume highlighting my educational background, projects, and achievements during my college journey.
-                </p>
-                <a href="https://drive.google.com/file/d/1pcEKd0pyPntcTVorXHf5TbO6ex4-HGT1/view?usp=sharing" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   class="resume-btn">
-                    <i class="fas fa-download"></i>
-                    View Resume
-                </a>
-            </div>
+<section class="hero wrap">
+  <span class="tag"><span class="dot"></span> Open to entry-level Software Engineer roles</span>
+  <h1>Shaurya Shakya</h1>
+  <p class="lede">Software engineer shipping production backend and full-stack systems in <strong>Go</strong>, <strong>Node.js</strong>, <strong>Flutter</strong> and <strong>Next.js</strong> — with a focus on payments, ledger correctness and offline-capable mobile clients. Currently building payment infrastructure at <strong>Travafa</strong>.</p>
+  <div class="cta">
+    <a class="btn primary" href="mailto:shauryashakya8055@gmail.com">Get in touch</a>
+    <a class="btn" href="https://github.com/shaurya-8055" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="https://www.linkedin.com/in/shaurya-shakya-116820280/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>407</b><span>commits shipped in 9 months</span></div>
+    <div class="stat"><b>7</b><span>production repositories</span></div>
+    <div class="stat"><b>~11K</b><span>LOC Go payment service</span></div>
+    <div class="stat"><b>8.51</b><span>CGPA · IIIT Bhagalpur</span></div>
+  </div>
+</section>
 
-            <div class="resume-card">
-                <div class="resume-icon personal">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <h3 class="resume-card-title">Personal Resume</h3>
-                <p class="resume-card-desc">
-                    Professional resume showcasing my work experience, technical skills, and portfolio of completed projects.
-                </p>
-                <a href="https://drive.google.com/file/d/1AfOTH5OsW7kgqP7TEAhF5GTGTvBErhaZ/view?usp=sharing" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   class="resume-btn">
-                    <i class="fas fa-download"></i>
-                    View Resume
-                </a>
-            </div>
-        </div>
-    </section>
+<section id="experience" class="wrap reveal">
+  <div class="head"><span class="num">01</span><h2>Experience</h2></div>
+  <article class="card">
+    <div class="row">
+      <h3><a href="https://travafa.com" target="_blank" rel="noopener">Travafa.com</a> · Pirtztel Technologies</h3>
+      <span class="muted">Dec 2025 — Present</span>
+    </div>
+    <p class="role">Software Engineer Intern · Remote</p>
+    <ul class="bullets">
+      <li><strong>Closed two money-correctness bugs pre-release</strong> after auditing the wallet-service ledger: a refund path that could double-credit a customer after a debit reversal, and a compensating-reversal worker that was fully built but never started from any entrypoint.</li>
+      <li><strong>Built the payment-service from scratch in Go</strong> (96 files, ~11K LOC, 7 milestones in 3 weeks): protobuf codegen, domain/repository layer, Razorpay signature verification, a transactional outbox worker on Pub/Sub, an authenticated gRPC server and an admin API binary.</li>
+      <li><strong>Shipped an offline layer for the Flutter app</strong> — local cache, connectivity seeding, write-gating across every trip mutation, offline pack download and sync progress — then fixed sync tripping the server rate limiter.</li>
+      <li><strong>Designed the AI-assistant distribution layer</strong>: an MCP connector over the .NET booking APIs with OAuth 2.1, signed price quotes and idempotent writes, serving ChatGPT, Claude and Copilot from one deployment.</li>
+      <li>Delivered days-per-destination trip planning end-to-end, and led a JavaScript → TypeScript migration of the professional dashboard.</li>
+    </ul>
+    <div class="chips"><span class="chip">Go</span><span class="chip">gRPC</span><span class="chip">Protocol Buffers</span><span class="chip">GCP Pub/Sub</span><span class="chip">Flutter</span><span class="chip">Next.js</span><span class="chip">NestJS</span><span class="chip">MCP</span><span class="chip">OAuth 2.1</span></div>
+  </article>
+</section>
 
-    <div class="divider"></div>
+<section id="projects" class="wrap reveal">
+  <div class="head"><span class="num">02</span><h2>Selected projects</h2></div>
+  <div class="grid">
 
-    <main class="showcase-container">
-        <div class="section-header">
-            <h2 class="section-title">Featured Apps</h2>
-        </div>
+    <article class="card">
+      <div class="row"><h3>Army Medicine Supplier</h3><span class="muted">2026</span></div>
+      <p class="role">Founder &amp; Owner · Live in production</p>
+      <ul class="bullets">
+        <li>Full-stack e-pharmacy and delivery platform for ECHS beneficiaries — 8 modules, 5 JWT-secured roles.</li>
+        <li>5-stage order lifecycle (upload → review → quote → payment → delivery) with Razorpay and Shadowfax.</li>
+        <li>Real-time chat and tracking on Socket.IO, Redis and BullMQ; S3 encryption and Sentry monitoring.</li>
+      </ul>
+      <div class="chips"><span class="chip">Next.js</span><span class="chip">NestJS</span><span class="chip">PostgreSQL</span><span class="chip">Prisma</span><span class="chip">Razorpay</span><span class="chip">AWS</span></div>
+      <div class="links"><a href="https://armymedicinesupplier.in" target="_blank" rel="noopener">Visit site →</a></div>
+    </article>
 
-        <section class="app-section">
-            <div class="visual-col">
-                <div class="phone-container">
-                    <div class="phone-mockup glow-adhyan">
-                        <div class="iframe-container">
-                            <iframe class="app-iframe" src="https://shaurya-8055.github.io/adhyan/" loading="lazy" title="Adhyan App"></iframe>
-                        </div>
-                    </div>
-                    <div class="emulator-controls">
-                        <button class="control-btn" onclick="history.back()" title="Back">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        <button class="control-btn" onclick="window.location.reload()" title="Home">
-                            <i class="fas fa-home"></i>
-                        </button>
-                        <button class="control-btn" onclick="location.reload()" title="Refresh">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                        <button class="control-btn" title="Screenshot">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="info-col">
-                <div class="app-number">01</div>
-                <h2 class="app-title">Adhyan</h2>
-                <span class="app-tag" style="color: #a78bfa; border-color: rgba(167, 139, 250, 0.3);">Education Technology</span>
-                <p class="app-desc">
-                    An interactive learning platform designed to make education accessible. Features intuitive course navigation and real-time progress tracking.
-                </p>
-                <div class="btn-group">
-                    <a href="https://shaurya-8055.github.io/adhyan/emulator.html" class="btn btn-primary"><i class="fas fa-mobile-alt"></i> Emulator</a>
-                    <a href="https://shaurya-8055.github.io/adhyan/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Visit</a>
-                </div>
-            </div>
-        </section>
+    <article class="card">
+      <div class="row"><h3>SynClock</h3><span class="muted">2026</span></div>
+      <p class="role">Smart reminders &amp; team productivity · Play Store review</p>
+      <ul class="bullets">
+        <li>Flutter app with Riverpod state management and offline-first Firestore sync.</li>
+        <li>Serverless NestJS API on AWS Lambda exposing 40+ endpoints.</li>
+        <li>Gemini-powered natural-language reminders with voice input and TTS, over an FCM + AlarmManager pipeline.</li>
+      </ul>
+      <div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">NestJS</span><span class="chip">AWS Lambda</span><span class="chip">Firebase</span><span class="chip">Gemini</span></div>
+    </article>
 
-        <section class="app-section">
-            <div class="visual-col">
-                <div class="phone-container">
-                    <div class="phone-mockup glow-wosafe">
-                        <div class="iframe-container">
-                            <iframe class="app-iframe" src="https://shaurya-8055.github.io/wosafe/" loading="lazy" title="WoSafe App"></iframe>
-                        </div>
-                    </div>
-                    <div class="emulator-controls">
-                        <button class="control-btn" onclick="history.back()" title="Back">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        <button class="control-btn" onclick="window.location.reload()" title="Home">
-                            <i class="fas fa-home"></i>
-                        </button>
-                        <button class="control-btn" onclick="location.reload()" title="Refresh">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                        <button class="control-btn" title="Screenshot">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="info-col">
-                <div class="app-number">02</div>
-                <h2 class="app-title">WoSafe</h2>
-                <span class="app-tag" style="color: #f472b6; border-color: rgba(244, 114, 182, 0.3);">Social Impact & Safety</span>
-                <p class="app-desc">
-                    A dedicated women's safety application providing one-tap SOS alerts, location tracking, and emergency resource directories.
-                </p>
-                <div class="btn-group">
-                    <a href="https://shaurya-8055.github.io/wosafe/emulator.html" class="btn btn-primary"><i class="fas fa-mobile-alt"></i> Emulator</a>
-                    <a href="https://shaurya-8055.github.io/wosafe/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Visit</a>
-                </div>
-            </div>
-        </section>
+    <article class="card">
+      <div class="row"><h3>QuickGo</h3><span class="muted">2024</span></div>
+      <p class="role">E-commerce platform</p>
+      <ul class="bullets">
+        <li>Catalog, cart, order tracking and three-tier JWT/OTP auth with real-time WebSocket cart sync.</li>
+        <li>Dockerized the stack and cut deploys from 45 minutes to 5.</li>
+      </ul>
+      <div class="chips"><span class="chip">Flutter</span><span class="chip">Node.js</span><span class="chip">MongoDB</span><span class="chip">Docker</span></div>
+      <div class="links"><a href="https://quickgo-c6b9.vercel.app/" target="_blank" rel="noopener">Visit site →</a></div>
+    </article>
 
-        <section class="app-section">
-            <div class="visual-col">
-                <div class="phone-container">
-                    <div class="phone-mockup glow-expense">
-                        <div class="iframe-container">
-                            <iframe class="app-iframe" src="https://shaurya-8055.github.io/expense_tracker_app/" loading="lazy" title="Expense Tracker"></iframe>
-                        </div>
-                    </div>
-                    <div class="emulator-controls">
-                        <button class="control-btn" onclick="history.back()" title="Back">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        <button class="control-btn" onclick="window.location.reload()" title="Home">
-                            <i class="fas fa-home"></i>
-                        </button>
-                        <button class="control-btn" onclick="location.reload()" title="Refresh">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                        <button class="control-btn" title="Screenshot">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="info-col">
-                <div class="app-number">03</div>
-                <h2 class="app-title">Expense Tracker</h2>
-                <span class="app-tag" style="color: #34d399; border-color: rgba(52, 211, 153, 0.3);">FinTech Utility</span>
-                <p class="app-desc">
-                    Take control of your finances. Monitor daily spending, categorize expenses, and visualize your financial habits.
-                </p>
-                <div class="btn-group">
-                    <a href="https://shaurya-8055.github.io/expense_tracker_app/emulator.html" class="btn btn-primary"><i class="fas fa-mobile-alt"></i> Emulator</a>
-                    <a href="https://shaurya-8055.github.io/expense_tracker_app/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Visit</a>
-                </div>
-            </div>
-        </section>
+  </div>
+</section>
 
-        <section class="app-section">
-            <div class="visual-col">
-                <div class="phone-container">
-                    <div class="phone-mockup glow-quickgo">
-                        <div class="iframe-container">
-                            <iframe class="app-iframe" src="https://shaurya-8055.github.io/QUICKGO/" loading="lazy" title="QuickGo"></iframe>
-                        </div>
-                    </div>
-                    <div class="emulator-controls">
-                        <button class="control-btn" onclick="history.back()" title="Back">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        <button class="control-btn" onclick="window.location.reload()" title="Home">
-                            <i class="fas fa-home"></i>
-                        </button>
-                        <button class="control-btn" onclick="location.reload()" title="Refresh">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                        <button class="control-btn" title="Screenshot">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="info-col">
-                <div class="app-number">04</div>
-                <h2 class="app-title">QuickGo</h2>
-                <span class="app-tag" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">Logistics & Travel</span>
-                <p class="app-desc">
-                    A fast, reliable delivery and transport service interface. Designed for speed, it helps users book rides or deliveries in seconds.
-                </p>
-                <div class="btn-group">
-                    <a href="https://shaurya-8055.github.io/QUICKGO/emulator.html" class="btn btn-primary"><i class="fas fa-mobile-alt"></i> Emulator</a>
-                    <a href="https://shaurya-8055.github.io/QUICKGO/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Visit</a>
-                </div>
-            </div>
-        </section>
+<section id="apps" class="wrap reveal">
+  <div class="head"><span class="num">03</span><h2>Mobile apps, running live</h2><span class="muted">interactive — tap inside the phone</span></div>
+  <div class="demo-list" id="demos"></div>
+</section>
 
-        <section class="app-section">
-            <div class="visual-col">
-                <div class="phone-container">
-                    <div class="phone-mockup glow-fauran">
-                        <div class="iframe-container">
-                            <iframe class="app-iframe" src="https://shaurya-8055.github.io/fauranfix/" loading="lazy" title="FauranFix"></iframe>
-                        </div>
-                    </div>
-                    <div class="emulator-controls">
-                        <button class="control-btn" onclick="history.back()" title="Back">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        <button class="control-btn" onclick="window.location.reload()" title="Home">
-                            <i class="fas fa-home"></i>
-                        </button>
-                        <button class="control-btn" onclick="location.reload()" title="Refresh">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                        <button class="control-btn" title="Screenshot">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="info-col">
-                <div class="app-number">05</div>
-                <h2 class="app-title">FauranFix</h2>
-                <span class="app-tag" style="color: #60a5fa; border-color: rgba(96, 165, 250, 0.3);">Service Marketplace</span>
-                <p class="app-desc">
-                    Connecting homeowners with skilled professionals instantly. From plumbing to repairs, FauranFix bridges the gap between problem and solution.
-                </p>
-                <div class="btn-group">
-                    <a href="https://shaurya-8055.github.io/fauranfix/emulator.html" class="btn btn-primary"><i class="fas fa-mobile-alt"></i> Emulator</a>
-                    <a href="https://shaurya-8055.github.io/fauranfix/" target="_blank" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> Visit</a>
-                </div>
-            </div>
-        </section>
+<section id="skills" class="wrap reveal">
+  <div class="head"><span class="num">04</span><h2>Technical skills</h2></div>
+  <div class="skill-grid">
+    <div class="card">
+      <h4>Languages</h4>
+      <div class="chips"><span class="chip">Go</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Dart</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">SQL</span></div>
+    </div>
+    <div class="card">
+      <h4>Frameworks</h4>
+      <div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Node.js</span><span class="chip">NestJS</span><span class="chip">Express</span><span class="chip">FastAPI</span></div>
+    </div>
+    <div class="card">
+      <h4>Data</h4>
+      <div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MongoDB</span><span class="chip">Redis</span><span class="chip">Prisma</span><span class="chip">SQLite</span><span class="chip">Firebase</span></div>
+    </div>
+    <div class="card">
+      <h4>Cloud &amp; tooling</h4>
+      <div class="chips"><span class="chip">AWS Lambda</span><span class="chip">S3</span><span class="chip">GCP Pub/Sub</span><span class="chip">Docker</span><span class="chip">BullMQ</span><span class="chip">Socket.IO</span><span class="chip">Sentry</span><span class="chip">Git</span></div>
+    </div>
+    <div class="card">
+      <h4>APIs &amp; integrations</h4>
+      <div class="chips"><span class="chip">REST</span><span class="chip">gRPC</span><span class="chip">Protocol Buffers</span><span class="chip">MCP</span><span class="chip">OAuth 2.1</span><span class="chip">JWT</span><span class="chip">Razorpay</span><span class="chip">Gemini API</span><span class="chip">FCM</span></div>
+    </div>
+    <div class="card">
+      <h4>Education</h4>
+      <p style="color:var(--fg-2);font-size:.92rem">B.Tech Computer Science &amp; Engineering<br>IIIT Bhagalpur · 2023 — 2027<br><span class="muted">CGPA 8.51 / 10</span></p>
+    </div>
+  </div>
+</section>
 
-    </main>
+<section id="about" class="wrap reveal">
+  <div class="head"><span class="num">05</span><h2>Achievements</h2></div>
+  <ul class="ach card">
+    <li><span class="mark">01</span><span><b>Smart India Hackathon 2025</b> — led Team QBIT to 4th of 58 in the IIIT Bhagalpur qualifier, 6th overall. <a href="https://drive.google.com/file/d/1iYqEE91WQVqWy-DlZs4BEFO1AIyZ5A33/view?usp=sharing" target="_blank" rel="noopener" style="color:var(--accent)">Certificate</a></span></li>
+    <li><span class="mark">02</span><span><b>Competitive programming</b> — 3-Star on CodeChef (1613 peak, top 2.5%); mentored 5 juniors and led workshops for 30+ students.</span></li>
+    <li><span class="mark">03</span><span><b>Certifications</b> — <a href="https://www.credly.com/badges/26af645c-f417-4f49-96af-ba0b49a7696d/public_url" target="_blank" rel="noopener" style="color:var(--accent)">ServiceNow CSA</a>, <a href="https://www.credly.com/badges/2a6b351f-b708-4a08-bc20-9db665229be5/public_url" target="_blank" rel="noopener" style="color:var(--accent)">ServiceNow CAD</a>, <a href="https://www.credly.com/badges/f8393e3c-0b43-4348-9df0-b4ea452ae819/public_url" target="_blank" rel="noopener" style="color:var(--accent)">Cisco Intro to Cybersecurity</a>, verified on Credly.</span></li>
+  </ul>
+</section>
 
-    <script>
-        // Intersection Observer for Scroll Animations
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: "0px 0px -50px 0px"
-        };
+</main>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+<footer>
+  <div class="wrap foot">
+    <div>
+      <p style="color:var(--fg);font-size:1rem;font-weight:600;margin-bottom:6px">Let's build something.</p>
+      <p><a href="mailto:shauryashakya8055@gmail.com" style="color:var(--accent);text-decoration:none">shauryashakya8055@gmail.com</a> · +91 90265 08435</p>
+    </div>
+    <nav>
+      <a href="https://github.com/shaurya-8055" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/shaurya-shakya-116820280/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://drive.google.com/file/d/1AfOTH5OsW7kgqP7TEAhF5GTGTvBErhaZ/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+      <a href="https://drive.google.com/file/d/1pcEKd0pyPntcTVorXHf5TbO6ex4-HGT1/view?usp=sharing" target="_blank" rel="noopener">College resume</a>
+    </nav>
+  </div>
+</footer>
 
-        document.querySelectorAll('.app-section, .resume-section').forEach(section => {
-            observer.observe(section);
-        });
+<script>
+const APPS = [
+  {name:"Adhyan", kind:"Education technology", slug:"adhyan",
+   desc:"An interactive learning platform with course navigation and real-time progress tracking.",
+   tech:["Flutter","Firebase"]},
+  {name:"WoSafe", kind:"Social impact & safety", slug:"wosafe",
+   desc:"Women's safety app with one-tap SOS alerts, live location sharing and an emergency resource directory.",
+   tech:["Flutter","Maps","FCM"]},
+  {name:"Expense Tracker", kind:"FinTech utility", slug:"expense_tracker_app",
+   desc:"Daily spend monitoring with categorised expenses and visual breakdowns of financial habits.",
+   tech:["Flutter","SQLite"]},
+  {name:"QuickGo", kind:"Commerce & logistics", slug:"QUICKGO",
+   desc:"Delivery and transport booking built for speed — rides or deliveries in a few taps.",
+   tech:["Flutter","Node.js","MongoDB"]},
+  {name:"FauranFix", kind:"Service marketplace", slug:"fauranfix",
+   desc:"Connects homeowners with skilled professionals, from plumbing to same-day repairs.",
+   tech:["Flutter","Firebase"]},
+];
 
-        // Keyboard Navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key.toLowerCase() === 'h') window.location.href = '../index.html';
-        });
-    </script>
+document.getElementById("demos").innerHTML = APPS.map((a,i) => `
+  <article class="demo">
+    <div class="phone">
+      <iframe src="https://shaurya-8055.github.io/${a.slug}/" title="${a.name} live demo" loading="lazy"></iframe>
+    </div>
+    <div>
+      <div class="row"><h3>${a.name}</h3><span class="muted">0${i+1}</span></div>
+      <p class="role">${a.kind}</p>
+      <p style="color:var(--fg-2);font-size:.94rem">${a.desc}</p>
+      <div class="chips">${a.tech.map(t=>`<span class="chip">${t}</span>`).join("")}</div>
+      <div class="links">
+        <a href="https://shaurya-8055.github.io/${a.slug}/" target="_blank" rel="noopener">Open full screen →</a>
+        <a href="https://shaurya-8055.github.io/${a.slug}/emulator.html" target="_blank" rel="noopener">Emulator view →</a>
+      </div>
+    </div>
+  </article>`).join("");
+
+const io = new IntersectionObserver((es) => {
+  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+}, {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
 </body>
 </html>
