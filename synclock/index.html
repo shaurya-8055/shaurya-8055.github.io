@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SynClock — Smart Reminders</title>
+<meta name="description" content="SynClock: offline-first Flutter reminder app with AI natural-language scheduling, exact alarms and shared team reminders.">
+<meta property="og:title" content="SynClock — Smart Reminders">
+<meta property="og:description" content="Offline-first Flutter reminder app with AI scheduling, exact alarms and shared team reminders.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏰</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08090c; --bg-2:#0d0f14; --line:#1e2129; --line-2:#2a2e38;
+  --fg:#f2f4f8; --fg-2:#a3aab8; --fg-3:#6b7280;
+  --accent:#7c8cff; --accent-2:#4ade9b; --radius:14px; --max:1080px;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#fbfbfd; --bg-2:#fff; --line:#e6e8ee; --line-2:#d3d7e0;
+  --fg:#0d0f14; --fg-2:#4b5262; --fg-3:#858c9b; --accent:#4453d6; --accent-2:#0f9d63;}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(55rem 35rem at 80% -10%, color-mix(in srgb,var(--accent) 14%,transparent), transparent 70%),
+             radial-gradient(45rem 28rem at 5% 5%, color-mix(in srgb,var(--accent-2) 9%,transparent), transparent 70%);}
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:16px;position:relative;z-index:1}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+  background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{font-weight:700;text-decoration:none;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+.brand .ico{font-size:1.15rem}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.875rem;font-weight:550;
+  padding:9px 16px;border-radius:99px;border:1px solid var(--line-2);color:var(--fg);background:var(--bg-2);
+  transition:transform .2s,border-color .2s}
+.btn:hover{transform:translateY(-1px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.hero{padding:80px 0 56px;text-align:center}
+.tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.78rem;color:var(--fg-2);
+  border:1px solid var(--line);background:var(--bg-2);padding:6px 12px;border-radius:99px;margin-bottom:24px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent-2) 22%,transparent)}
+h1{font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.05;letter-spacing:-.035em;font-weight:700;margin-bottom:18px}
+.lede{font-size:clamp(1rem,2vw,1.15rem);color:var(--fg-2);max-width:58ch;margin:0 auto 30px}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.fine{font-size:.8rem;color:var(--fg-3);font-family:var(--mono)}
+section{padding:52px 0;scroll-margin-top:70px}
+h2{font-size:clamp(1.4rem,3vw,1.9rem);letter-spacing:-.025em;margin-bottom:24px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:22px;transition:border-color .25s,transform .25s}
+.card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.card h3{font-size:1rem;margin-bottom:7px;display:flex;align-items:center;gap:9px}
+.card p{color:var(--fg-2);font-size:.92rem}
+.shots{display:flex;gap:18px;overflow-x:auto;padding:6px 2px 18px;scroll-snap-type:x mandatory}
+.shot{flex:0 0 auto;scroll-snap-align:center;width:232px}
+.shot img{width:100%;border-radius:26px;border:1px solid var(--line-2);background:var(--bg-2);display:block;
+  box-shadow:0 22px 50px -22px rgba(0,0,0,.55)}
+.shot figcaption{margin-top:10px;font-size:.82rem;color:var(--fg-3);text-align:center;font-family:var(--mono)}
+.empty{border:1px dashed var(--line-2);border-radius:var(--radius);padding:36px;text-align:center;color:var(--fg-3);font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.chip{font-family:var(--mono);font-size:.74rem;color:var(--fg-2);border:1px solid var(--line);border-radius:6px;padding:3px 8px;background:var(--bg)}
+.steps{counter-reset:s;display:grid;gap:12px;max-width:640px}
+.steps li{list-style:none;counter-increment:s;padding-left:38px;position:relative;color:var(--fg-2);font-size:.94rem}
+.steps li::before{content:counter(s);position:absolute;left:0;top:-1px;width:25px;height:25px;border-radius:50%;
+  background:var(--bg-2);border:1px solid var(--line-2);display:grid;place-items:center;font-size:.78rem;font-family:var(--mono);color:var(--accent)}
+footer{border-top:1px solid var(--line);padding:40px 0;margin-top:30px;color:var(--fg-3);font-size:.85rem;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--fg-2);text-decoration:none}
+footer a:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header><div class="wrap nav">
+  <a class="brand" href="#top"><span class="ico">⏰</span> SynClock</a>
+  <a class="btn primary" href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">Download APK</a>
+</div></header>
+
+<main id="top">
+
+<section class="hero wrap">
+  <span class="tag"><span class="dot"></span> Android · Play Store internal testing</span>
+  <h1>Reminders that fire,<br>with or without signal</h1>
+  <p class="lede">A Flutter reminder and team-productivity app: offline-first sync, natural-language scheduling powered by Gemini, exact alarms that survive Doze, and shared reminders for teams.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">Download the APK</a>
+    <a class="btn" href="#screens">See the screens</a>
+  </div>
+  <p class="fine">Android 8.0+ · always the latest build · source is private</p>
+</section>
+
+<section id="screens" class="wrap">
+  <h2>Screens</h2>
+  <div class="shots" id="shots"></div>
+  <div class="empty" id="empty">Screenshots land here.</div>
+</section>
+
+<section class="wrap">
+  <h2>What it does</h2>
+  <div class="grid">
+    <div class="card"><h3>🔌 Offline-first</h3><p>Reminders create, edit and fire with no connection, then reconcile against Firestore the moment one returns.</p></div>
+    <div class="card"><h3>🗣️ Say it in plain English</h3><p>"Remind me to call mom every Sunday evening" becomes a real schedule. Voice input and text-to-speech built in.</p></div>
+    <div class="card"><h3>⏰ Alarms that actually fire</h3><p>AlarmManager for exact on-device timing that survives Doze and reboots; FCM for updates from teammates.</p></div>
+    <div class="card"><h3>👥 Shared reminders</h3><p>Team reminders with role-based access, so a group of five stays on one schedule.</p></div>
+    <div class="card"><h3>☁️ Serverless backend</h3><p>NestJS on AWS Lambda, 41 endpoints, with backup and export.</p></div>
+    <div class="card"><h3>💳 Subscriptions</h3><p>RevenueCat billing with tiered entitlements.</p></div>
+  </div>
+  <div class="chips" style="margin-top:20px">
+    <span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Riverpod</span><span class="chip">Firebase</span>
+    <span class="chip">Firestore</span><span class="chip">FCM</span><span class="chip">AlarmManager</span><span class="chip">Gemini</span>
+    <span class="chip">NestJS</span><span class="chip">AWS Lambda</span><span class="chip">RevenueCat</span>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Installing</h2>
+  <ol class="steps">
+    <li>Download the APK using the button above.</li>
+    <li>Android will warn about installing outside the Play Store. Allow your browser or file manager to install unknown apps.</li>
+    <li>Open the downloaded file and install.</li>
+    <li>The link always points at the newest build, so re-downloading updates the app.</li>
+  </ol>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <span>Built by Shaurya Shakya</span>
+  <nav style="display:flex;gap:16px">
+    <a href="https://shaurya-8055.github.io/">Portfolio</a>
+    <a href="https://github.com/shaurya-8055">GitHub</a>
+    <a href="https://www.linkedin.com/in/shaurya-shakya8055">LinkedIn</a>
+  </nav>
+</footer>
+
+<script>
+// Screenshots: drop files in shots/ and list them here.
+const SHOTS = [];
+const box = document.getElementById('shots'), empty = document.getElementById('empty');
+if (SHOTS.length) {
+  empty.remove();
+  box.innerHTML = SHOTS.map(s => `
+    <figure class="shot">
+      <img src="shots/${s.file}" alt="${s.caption}" loading="lazy">
+      <figcaption>${s.caption}</figcaption>
+    </figure>`).join('');
+} else {
+  box.remove();
+}
+</script>
+</body>
+</html>
