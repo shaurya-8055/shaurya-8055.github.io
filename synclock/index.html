@@ -7,8 +7,9 @@
 <meta name="description" content="Reminders that fire with or without signal. Say it in plain English, SynClock schedules it.">
 <meta property="og:title" content="SynClock — reminders that fire, signal or not">
 <meta property="og:description" content="Offline-first Android reminders with natural-language scheduling, exact alarms and shared team lists.">
-<meta property="og:image" content="https://shaurya-8055.github.io/synclock/shots/ai.png">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏱</text></svg>">
+<meta property="og:image" content="https://shaurya-8055.github.io/synclock/logo512.png">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="apple-touch-icon" href="logo192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -48,9 +49,8 @@ header{position:sticky;top:0;z-index:60;backdrop-filter:blur(16px) saturate(140%
 header.stuck{border-bottom-color:var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:18px}
 .logo{display:flex;align-items:center;gap:0;font-weight:800;letter-spacing:-.03em;font-size:1.12rem}
-.logo .mark{margin-right:10px;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
-  background:linear-gradient(145deg,var(--teal),var(--teal-2));color:#04120f;font-size:.95rem;font-weight:800;
-  box-shadow:0 0 0 1px rgba(24,224,200,.3),0 8px 20px -8px var(--glow)}
+.logo .mark{margin-right:10px;width:30px;height:30px;border-radius:9px;display:block;
+  box-shadow:0 8px 20px -8px var(--glow)}
 .logo .dot{color:var(--teal)}
 
 .btn{display:inline-flex;align-items:center;gap:9px;font-size:.9rem;font-weight:650;padding:11px 20px;
@@ -179,7 +179,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 56px;margin-top:40px}
 <div class="aura"></div><div class="grid-lines"></div>
 
 <header id="hdr"><div class="wrap nav">
-  <a class="logo" href="#top"><span class="mark">S</span>SynClock<span class="dot">.</span></a>
+  <a class="logo" href="#top"><img class="mark" src="logo.svg" width="30" height="30" alt="">SynClock<span class="dot">.</span></a>
   <a class="btn solid" href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">Download</a>
 </div></header>
 
@@ -220,6 +220,26 @@ footer{border-top:1px solid var(--line);padding:48px 0 56px;margin-top:40px}
       <div class="pills"><span class="pill">conversational</span><span class="pill">schedule aware</span><span class="pill">habits &amp; goals</span></div>
     </div>
     <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/chat.png" alt="Chat with Synclo answering a question about today's schedule" loading="lazy" width="540" height="1143"></div></div>
+  </div>
+
+  <div class="show reveal">
+    <div class="copy">
+      <p class="kicker">Teams</p>
+      <h3>Reminders that reach someone else</h3>
+      <p>Create a team, share a code that expires in thirty minutes, and send a reminder straight to a teammate's phone. Roles decide who can add: in a P2P team anyone can, in an admin team only the owners and editors.</p>
+      <div class="pills"><span class="pill">invite codes</span><span class="pill">roles</span><span class="pill">push to a member</span><span class="pill">activity log</span></div>
+    </div>
+    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/team.png" alt="A team page listing two members, an admin and an editor, with the team actions below" loading="lazy" width="540" height="1143"></div></div>
+  </div>
+
+  <div class="show reveal">
+    <div class="copy">
+      <p class="kicker">Accountability</p>
+      <h3>Who sent what, and when</h3>
+      <p>Every reminder sent, every member who joined or left, in one timeline. The team's reminders sit in their own tab, grouped the same way your own schedule is.</p>
+      <div class="pills"><span class="pill">audit trail</span><span class="pill">overdue &amp; today</span><span class="pill">priority</span></div>
+    </div>
+    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/activity.png" alt="Team activity feed showing reminders sent to a member and a member joining" loading="lazy" width="540" height="1143"></div></div>
   </div>
 
   <div class="show reveal">
