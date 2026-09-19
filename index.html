@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shaurya Shakya — Software Engineer</title>
 <meta name="description" content="Software engineer building production backend and full-stack systems in Go, Node.js, Flutter and Next.js — payments, ledgers and offline-capable mobile clients. Five live apps you can run in the page.">
-<meta name="theme-color" content="#08090c">
+<meta name="theme-color" content="#0a0b0d">
 <meta property="og:title" content="Shaurya Shakya — Software Engineer">
 <meta property="og:description" content="Payments, ledgers, Go microservices, Flutter and Next.js. Five apps you can run right in the page.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shaurya-8055.github.io/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%237c8cff'/><text x='32' y='46' font-size='38' font-family='Inter,sans-serif' font-weight='700' fill='%23fff' text-anchor='middle'>S</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%2312a594'/><text x='32' y='46' font-size='38' font-family='Inter,sans-serif' font-weight='700' fill='%23fff' text-anchor='middle'>S</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -22,19 +22,20 @@
   --ps:.78;                        /* phone scale */
   --app:#0F766E;                   /* live-app accent, set by JS */
 }
+/* One accent, used sparingly. Everything else is neutral ink and paper. */
 :root[data-theme="dark"]{
-  --bg:#08090c; --bg-2:#0e1016; --bg-3:#141822; --line:#1f232d; --line-2:#2c313e;
-  --fg:#f3f5f9; --fg-2:#a6adbb; --fg-3:#6d7484;
-  --accent:#7c8cff; --accent-2:#4ade9b; --accent-3:#f0abfc;
-  --glow:rgba(124,140,255,.30); --shadow:0 30px 70px -30px rgba(0,0,0,.85);
-  --stage-1:#0b0e14; --stage-2:#05060a;
+  --bg:#0a0b0d; --bg-2:#101216; --bg-3:#171a20; --line:#20242b; --line-2:#2e333c;
+  --fg:#f2f3f5; --fg-2:#a0a6b0; --fg-3:#6b7280;
+  --accent:#12a594; --accent-soft:#1d7a70;
+  --glow:rgba(18,165,148,.22); --shadow:0 30px 70px -30px rgba(0,0,0,.85);
+  --stage-1:#0d0f12; --stage-2:#07080a;
 }
 :root[data-theme="light"]{
-  --bg:#f6f7fb; --bg-2:#ffffff; --bg-3:#eef1f8; --line:#e2e6f0; --line-2:#ccd3e3;
-  --fg:#0c0e14; --fg-2:#4a5264; --fg-3:#7a8296;
-  --accent:#4f46e5; --accent-2:#0f9d63; --accent-3:#b93fd6;
-  --glow:rgba(79,70,229,.22); --shadow:0 24px 60px -28px rgba(30,40,80,.35);
-  --stage-1:#eef1fa; --stage-2:#e2e8f7;
+  --bg:#f7f7f5; --bg-2:#ffffff; --bg-3:#efefec; --line:#e4e4df; --line-2:#cfcfc8;
+  --fg:#101113; --fg-2:#4b5158; --fg-3:#80858c;
+  --accent:#0b7a6b; --accent-soft:#0e9483;
+  --glow:rgba(11,122,107,.16); --shadow:0 24px 60px -30px rgba(20,24,28,.28);
+  --stage-1:#f1f1ee; --stage-2:#e6e6e1;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -44,12 +45,10 @@ body{
   line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
   transition:background .35s ease, color .35s ease;
 }
+/* a single, almost-invisible vignette — no colour wash */
 body::before{
   content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
-  background:
-    radial-gradient(48rem 34rem at 82% -8%, color-mix(in srgb,var(--accent) 20%,transparent), transparent 68%),
-    radial-gradient(40rem 26rem at 2% 10%, color-mix(in srgb,var(--accent-2) 14%,transparent), transparent 68%),
-    radial-gradient(36rem 26rem at 60% 108%, color-mix(in srgb,var(--accent-3) 11%,transparent), transparent 70%);
+  background:radial-gradient(60rem 40rem at 70% -12%, color-mix(in srgb,var(--fg) 5%,transparent), transparent 70%);
 }
 .wrap{width:100%; max-width:var(--max); margin-inline:auto; padding-inline:20px; position:relative; z-index:1}
 a{color:inherit}
@@ -66,10 +65,10 @@ header{
   background:color-mix(in srgb,var(--bg) 76%,transparent);
   border-bottom:1px solid var(--line);
 }
-#bar{position:absolute; left:0; bottom:-1px; height:2px; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width .1s linear}
+#bar{position:absolute; left:0; bottom:-1px; height:2px; width:0; background:var(--accent); transition:width .1s linear}
 .nav{display:flex; align-items:center; justify-content:space-between; height:64px; gap:16px}
 .brand{font-weight:800; letter-spacing:-.03em; text-decoration:none; font-size:1.02rem; display:flex; align-items:center; gap:9px}
-.brand i{width:26px; height:26px; border-radius:8px; background:linear-gradient(140deg,var(--accent),var(--accent-3)); display:grid; place-items:center; color:#fff; font-size:.78rem; font-style:normal; font-weight:800}
+.brand i{width:26px; height:26px; border-radius:8px; background:var(--accent); display:grid; place-items:center; color:#fff; font-size:.78rem; font-style:normal; font-weight:800}
 .brand span{color:var(--accent)}
 .nav-links{display:flex; gap:4px; align-items:center}
 .nav-links a.lnk{color:var(--fg-2); text-decoration:none; font-size:.88rem; padding:7px 12px; border-radius:99px; transition:color .2s, background .2s}
@@ -103,16 +102,35 @@ header{
   color:var(--fg-2); border:1px solid var(--line); background:var(--bg-2);
   padding:7px 14px; border-radius:99px; margin-bottom:26px;
 }
-.pulse{width:7px; height:7px; border-radius:50%; background:var(--accent-2); box-shadow:0 0 0 0 color-mix(in srgb,var(--accent-2) 60%,transparent); animation:pulse 2.4s infinite}
+.pulse{width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 60%,transparent); animation:pulse 2.4s infinite}
 @keyframes pulse{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
-h1{font-size:clamp(2.5rem,7vw,4.6rem); line-height:1.02; letter-spacing:-.04em; font-weight:800; margin-bottom:12px}
-h1 .grad{background:linear-gradient(110deg,var(--accent),var(--accent-3) 55%,var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
-.typed{font-family:var(--mono); font-size:clamp(.9rem,2.2vw,1.06rem); color:var(--accent); margin-bottom:18px; min-height:1.7em}
+.hero-grid{display:grid; grid-template-columns:minmax(0,1fr) 344px; gap:56px; align-items:center; margin-bottom:52px}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr; gap:36px}}
+h1{font-size:clamp(2.4rem,6vw,3.9rem); line-height:1.04; letter-spacing:-.04em; font-weight:800; margin-bottom:10px}
+.rule{width:52px; height:3px; background:var(--accent); border-radius:2px; margin:0 0 16px}
+.typed{font-family:var(--mono); font-size:clamp(.88rem,2vw,1rem); color:var(--fg-2); margin-bottom:18px; min-height:1.7em}
+.typed b{color:var(--accent); font-weight:500}
 .caret{display:inline-block; width:8px; background:var(--accent); margin-left:2px; animation:blink 1s steps(1) infinite; color:transparent}
 @keyframes blink{50%{opacity:0}}
-.lede{font-size:clamp(1rem,2.1vw,1.16rem); color:var(--fg-2); max-width:62ch; margin-bottom:30px}
+.lede{font-size:clamp(1rem,2.1vw,1.1rem); color:var(--fg-2); max-width:56ch; margin-bottom:28px}
 .lede strong{color:var(--fg); font-weight:650}
-.cta{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:50px}
+.cta{display:flex; flex-wrap:wrap; gap:12px}
+
+/* portrait */
+.portrait{position:relative; justify-self:center}
+.portrait img{
+  width:344px; max-width:78vw; height:auto; aspect-ratio:4/5; object-fit:cover;
+  object-position:50% 22%; display:block;
+  border-radius:20px; border:1px solid var(--line-2); box-shadow:var(--shadow); filter:saturate(.96);
+}
+.portrait figcaption{
+  position:absolute; left:-18px; bottom:24px; background:var(--bg-2);
+  border:1px solid var(--line); border-radius:12px; padding:11px 15px;
+  box-shadow:var(--shadow); max-width:82%;
+}
+@media(max-width:900px){.portrait figcaption{left:12px}}
+.portrait figcaption b{display:block; font-size:.86rem; letter-spacing:-.01em}
+.portrait figcaption span{font-size:.75rem; color:var(--fg-3); font-family:var(--mono)}
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow)}
 .stat{background:var(--bg-2); padding:22px; transition:background .25s}
 .stat:hover{background:var(--bg-3)}
@@ -263,6 +281,44 @@ ul.bullets li strong{color:var(--fg); font-weight:650}
 .rail .about{margin-top:16px; padding-top:16px; border-top:1px solid var(--line)}
 .rail .about p.d{color:var(--fg-2); font-size:.89rem}
 
+/* ============ website previews ============ */
+.sites{display:grid; gap:20px; grid-template-columns:1fr 1fr}
+@media(max-width:860px){.sites{grid-template-columns:1fr}}
+.browser{
+  border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--bg-2);
+  box-shadow:var(--shadow); transition:transform .25s, border-color .25s;
+}
+.browser:hover{transform:translateY(-3px); border-color:var(--line-2)}
+.browser .bar{display:flex; align-items:center; gap:10px; padding:10px 13px; background:var(--bg-3); border-bottom:1px solid var(--line)}
+.dots{display:flex; gap:6px; flex-shrink:0}
+.dots i{width:10px; height:10px; border-radius:50%; background:var(--line-2); display:block}
+.url{
+  flex:1; min-width:0; font-family:var(--mono); font-size:.72rem; color:var(--fg-3);
+  background:var(--bg); border:1px solid var(--line); border-radius:99px; padding:4px 12px;
+  text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.view{position:relative; aspect-ratio:1280/860; overflow:hidden; background:#fff}
+.view iframe{
+  width:1280px; height:860px; border:0; position:absolute; top:0; left:0;
+  transform:scale(var(--bs,.4)); transform-origin:top left;
+}
+.view .veil{position:absolute; inset:0; cursor:pointer; display:grid; place-items:center}  /* the preview scrolls the page, not the frame */
+.view.shot img{width:100%; height:100%; object-fit:cover; object-position:top center; display:block}
+.view.shot .veil span{
+  opacity:0; transform:translateY(6px); transition:.25s; font-size:.85rem; font-weight:600; color:#fff;
+  background:color-mix(in srgb,var(--accent) 92%,#000); padding:9px 18px; border-radius:99px;
+  box-shadow:0 14px 34px -12px rgba(0,0,0,.6);
+}
+.view.shot:hover .veil{background:rgba(6,10,12,.45)}
+.view.shot:hover .veil span{opacity:1; transform:none}
+.view .boot{position:absolute; inset:0; display:grid; place-items:center; background:var(--bg-3); color:var(--fg-3); font-size:.8rem; transition:opacity .4s}
+.view .boot.off{opacity:0; pointer-events:none}
+.browser .meta{display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:15px 18px 17px; flex-wrap:wrap}
+.browser .meta b{font-size:.97rem; letter-spacing:-.015em}
+.browser .meta p{width:100%; color:var(--fg-2); font-size:.87rem; margin-top:2px}
+.browser .meta a{font-size:.83rem; color:var(--accent); text-decoration:none; font-weight:600; white-space:nowrap}
+.browser .meta a:hover{text-decoration:underline}
+
 /* ============ certificates slider ============ */
 .slider{position:relative}
 .track{
@@ -287,7 +343,7 @@ ul.bullets li strong{color:var(--fg); font-weight:650}
 .slide .art img.doc{width:100%; height:100%; object-fit:cover; object-position:top center; display:block}
 .slide .art img.badge{width:142px; height:142px; object-fit:contain}
 .slide .art.plain{background:#fff}
-.slide .art.tile{background:linear-gradient(145deg,var(--accent),var(--accent-3)); color:#fff; font-size:3.4rem}
+.slide .art.tile{background:var(--bg-3); color:var(--accent); font-size:3.2rem; border-bottom:1px solid var(--line)}
 .slide .body{padding:17px 19px 19px; display:flex; flex-direction:column; gap:3px; flex:1}
 .slide .body b{font-size:.96rem; letter-spacing:-.015em}
 .slide .body span{font-size:.81rem; color:var(--fg-3)}
@@ -317,7 +373,7 @@ ul.bullets li strong{color:var(--fg); font-weight:650}
 .ach b{color:var(--fg)}
 .ach a{color:var(--accent); text-decoration:none}
 .ach a:hover{text-decoration:underline}
-.ach .mark{color:var(--accent-2); font-family:var(--mono); font-size:.78rem; padding-top:.2em}
+.ach .mark{color:var(--accent); font-family:var(--mono); font-size:.78rem; padding-top:.2em}
 footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; position:relative; z-index:1}
 .foot{display:flex; justify-content:space-between; gap:22px; flex-wrap:wrap; align-items:center}
 .foot p{color:var(--fg-3); font-size:.85rem}
@@ -339,6 +395,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
       <a class="lnk" href="#experience">Experience</a>
       <a class="lnk" href="#projects">Projects</a>
       <a class="lnk" href="#apps">Live apps</a>
+      <a class="lnk" href="#sites">Websites</a>
       <a class="lnk" href="#certificates">Certificates</a>
       <a class="lnk" href="#skills">Skills</a>
       <button class="icon-btn" id="theme" aria-label="Toggle colour theme" title="Toggle theme">
@@ -354,15 +411,24 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 <main id="top">
 
 <section class="hero wrap">
-  <span class="tag"><span class="pulse"></span> Open to entry-level Software Engineer roles</span>
-  <h1>Shaurya <span class="grad">Shakya</span></h1>
-  <p class="typed"><span id="tw"></span><span class="caret">.</span></p>
-  <p class="lede">Software engineer shipping production backend and full-stack systems in <strong>Go</strong>, <strong>Node.js</strong>, <strong>Flutter</strong> and <strong>Next.js</strong> — with a focus on payments, ledger correctness and offline-capable mobile clients. Currently building payment infrastructure at <strong>Travafa</strong>.</p>
-  <div class="cta">
-    <a class="btn primary" href="mailto:iiitianshauryashakya8055@gmail.com">Get in touch</a>
-    <a class="btn" href="#apps">Try my apps ↓</a>
-    <a class="btn" href="https://github.com/shaurya-8055" target="_blank" rel="noopener">GitHub</a>
-    <a class="btn" href="https://www.linkedin.com/in/shaurya-shakya8055" target="_blank" rel="noopener">LinkedIn</a>
+  <div class="hero-grid">
+    <div>
+      <span class="tag"><span class="pulse"></span> Open to entry-level Software Engineer roles</span>
+      <h1>Shaurya Shakya</h1>
+      <div class="rule"></div>
+      <p class="typed">Building <b><span id="tw"></span></b><span class="caret">.</span></p>
+      <p class="lede">Software engineer shipping production backend and full-stack systems in <strong>Go</strong>, <strong>Node.js</strong>, <strong>Flutter</strong> and <strong>Next.js</strong> — with a focus on payments, ledger correctness and offline-capable mobile clients. Currently building payment infrastructure at <strong>Travafa</strong>.</p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:iiitianshauryashakya8055@gmail.com">Get in touch</a>
+        <a class="btn" href="#apps">See the work ↓</a>
+        <a class="btn" href="https://github.com/shaurya-8055" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/shaurya-shakya8055" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <figure class="portrait">
+      <img src="img/shaurya.jpg" alt="Shaurya Shakya" width="800" height="1000" fetchpriority="high">
+      <figcaption><b>Software Engineer Intern</b><span>Travafa · Dec 2025 — Present</span></figcaption>
+    </figure>
   </div>
   <div class="stats">
     <div class="stat"><b class="cnt" data-to="407">0</b><span>commits shipped in 9 months</span></div>
@@ -509,9 +575,44 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
   </div>
 </section>
 
+<section id="sites" class="wrap reveal">
+  <div class="head"><span class="num">04</span><h2>Websites, running live</h2><span class="note">real production sites</span></div>
+  <div class="sites">
+
+    <article class="browser">
+      <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">armymedicinesupplier.in</span></div>
+      <!-- the live site sends x-frame-options: DENY (it takes payments), so this is a real screenshot -->
+      <div class="view shot">
+        <img src="img/armymedicinesupplier.jpg" alt="Army Medicine Supplier home page" loading="lazy" width="1280" height="860">
+        <a class="veil" href="https://armymedicinesupplier.in" target="_blank" rel="noopener" aria-label="Open Army Medicine Supplier"><span>Open the live site →</span></a>
+      </div>
+      <div class="meta">
+        <b>Army Medicine Supplier</b>
+        <a href="https://armymedicinesupplier.in" target="_blank" rel="noopener">Open site →</a>
+        <p>The live e-pharmacy: prescription upload, pharmacist review, quoting and doorstep delivery for ECHS beneficiaries.</p>
+      </div>
+    </article>
+
+    <article class="browser">
+      <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">shaurya-8055.github.io/synclock</span></div>
+      <div class="view" data-src="./synclock/">
+        <iframe title="SynClock product site" loading="lazy" scrolling="no" src="about:blank"></iframe>
+        <div class="boot">Loading site…</div>
+        <a class="veil" href="./synclock/" aria-label="Open the SynClock site"></a>
+      </div>
+      <div class="meta">
+        <b>SynClock</b>
+        <a href="./synclock/">Open site →</a>
+        <p>Product site for the reminder app: features, team collaboration, screenshots and the APK download.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
 <section id="certificates" class="wrap reveal">
   <div class="head">
-    <span class="num">04</span><h2>Certificates</h2><span class="note">scroll →</span>
+    <span class="num">05</span><h2>Certificates</h2><span class="note">scroll →</span>
     <span class="sp">
       <button class="nav-btn" id="c-prev" aria-label="Previous certificates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
       <button class="nav-btn" id="c-next" aria-label="Next certificates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
@@ -554,7 +655,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
         </div>
       </article>
       <article class="slide">
-        <div class="art tile" style="background:linear-gradient(145deg,var(--accent-2),var(--accent))">★</div>
+        <div class="art tile">★</div>
         <div class="body">
           <b>CodeChef 3-Star</b><span>1613 peak rating · top 2.5%</span>
           <div class="go"><a href="https://www.codechef.com/users/shaurya_8055" target="_blank" rel="noopener">View profile →</a></div>
@@ -566,7 +667,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 </section>
 
 <section id="skills" class="wrap reveal">
-  <div class="head"><span class="num">05</span><h2>Technical skills</h2></div>
+  <div class="head"><span class="num">06</span><h2>Technical skills</h2></div>
   <div class="skill-grid">
     <div class="card tilt"><h4>Languages</h4><div class="chips"><span class="chip">Go</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Dart</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">SQL</span></div></div>
     <div class="card tilt"><h4>Frameworks</h4><div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Node.js</span><span class="chip">NestJS</span><span class="chip">Express</span><span class="chip">FastAPI</span></div></div>
@@ -578,7 +679,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 </section>
 
 <section id="about" class="wrap reveal">
-  <div class="head"><span class="num">06</span><h2>Achievements</h2></div>
+  <div class="head"><span class="num">07</span><h2>Achievements</h2></div>
   <ul class="ach card tilt">
     <li><span class="mark">01</span><span><b>Smart India Hackathon 2025</b> — led Team QBIT to 4th of 58 in the IIIT Bhagalpur qualifier, 6th overall; sole author of the team's multilingual Flutter telemedicine app for 173 Nabha villages. <a href="https://github.com/SIH2025PS18/QBIT012025" target="_blank" rel="noopener">Repo</a></span></li>
     <li><span class="mark">02</span><span><b>Competitive programming</b> — 3-Star on CodeChef, 1613 peak rating (top 2.5%).</span></li>
@@ -612,7 +713,7 @@ setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" :
 function setTheme(t){
   root.dataset.theme = t;
   const m = document.querySelector('meta[name="theme-color"]');
-  if (m) m.content = t === "dark" ? "#08090c" : "#f6f7fb";
+  if (m) m.content = t === "dark" ? "#0a0b0d" : "#f7f7f5";
   try { localStorage.setItem("theme", t); } catch (e) {}
 }
 document.getElementById("theme").onclick = () =>
@@ -629,12 +730,12 @@ const spy = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
   links.forEach(l => l.classList.toggle("on", l.getAttribute("href") === "#" + e.target.id));
 }), {rootMargin:"-45% 0px -50% 0px"});
-["experience","projects","apps","certificates","skills"].forEach(id => {
+["experience","projects","apps","sites","certificates","skills"].forEach(id => {
   const el = document.getElementById(id); if (el) spy.observe(el);
 });
 
 /* ---------- typewriter ---------- */
-const ROLES = ["Go payment services","offline-first Flutter apps","NestJS + PostgreSQL platforms","Next.js front ends","and one live e-pharmacy"];
+const ROLES = ["Go payment services","offline-first Flutter apps","NestJS + PostgreSQL platforms","Next.js front ends","a live e-pharmacy"];
 const tw = document.getElementById("tw");
 let ri = 0, ci = 0, del = false;
 (function type(){
@@ -668,6 +769,25 @@ document.querySelectorAll(".tilt").forEach(c => {
     c.style.setProperty("--mx", (e.clientX - r.left) + "px");
     c.style.setProperty("--my", (e.clientY - r.top) + "px");
   });
+});
+
+/* ---------- website previews ---------- */
+/* Render each site at a 1280px desktop viewport, then scale it down to the card. */
+document.querySelectorAll(".view[data-src]").forEach(view => {
+  const frame = view.querySelector("iframe");
+  const boot  = view.querySelector(".boot");
+  const fit = () => view.style.setProperty("--bs", view.clientWidth / 1280);
+  fit();
+  new ResizeObserver(fit).observe(view);
+  frame.addEventListener("load", () => {
+    if (frame.src !== "about:blank") boot.classList.add("off");
+  });
+  new IntersectionObserver((es, o) => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    o.disconnect();
+    frame.src = view.dataset.src;
+    setTimeout(() => boot.classList.add("off"), 12000);   // don't strand the placeholder
+  }), {rootMargin:"300px"}).observe(view);
 });
 
 /* ---------- certificates slider ---------- */
