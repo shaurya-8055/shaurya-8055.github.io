@@ -81,14 +81,31 @@ h1 em{font-style:normal;background:linear-gradient(120deg,var(--teal),#7ff0e0);-
 .meta span{display:inline-flex;align-items:center;gap:6px}
 
 /* ── device ───────────────────────────────────────────────────── */
-.device{position:relative;height:min(600px,68vh);aspect-ratio:568/1215;width:auto;margin-inline:auto;
-  border-radius:44px;padding:11px;background:linear-gradient(165deg,#31434b,#0c1418 55%);
-  box-shadow:0 60px 90px -45px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.05),0 0 70px -30px var(--glow);
+/* iPhone 15 Pro frame. 1em = one design pixel, so the whole thing scales
+   from a single height budget and never outgrows the viewport. */
+.device{--h:min(620px,70vh);font-size:calc(var(--h)/852);
+  position:relative;width:393em;height:852em;margin-inline:auto;flex-shrink:0;
+  border-radius:54em;background:#2b2b2b;padding:10em;
+  box-shadow:inset 0 0 0 2em #58585a, inset 0 0 0 6em #000, 0 0 0 3em #454545,
+             0 30em 80em rgba(0,0,0,.6), 0 0 70px -30px var(--glow);
   animation:float 7s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.device::after{content:"";position:absolute;top:13px;left:50%;transform:translateX(-50%);
-  width:76px;height:19px;border-radius:12px;background:#05070a;z-index:3}
-.device img{border-radius:34px;width:100%;height:100%;object-fit:cover;object-position:top}
+/* Dynamic Island */
+.device::before{content:'';position:absolute;top:22em;left:50%;transform:translateX(-50%);
+  width:122em;height:36em;background:#000;border-radius:20em;z-index:25;pointer-events:none}
+/* home indicator */
+.device::after{content:'';position:absolute;bottom:17em;left:50%;transform:translateX(-50%);
+  width:138em;height:5em;background:rgba(255,255,255,.85);border-radius:3em;z-index:26;pointer-events:none}
+.device .scr{width:100%;height:100%;border-radius:44em;overflow:hidden;background:#000;
+  padding-top:52em;padding-bottom:22em;box-sizing:border-box;position:relative}
+.device img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+/* physical buttons */
+.device .b{position:absolute;background:#383838;width:4em;border-radius:2em 0 0 2em;
+  box-shadow:inset -1em 0 1em rgba(255,255,255,.1);z-index:5}
+.device .b.act{top:110em;left:-4em;height:26em}
+.device .b.vu{top:155em;left:-4em;height:45em}
+.device .b.vd{top:215em;left:-4em;height:45em}
+.device .b.pw{top:160em;right:-4em;height:80em;border-radius:0 2em 2em 0}
 .device .halo{position:absolute;inset:-14%;border-radius:50%;z-index:-1;
   background:radial-gradient(circle,var(--glow),transparent 66%);filter:blur(28px)}
 
@@ -102,10 +119,23 @@ h2{font-size:clamp(1.85rem,3.6vw,2.7rem);letter-spacing:-.035em;line-height:1.1;
 .show{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:64px}
 .show:nth-child(even) .copy{order:2}
 @media(max-width:860px){.show{grid-template-columns:1fr;gap:28px;margin-bottom:48px}.show:nth-child(even) .copy{order:0}}
-.show .phone{height:min(520px,62vh);aspect-ratio:558/1205;width:auto;margin-inline:auto;border-radius:38px;padding:9px;
-  background:linear-gradient(165deg,#2b3d44,#0a1013 58%);
-  box-shadow:0 46px 70px -40px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.045)}
-.show .phone img{border-radius:30px;width:100%;height:100%;object-fit:cover;object-position:top}
+.show .phone{--h:min(540px,64vh);font-size:calc(var(--h)/852);
+  position:relative;width:393em;height:852em;margin-inline:auto;flex-shrink:0;
+  border-radius:54em;background:#2b2b2b;padding:10em;
+  box-shadow:inset 0 0 0 2em #58585a, inset 0 0 0 6em #000, 0 0 0 3em #454545,
+             0 30em 80em rgba(0,0,0,.55)}
+.show .phone::before{content:'';position:absolute;top:22em;left:50%;transform:translateX(-50%);
+  width:122em;height:36em;background:#000;border-radius:20em;z-index:25}
+.show .phone::after{content:'';position:absolute;bottom:17em;left:50%;transform:translateX(-50%);
+  width:138em;height:5em;background:rgba(255,255,255,.8);border-radius:3em;z-index:26}
+.show .phone .scr{width:100%;height:100%;border-radius:44em;overflow:hidden;background:#000;
+  padding-top:52em;padding-bottom:22em;box-sizing:border-box}
+.show .phone img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.show .phone .b{position:absolute;background:#383838;width:4em;border-radius:2em 0 0 2em;z-index:5}
+.show .phone .b.act{top:110em;left:-4em;height:26em}
+.show .phone .b.vu{top:155em;left:-4em;height:45em}
+.show .phone .b.vd{top:215em;left:-4em;height:45em}
+.show .phone .b.pw{top:160em;right:-4em;height:80em;border-radius:0 2em 2em 0}
 .show h3{font-size:1.5rem;letter-spacing:-.025em;margin-bottom:12px;font-weight:750}
 .show p{color:var(--fg-2);margin-bottom:16px}
 .pills{display:flex;flex-wrap:wrap;gap:8px}
@@ -168,7 +198,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 56px;margin-top:40px}
       <span>◈ Android 8.0+</span><span>◈ Always the newest build</span><span>◈ Free</span>
     </div>
   </div>
-  <div class="device"><div class="halo"></div><img src="shots/home.png" alt="SynClock home screen with a live clock, AI assistant and focus session" width="540" height="1143"></div>
+  <div class="device"><div class="halo"></div><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/home.png" alt="SynClock home screen with a live clock, AI assistant and focus session" width="540" height="1143"></div></div>
 </div>
 
 <section id="tour" class="wrap">
@@ -179,7 +209,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 56px;margin-top:40px}
       <p>No date pickers, no repeat-rule dropdowns. SynClock reads the sentence, works out the recurrence and shows you exactly what it understood before anything is saved — with alternatives if it guessed differently than you meant.</p>
       <div class="pills"><span class="pill">Gemini</span><span class="pill">voice input</span><span class="pill">text-to-speech</span><span class="pill">confirm before save</span></div>
     </div>
-    <div class="phone"><img src="shots/ai.png" alt="The assistant parsing a sentence into a titled, timed, weekly repeating reminder" loading="lazy" width="540" height="1143"></div>
+    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/ai.png" alt="The assistant parsing a sentence into a titled, timed, weekly repeating reminder" loading="lazy" width="540" height="1143"></div></div>
   </div>
 
   <div class="show reveal">
@@ -189,7 +219,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 56px;margin-top:40px}
       <p>Ask what's on your schedule, how your habits are going, or who's in your team, and get a straight answer. It creates, edits and explains — not a search box wearing a chat costume.</p>
       <div class="pills"><span class="pill">conversational</span><span class="pill">schedule aware</span><span class="pill">habits &amp; goals</span></div>
     </div>
-    <div class="phone"><img src="shots/chat.png" alt="Chat with Synclo answering a question about today's schedule" loading="lazy" width="540" height="1143"></div>
+    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/chat.png" alt="Chat with Synclo answering a question about today's schedule" loading="lazy" width="540" height="1143"></div></div>
   </div>
 
   <div class="show reveal">
@@ -199,7 +229,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 56px;margin-top:40px}
       <p>A Pomodoro timer that also changes what reaches you: switch on Hide Low-Priority and only the reminders that matter get through for the length of the session.</p>
       <div class="pills"><span class="pill">5m to 1h</span><span class="pill">priority filtering</span><span class="pill">session streaks</span></div>
     </div>
-    <div class="phone"><img src="shots/focus.png" alt="Focus Mode with a 25 minute timer and low-priority filtering" loading="lazy" width="540" height="1143"></div>
+    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/focus.png" alt="Focus Mode with a 25 minute timer and low-priority filtering" loading="lazy" width="540" height="1143"></div></div>
   </div>
 
   <div class="show reveal">
@@ -209,7 +239,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 56px;margin-top:40px}
       <p>Upcoming and completed, grouped by how often they repeat. Anything the assistant created is tagged, so you always know what came from a sentence and what you set by hand.</p>
       <div class="pills"><span class="pill">recurring</span><span class="pill">priorities</span><span class="pill">offline-first</span></div>
     </div>
-    <div class="phone"><img src="shots/plan.png" alt="Plan screen listing a weekly reminder tagged ai-scheduled" loading="lazy" width="540" height="1143"></div>
+    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/plan.png" alt="Plan screen listing a weekly reminder tagged ai-scheduled" loading="lazy" width="540" height="1143"></div></div>
   </div>
 
   <div class="show reveal">
@@ -219,7 +249,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 56px;margin-top:40px}
       <p>Pick an accent, set a timezone, choose which sections greet you on the home screen. Small thing — but it's the difference between an app you tolerate and one you keep.</p>
       <div class="pills"><span class="pill">8 accent colours</span><span class="pill">auto timezone</span><span class="pill">streaks</span></div>
     </div>
-    <div class="phone"><img src="shots/settings.png" alt="Settings screen with theme, timezone and accent colour options" loading="lazy" width="540" height="1143"></div>
+    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/settings.png" alt="Settings screen with theme, timezone and accent colour options" loading="lazy" width="540" height="1143"></div></div>
   </div>
 </section>
 
