@@ -97,15 +97,44 @@ h1 .hl{background:var(--lav);color:var(--lav-ink);padding:0 .18em;border-radius:
 .meta{margin-top:20px;font-size:.84rem;color:var(--fg-3);display:flex;gap:18px;flex-wrap:wrap}
 @media(max-width:900px){.meta{justify-content:center}}
 
-/* phone: Android-style flat bezel with a punch-hole */
-.phone{--w:300px;position:relative;width:var(--w);aspect-ratio:600/1248;border-radius:calc(var(--w)*.13);
-  background:var(--bezel);padding:calc(var(--w)*.035);flex-shrink:0;margin-inline:auto;
-  box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
-.phone::before{content:'';position:absolute;top:calc(var(--w)*.06);left:50%;width:calc(var(--w)*.035);aspect-ratio:1;
-  border-radius:50%;background:#000;transform:translateX(-50%);z-index:3;box-shadow:0 0 0 2px #222}
-.phone .scr{position:relative;width:100%;height:100%;border-radius:calc(var(--w)*.1);overflow:hidden;background:var(--bg-2)}
-.phone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
-.stage{position:relative;display:grid;place-items:center;padding:30px 0}
+/* Device frames — the same iPhone 15 Pro and Android frames as the
+   portfolio's emulator. 1em is one design pixel, so a frame scales from --w. */
+.phone{--w:300px;--top:54em;--bot:22em;--bar:#fff;--bar-fg:#111;--bot-bg:#fff;--ind:#111;
+  font-size:calc(var(--w) / 393);position:relative;width:393em;height:852em;flex-shrink:0;margin-inline:auto;
+  border-radius:54em;background:#2b2b2b;padding:10em;
+  box-shadow:inset 0 0 0 2em #58585a,inset 0 0 0 6em #000,0 0 0 3em #454545,0 40em 90em rgba(0,0,0,.42)}
+.phone::before{content:'';position:absolute;top:22em;left:50%;transform:translateX(-50%);width:122em;height:36em;
+  background:#000;border-radius:20em;z-index:30;pointer-events:none}
+.phone .key{position:absolute;background:#383838;border-radius:2em 0 0 2em;width:4em;box-shadow:inset -1em 0 1em rgba(255,255,255,.1);z-index:5}
+.phone .k-act{top:110em;left:-4em;height:26em}.phone .k-up{top:155em;left:-4em;height:45em}
+.phone .k-dn{top:215em;left:-4em;height:45em}.phone .k-pw{top:160em;right:-4em;height:80em;border-radius:0 2em 2em 0}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:44em;overflow:hidden;background:var(--bar)}
+.phone .layer{position:absolute;inset:0}
+.phone .scr img{position:absolute;left:0;top:var(--top);width:100%;height:calc(100% - var(--top) - var(--bot));object-fit:cover;object-position:top}
+.sys-top{position:absolute;left:0;right:0;top:0;height:var(--top);background:var(--bar);color:var(--bar-fg);z-index:20;
+  display:flex;align-items:flex-end;justify-content:space-between;padding:0 30em 9em;transition:background .9s,color .9s}
+.sys-top .clk{font-size:15em;font-weight:600;letter-spacing:.01em;line-height:1}
+.sys-top .ico{display:flex;align-items:center;gap:6em}
+.sys-top .ico svg{height:11em;width:auto;display:block}
+.sys-top .ico svg:last-child{height:12em}
+.sys-bot{position:absolute;left:0;right:0;bottom:0;height:var(--bot);background:var(--bot-bg);z-index:20;transition:background .9s}
+.sys-bot::after{content:'';position:absolute;bottom:7em;left:50%;transform:translateX(-50%);width:138em;height:5em;
+  background:var(--ind);border-radius:3em;opacity:.85}
+/* Android (Samsung Galaxy style): thin even bezel, centred punch-hole */
+.android .phone{width:384em;height:832em;border-radius:32em;background:#0d0d0d;padding:4em;--top:34em;--bot:18em;
+  box-shadow:0 0 0 2em #4a4a4a,0 40em 90em rgba(0,0,0,.42)}
+.android .phone::before{width:11em;height:11em;top:14em;border-radius:50%;box-shadow:inset 0 0 0 1em #2a2a2a}
+.android .phone .key{display:none}
+.android .phone .scr{border-radius:28em}
+.android .sys-top{padding:0 18em 6em}
+.android .sys-top .clk{font-size:13em}
+.android .sys-bot::after{width:110em;height:4em;bottom:6em}
+.devsw{display:inline-flex;gap:4px;padding:4px;border-radius:100px;background:var(--card);margin-top:26px;position:relative;z-index:5}
+.devsw button{font:inherit;font-size:.82rem;font-weight:700;border:0;cursor:pointer;padding:8px 16px;border-radius:100px;
+  background:transparent;color:var(--fg-2);display:flex;align-items:center;gap:7px;transition:background .2s,color .2s}
+.devsw button.on{background:var(--btn);color:var(--btn-fg)}
+.devsw svg{width:15px;height:15px}
+.stage{position:relative;display:flex;flex-direction:column;align-items:center;padding:30px 0}
 .stage .phone{--w:min(320px,72vw);animation:float 7s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(1deg)}}
 .fade img{opacity:0;transition:opacity .9s ease}
@@ -114,11 +143,11 @@ h1 .hl{background:var(--lav);color:var(--lav-ink);padding:0 .18em;border-radius:
   font-size:.85rem;font-weight:700;box-shadow:0 14px 30px -18px rgba(0,0,0,.4);white-space:nowrap;
   animation:bob 5s ease-in-out infinite}
 .chip small{display:block;font-weight:500;opacity:.75;font-size:.74rem}
-.chip.c1{background:var(--mint);color:var(--mint-ink);top:14%;left:-2%}
-.chip.c2{background:var(--butter);color:var(--butter-ink);top:48%;right:-6%;animation-delay:-1.6s}
-.chip.c3{background:var(--lav);color:var(--lav-ink);bottom:12%;left:2%;animation-delay:-3.2s}
+.chip.c1{background:var(--mint);color:var(--mint-ink);top:34%;left:-7%}
+.chip.c2{background:var(--butter);color:var(--butter-ink);top:56%;right:-12%;animation-delay:-1.6s}
+.chip.c3{background:var(--lav);color:var(--lav-ink);bottom:24%;left:-7%;animation-delay:-3.2s}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@media(max-width:560px){.chip{font-size:.72rem;padding:8px 11px}.chip.c1{left:3%}.chip.c2{right:3%}.chip.c3{left:5%}}
+@media(max-width:560px){.chip{font-size:.72rem;padding:8px 11px}.chip.c1{left:2%;top:36%}.chip.c2{right:2%}.chip.c3{left:3%;bottom:26%}}
 
 /* ── marquee ────────────────────────────────────────────── */
 .marquee{overflow:hidden;border-block:1px solid var(--line);padding:16px 0;background:var(--bg-2)}
@@ -168,7 +197,7 @@ ul.ticks b{color:var(--fg)}
 .panel{border-radius:40px;padding:48px 20px;display:grid;place-items:center;position:relative;overflow:hidden}
 .panel.lav{background:var(--lav)}.panel.sky{background:var(--sky)}.panel.mint{background:var(--mint)}
 .panel.butter{background:var(--butter)}.panel.peach{background:var(--peach)}
-.panel .phone{--w:min(280px,64vw)}
+.panel .phone{--w:min(280px,62vw)}
 .pills{display:flex;flex-wrap:wrap;gap:8px}
 .pill{font-size:.78rem;font-weight:700;padding:6px 12px;border-radius:100px;background:var(--card);color:var(--fg-2)}
 
@@ -187,16 +216,14 @@ ul.ticks b{color:var(--fg)}
 .rule p{color:var(--fg-2);font-size:.9rem}
 
 /* compare slider */
-.compare{position:relative;width:min(340px,80vw);margin:44px auto 0;aspect-ratio:600/1248;border-radius:44px;overflow:hidden;
-  background:var(--bezel);padding:12px;box-shadow:0 30px 60px -30px rgba(0,0,0,.35);user-select:none;touch-action:pan-y}
-.compare .in{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden}
-.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
-.compare .dark{clip-path:inset(0 0 0 var(--x,50%))}
-.compare .bar{position:absolute;top:0;bottom:0;left:var(--x,50%);width:3px;background:#fff;transform:translateX(-50%);z-index:2;pointer-events:none}
-.compare .knob{position:absolute;top:50%;left:var(--x,50%);width:46px;height:46px;border-radius:50%;background:#fff;color:#141416;
-  transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center;font-weight:900;box-shadow:0 6px 20px rgba(0,0,0,.3);pointer-events:none}
-.compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:4;margin:0}
-.labels{display:flex;justify-content:space-between;width:min(340px,80vw);margin:14px auto 0;font-size:.82rem;font-weight:700;color:var(--fg-3)}
+.compare{--w:min(330px,78vw);margin-top:44px;user-select:none;touch-action:pan-y}
+.compare .layer.dark{clip-path:inset(0 0 0 var(--x,50%))}
+.compare .bar{position:absolute;top:0;bottom:0;left:var(--x,50%);width:3em;background:#fff;transform:translateX(-50%);z-index:24;pointer-events:none;box-shadow:0 0 8em rgba(0,0,0,.35)}
+.compare .knob{position:absolute;top:50%;left:var(--x,50%);width:46em;height:46em;border-radius:50%;background:#fff;color:#141416;font-size:inherit;
+  transform:translate(-50%,-50%);z-index:25;display:grid;place-items:center;box-shadow:0 6em 20em rgba(0,0,0,.3);pointer-events:none}
+.compare .knob span{font-size:20em;font-weight:900}
+.compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:26;margin:0}
+.labels{display:flex;justify-content:space-between;width:min(330px,78vw);margin:14px auto 0;font-size:.82rem;font-weight:700;color:var(--fg-3)}
 
 /* tech grid */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
@@ -288,6 +315,10 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
       <img src="shots/editor.webp" alt="Editor reading 'Take BP tablet every day at 9pm' as a daily 9 PM reminder" width="600" height="1248" loading="lazy">
       <img src="shots/home-dark.webp" alt="Home screen in dark mode" width="600" height="1248" loading="lazy">
     </div></div>
+    <div class="devsw" role="group" aria-label="Phone frame">
+      <button data-dev="android"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="5" r=".6" fill="currentColor"/></svg>Android</button>
+      <button data-dev="ios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10.5 4.5h3"/></svg>iPhone</button>
+    </div>
     <div class="chip c1">✓ <span>Mom marked it done<small>Take BP tablet · 9:00 PM</small></span></div>
     <div class="chip c2">⏰ <span>Snoozed 3× — family told<small>Pay electricity bill</small></span></div>
     <div class="chip c3">🔁 <span>Daily at 9:00 PM<small>read from what you typed</small></span></div>
@@ -394,14 +425,12 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
     <h2>Soft on the eyes, day or night</h2>
     <p class="lead">Pastels that are calm in daylight and muted after dark — never neon. Drag to compare.</p>
   </div>
-  <div class="compare reveal" data-d="1" id="compare">
-    <div class="in">
-      <img src="shots/home.webp" alt="Home in light mode" loading="lazy" width="600" height="1248">
-      <img class="dark" src="shots/home-dark.webp" alt="Home in dark mode" loading="lazy" width="600" height="1248">
-    </div>
-    <div class="bar"></div><div class="knob">⇆</div>
+  <div class="phone compare reveal" data-d="1" id="compare"><div class="scr">
+    <div class="layer"><img src="shots/home.webp" alt="Home in light mode" loading="lazy" width="600" height="1248"></div>
+    <div class="layer dark"><img src="shots/home-dark.webp" alt="Home in dark mode" loading="lazy" width="600" height="1248"></div>
+    <div class="bar"></div><div class="knob"><span>⇆</span></div>
     <input type="range" min="0" max="100" value="50" aria-label="Compare light and dark mode">
-  </div>
+  </div></div>
   <div class="labels"><span>Light</span><span>Dark</span></div>
 </section>
 
@@ -522,6 +551,42 @@ document.getElementById('theme').onclick = () => {
   try { localStorage.setItem('sc-theme', root.dataset.theme); } catch (e) {}
 };
 
+// Device chrome: keys, status bar and home bar, coloured to each screenshot.
+const COLORS = {"editor":["#ffffff","#ffffff"],"home":["#ffffff","#ffffff"],"home-dark":["#000000","#000000"],
+  "onb1":["#000000","#000000"],"onb2":["#000000","#000000"],"onb3":["#000000","#000000"],
+  "plan":["#ffffff","#ffffff"],"plan-dark":["#000000","#000000"],"settings":["#ffffff","#ffffff"],
+  "team-activity":["#ffffff","#ffffff"],"team-detail":["#ffffff","#ffffff"],"team-create":["#868686","#f0eff2"],
+  "team-create2":["#868686","#f0eff2"],"team-invite":["#767676","#f0eff2"],"team-settings":["#767676","#f0eff2"]};
+const lum = h => { const n = parseInt(h.slice(1), 16); return (.299 * (n >> 16) + .587 * (n >> 8 & 255) + .114 * (n & 255)) / 255; };
+const nameOf = img => img.getAttribute('src').split('/').pop().replace('.webp', '');
+function paint(el, name) {
+  const [t, b] = COLORS[name] || ['#ffffff', '#ffffff'];
+  el.style.setProperty('--bar', t); el.style.setProperty('--bar-fg', lum(t) > .6 ? '#111' : '#fff');
+  el.style.setProperty('--bot-bg', b); el.style.setProperty('--ind', lum(b) > .6 ? '#111' : '#fff');
+}
+const STATUS = '<span class="clk">9:41</span><span class="ico">'
+  + '<svg viewBox="0 0 17 11" fill="currentColor"><rect y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" width="3" height="11" rx="1"/></svg>'
+  + '<svg viewBox="0 0 16 12" fill="currentColor"><path d="M8 11.2 6.1 9.1a2.8 2.8 0 0 1 3.8 0L8 11.2Zm3.6-3.9a6 6 0 0 0-7.2 0L2.9 5.6a8.2 8.2 0 0 1 10.2 0l-1.5 1.7ZM15 3.9a10.6 10.6 0 0 0-14 0L-.4 2.2a12.8 12.8 0 0 1 16.8 0L15 3.9Z"/></svg>'
+  + '<svg viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="20" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".5"/><rect x="2.2" y="2.2" width="16.8" height="7.6" rx="1.8" fill="currentColor"/><path d="M22.4 4.2v3.6a2 2 0 0 0 0-3.6Z" fill="currentColor" fill-opacity=".5"/></svg></span>';
+document.querySelectorAll('.phone').forEach(p => {
+  p.insertAdjacentHTML('afterbegin', '<i class="key k-act"></i><i class="key k-up"></i><i class="key k-dn"></i><i class="key k-pw"></i>');
+  const layers = p.querySelectorAll('.layer');
+  (layers.length ? [...layers] : [p.querySelector('.scr')]).forEach(h => {
+    h.insertAdjacentHTML('beforeend', `<div class="sys-top">${STATUS}</div><div class="sys-bot"></div>`);
+    paint(h, nameOf(h.querySelector('img.on') || h.querySelector('img')));
+  });
+});
+
+// iPhone or Android frame. Android by default — SynClock is an Android app.
+const setDev = d => {
+  document.body.classList.toggle('android', d === 'android');
+  document.querySelectorAll('.devsw button').forEach(b => b.classList.toggle('on', b.dataset.dev === d));
+  try { localStorage.setItem('sc-dev', d); } catch (e) {}
+};
+let dev = 'android'; try { dev = localStorage.getItem('sc-dev') || dev; } catch (e) {}
+setDev(dev);
+document.querySelectorAll('.devsw button').forEach(b => b.onclick = () => setDev(b.dataset.dev));
+
 // Header border once scrolled.
 const hdr = document.getElementById('hdr');
 addEventListener('scroll', () => hdr.classList.toggle('stuck', scrollY > 10), { passive: true });
@@ -542,7 +607,8 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 // Hero phone crossfades through the app.
 const shots = [...document.querySelectorAll('#heroPhone img')];
 let s = 0;
-if (!reduce) setInterval(() => { shots[s].classList.remove('on'); s = (s + 1) % shots.length; shots[s].classList.add('on'); }, 3200);
+const heroScr = document.querySelector('#heroPhone .scr');
+if (!reduce) setInterval(() => { shots[s].classList.remove('on'); s = (s + 1) % shots.length; shots[s].classList.add('on'); paint(heroScr, nameOf(shots[s])); }, 3200);
 
 // Marquee of things people actually type.
 const said = ['call mom <b>tomorrow at 8pm</b>','take BP tablet <b>every day at 9pm</b>','pay rent <b>friday 10am</b>','dentist <b>in 2 hours</b>',
