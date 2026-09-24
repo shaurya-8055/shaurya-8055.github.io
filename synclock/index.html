@@ -3,302 +3,497 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SynClock</title>
-<meta name="description" content="Reminders that fire with or without signal. Say it in plain English, SynClock schedules it.">
-<meta property="og:title" content="SynClock — reminders that fire, signal or not">
-<meta property="og:description" content="Offline-first Android reminders with natural-language scheduling, exact alarms and shared team lists.">
-<meta property="og:image" content="https://shaurya-8055.github.io/synclock/logo512.png">
+<title>SynClock — Family Reminders</title>
+<meta name="description" content="Type a reminder the way you'd say it. Share it with family, and know it actually got done. Exact alarms, voice read-aloud in Hindi and English, and gentle accountability.">
+<meta property="og:title" content="SynClock — Type it. Share it. Know it got done.">
+<meta property="og:description" content="Android reminders for families: plain-English scheduling, shared teams with rules, nudges, and read-aloud reminders for parents.">
+<meta property="og:image" content="https://shaurya-8055.github.io/synclock/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0e" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="apple-touch-icon" href="logo192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ── tokens: lifted from the app itself ───────────────────────── */
+/* Tokens are the app's own pastel palette. Flat colour only — the app has
+   no gradients, so neither does its page. */
 :root{
-  --ink:#05070a; --ink-2:#0b1014; --card:#111a1f; --line:#1c2a31; --line-2:#2a3c45;
-  --fg:#eef6f6; --fg-2:#9db0b4; --fg-3:#6a8087;
-  --teal:#18e0c8; --teal-2:#0fb7a4; --glow:rgba(24,224,200,.22);
-  --r:18px; --max:1140px;
-  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --bg:#ffffff; --bg-2:#f6f5f3; --card:#f1f0ee; --line:#e7e5e1;
+  --fg:#141416; --fg-2:#55555c; --fg-3:#8a8a92;
+  --lav:#e7dafb; --lav-ink:#3e2474; --sky:#d6e7fc; --sky-ink:#133e70;
+  --mint:#c9f2d8; --mint-ink:#144d2c; --butter:#fde8ae; --butter-ink:#5c3d05;
+  --peach:#fbddd2; --peach-ink:#6e2a14; --blush:#fbd7e4; --blush-ink:#6d1d3f;
+  --btn:#141416; --btn-fg:#ffffff; --bezel:#141416;
+  --r:28px; --max:1160px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b0b0e; --bg-2:#111115; --card:#17171c; --line:#24242b;
+  --fg:#f2f2f5; --fg-2:#a9a9b3; --fg-3:#72727c;
+  --lav:#2c2540; --lav-ink:#c9b6ee; --sky:#1d2b3d; --sky-ink:#a8c6ec;
+  --mint:#1e3328; --mint-ink:#9ed9b2; --butter:#362e1c; --butter-ink:#e6cd8a;
+  --peach:#3a2a22; --peach-ink:#edbba2; --blush:#3a2230; --blush-ink:#eba8c1;
+  --btn:#f2f2f5; --btn-fg:#0b0b0e; --bezel:#2a2a31;
+}}
+:root[data-theme="dark"]{
+  --bg:#0b0b0e; --bg-2:#111115; --card:#17171c; --line:#24242b;
+  --fg:#f2f2f5; --fg-2:#a9a9b3; --fg-3:#72727c;
+  --lav:#2c2540; --lav-ink:#c9b6ee; --sky:#1d2b3d; --sky-ink:#a8c6ec;
+  --mint:#1e3328; --mint-ink:#9ed9b2; --butter:#362e1c; --butter-ink:#e6cd8a;
+  --peach:#3a2a22; --peach-ink:#edbba2; --blush:#3a2230; --blush-ink:#eba8c1;
+  --btn:#f2f2f5; --btn-fg:#0b0b0e; --bezel:#2a2a31;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body{background:var(--ink);color:var(--fg);font-family:Manrope,system-ui,-apple-system,sans-serif;
-  line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:20px;position:relative;z-index:1}
+body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,sans-serif;
+  line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s}
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:20px}
 a{color:inherit;text-decoration:none}
-:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:8px}
 img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--lav-ink);outline-offset:3px;border-radius:10px}
+.dot{color:var(--lav-ink)}
 
-/* ── ambient light ────────────────────────────────────────────── */
-.aura{position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:
-    radial-gradient(48rem 30rem at 72% -8%, rgba(24,224,200,.16), transparent 62%),
-    radial-gradient(38rem 26rem at 8% 12%, rgba(24,224,200,.07), transparent 65%);}
-.grid-lines{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:72px 72px;
-  mask-image:radial-gradient(ellipse 80% 55% at 50% 0%, #000 20%, transparent 75%);
-  -webkit-mask-image:radial-gradient(ellipse 80% 55% at 50% 0%, #000 20%, transparent 75%);}
-
-/* ── nav ──────────────────────────────────────────────────────── */
-header{position:sticky;top:0;z-index:60;backdrop-filter:blur(16px) saturate(140%);
-  background:color-mix(in srgb,var(--ink) 72%,transparent);border-bottom:1px solid transparent;transition:border-color .3s}
+/* ── header ─────────────────────────────────────────────── */
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);
+  backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
 header.stuck{border-bottom-color:var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:18px}
-.logo{display:flex;align-items:center;gap:0;font-weight:800;letter-spacing:-.03em;font-size:1.12rem}
-.logo .mark{margin-right:10px;width:30px;height:30px;border-radius:9px;display:block;
-  box-shadow:0 8px 20px -8px var(--glow)}
-.logo .dot{color:var(--teal)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.03em;font-size:1.15rem}
+.logo img{width:30px;height:30px;border-radius:9px}
+.links{display:flex;gap:26px;font-size:.92rem;color:var(--fg-2);font-weight:500}
+.links a:hover{color:var(--fg)}
+@media(max-width:820px){.links{display:none}}
+.right{display:flex;gap:10px;align-items:center}
+.icon-btn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--card);
+  border:0;color:var(--fg);cursor:pointer;transition:transform .2s var(--ease)}
+.icon-btn:hover{transform:rotate(-18deg)}
+.btn{display:inline-flex;align-items:center;gap:9px;font:inherit;font-size:.94rem;font-weight:700;padding:12px 22px;
+  border-radius:100px;border:0;cursor:pointer;background:var(--card);color:var(--fg);
+  transition:transform .22s var(--ease),background .22s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn.solid{background:var(--btn);color:var(--btn-fg)}
+.btn.lav{background:var(--lav);color:var(--lav-ink)}
+.btn svg{width:18px;height:18px}
 
-.btn{display:inline-flex;align-items:center;gap:9px;font-size:.9rem;font-weight:650;padding:11px 20px;
-  border-radius:100px;border:1px solid var(--line-2);color:var(--fg);background:rgba(255,255,255,.02);
-  transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,background .22s;white-space:nowrap}
-.btn:hover{transform:translateY(-2px);border-color:var(--teal);background:rgba(24,224,200,.06)}
-.btn.solid{background:linear-gradient(140deg,var(--teal),var(--teal-2));border-color:transparent;color:#04120f;
-  box-shadow:0 10px 30px -12px var(--glow)}
-.btn.solid:hover{box-shadow:0 16px 40px -12px var(--glow);transform:translateY(-2px)}
-
-/* ── hero ─────────────────────────────────────────────────────── */
-.hero{padding:48px 0 28px;display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
-@media(max-width:900px){.hero{grid-template-columns:1fr;gap:28px;padding-top:36px;text-align:center}}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;
-  color:var(--teal);border:1px solid rgba(24,224,200,.28);background:rgba(24,224,200,.07);
-  padding:7px 14px;border-radius:100px;margin-bottom:24px}
-.pulse{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 var(--glow);animation:p 2.4s infinite}
-@keyframes p{0%{box-shadow:0 0 0 0 rgba(24,224,200,.5)}70%{box-shadow:0 0 0 9px rgba(24,224,200,0)}100%{box-shadow:0 0 0 0 rgba(24,224,200,0)}}
-h1{text-wrap:balance;font-size:clamp(2.5rem,5.6vw,4.15rem);line-height:1.02;letter-spacing:-.045em;font-weight:800;margin-bottom:20px}
-h1 em{font-style:normal;background:linear-gradient(120deg,var(--teal),#7ff0e0);-webkit-background-clip:text;
-  background-clip:text;-webkit-text-fill-color:transparent}
-.sub{font-size:clamp(1.02rem,2vw,1.18rem);color:var(--fg-2);max-width:50ch;margin-bottom:32px}
+/* ── hero ───────────────────────────────────────────────── */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:56px 0 40px}
+@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:center;padding-top:32px}}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;padding:7px 14px;border-radius:100px;
+  background:var(--mint);color:var(--mint-ink);margin-bottom:22px}
+.tag i{width:8px;height:8px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,currentColor 50%,transparent)}80%,100%{box-shadow:0 0 0 9px transparent}}
+h1{font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.05em;font-weight:900;margin-bottom:20px;text-wrap:balance}
+h1 .w{display:inline-block;opacity:0;transform:translateY(.4em);animation:rise .7s var(--ease) forwards}
+h1 .w:nth-child(2){animation-delay:.12s} h1 .w:nth-child(3){animation-delay:.24s}
+h1 .hl{background:var(--lav);color:var(--lav-ink);padding:0 .18em;border-radius:.22em}
+@keyframes rise{to{opacity:1;transform:none}}
+.sub{font-size:clamp(1.03rem,2vw,1.2rem);color:var(--fg-2);max-width:48ch;margin-bottom:30px}
 @media(max-width:900px){.sub{margin-inline:auto}}
-.actions{display:flex;gap:13px;flex-wrap:wrap;margin-bottom:22px}
-@media(max-width:900px){.actions{justify-content:center}}
-.meta{font-family:var(--mono);font-size:.76rem;color:var(--fg-3);display:flex;gap:16px;flex-wrap:wrap}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:900px){.cta{justify-content:center}}
+.meta{margin-top:20px;font-size:.84rem;color:var(--fg-3);display:flex;gap:18px;flex-wrap:wrap}
 @media(max-width:900px){.meta{justify-content:center}}
-.meta span{display:inline-flex;align-items:center;gap:6px}
 
-/* ── device ───────────────────────────────────────────────────── */
-/* iPhone 15 Pro frame. 1em = one design pixel, so the whole thing scales
-   from a single height budget and never outgrows the viewport. */
-.device{--h:min(620px,70vh);font-size:calc(var(--h)/852);
-  position:relative;width:393em;height:852em;margin-inline:auto;flex-shrink:0;
-  border-radius:54em;background:#2b2b2b;padding:10em;
-  box-shadow:inset 0 0 0 2em #58585a, inset 0 0 0 6em #000, 0 0 0 3em #454545,
-             0 30em 80em rgba(0,0,0,.6), 0 0 70px -30px var(--glow);
-  animation:float 7s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-/* Dynamic Island */
-.device::before{content:'';position:absolute;top:22em;left:50%;transform:translateX(-50%);
-  width:122em;height:36em;background:#000;border-radius:20em;z-index:25;pointer-events:none}
-/* home indicator */
-.device::after{content:'';position:absolute;bottom:17em;left:50%;transform:translateX(-50%);
-  width:138em;height:5em;background:rgba(255,255,255,.85);border-radius:3em;z-index:26;pointer-events:none}
-.device .scr{width:100%;height:100%;border-radius:44em;overflow:hidden;background:#000;
-  padding-top:52em;padding-bottom:22em;box-sizing:border-box;position:relative}
-.device img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-/* physical buttons */
-.device .b{position:absolute;background:#383838;width:4em;border-radius:2em 0 0 2em;
-  box-shadow:inset -1em 0 1em rgba(255,255,255,.1);z-index:5}
-.device .b.act{top:110em;left:-4em;height:26em}
-.device .b.vu{top:155em;left:-4em;height:45em}
-.device .b.vd{top:215em;left:-4em;height:45em}
-.device .b.pw{top:160em;right:-4em;height:80em;border-radius:0 2em 2em 0}
-.device .halo{position:absolute;inset:-14%;border-radius:50%;z-index:-1;
-  background:radial-gradient(circle,var(--glow),transparent 66%);filter:blur(28px)}
+/* phone: Android-style flat bezel with a punch-hole */
+.phone{--w:300px;position:relative;width:var(--w);aspect-ratio:600/1248;border-radius:calc(var(--w)*.13);
+  background:var(--bezel);padding:calc(var(--w)*.035);flex-shrink:0;margin-inline:auto;
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+.phone::before{content:'';position:absolute;top:calc(var(--w)*.06);left:50%;width:calc(var(--w)*.035);aspect-ratio:1;
+  border-radius:50%;background:#000;transform:translateX(-50%);z-index:3;box-shadow:0 0 0 2px #222}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:calc(var(--w)*.1);overflow:hidden;background:var(--bg-2)}
+.phone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.stage{position:relative;display:grid;place-items:center;padding:30px 0}
+.stage .phone{--w:min(320px,72vw);animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(1deg)}}
+.fade img{opacity:0;transition:opacity .9s ease}
+.fade img.on{opacity:1}
+.chip{position:absolute;z-index:4;display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:18px;
+  font-size:.85rem;font-weight:700;box-shadow:0 14px 30px -18px rgba(0,0,0,.4);white-space:nowrap;
+  animation:bob 5s ease-in-out infinite}
+.chip small{display:block;font-weight:500;opacity:.75;font-size:.74rem}
+.chip.c1{background:var(--mint);color:var(--mint-ink);top:14%;left:-2%}
+.chip.c2{background:var(--butter);color:var(--butter-ink);top:48%;right:-6%;animation-delay:-1.6s}
+.chip.c3{background:var(--lav);color:var(--lav-ink);bottom:12%;left:2%;animation-delay:-3.2s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(max-width:560px){.chip{font-size:.72rem;padding:8px 11px}.chip.c1{left:3%}.chip.c2{right:3%}.chip.c3{left:5%}}
 
-/* ── sections ─────────────────────────────────────────────────── */
-section{padding:60px 0;position:relative}
-.kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
-h2{font-size:clamp(1.85rem,3.6vw,2.7rem);letter-spacing:-.035em;line-height:1.1;font-weight:800;margin-bottom:16px}
-.lead{color:var(--fg-2);font-size:1.03rem;max-width:56ch}
+/* ── marquee ────────────────────────────────────────────── */
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding:16px 0;background:var(--bg-2)}
+.track{display:flex;gap:14px;width:max-content;animation:slide 38s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.track span{padding:9px 16px;border-radius:100px;background:var(--card);font-size:.9rem;font-weight:600;color:var(--fg-2)}
+.track span b{color:var(--fg);font-weight:700}
 
-/* alternating showcase */
-.show{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:64px}
-.show:nth-child(even) .copy{order:2}
-@media(max-width:860px){.show{grid-template-columns:1fr;gap:28px;margin-bottom:48px}.show:nth-child(even) .copy{order:0}}
-.show .phone{--h:min(540px,64vh);font-size:calc(var(--h)/852);
-  position:relative;width:393em;height:852em;margin-inline:auto;flex-shrink:0;
-  border-radius:54em;background:#2b2b2b;padding:10em;
-  box-shadow:inset 0 0 0 2em #58585a, inset 0 0 0 6em #000, 0 0 0 3em #454545,
-             0 30em 80em rgba(0,0,0,.55)}
-.show .phone::before{content:'';position:absolute;top:22em;left:50%;transform:translateX(-50%);
-  width:122em;height:36em;background:#000;border-radius:20em;z-index:25}
-.show .phone::after{content:'';position:absolute;bottom:17em;left:50%;transform:translateX(-50%);
-  width:138em;height:5em;background:rgba(255,255,255,.8);border-radius:3em;z-index:26}
-.show .phone .scr{width:100%;height:100%;border-radius:44em;overflow:hidden;background:#000;
-  padding-top:52em;padding-bottom:22em;box-sizing:border-box}
-.show .phone img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-.show .phone .b{position:absolute;background:#383838;width:4em;border-radius:2em 0 0 2em;z-index:5}
-.show .phone .b.act{top:110em;left:-4em;height:26em}
-.show .phone .b.vu{top:155em;left:-4em;height:45em}
-.show .phone .b.vd{top:215em;left:-4em;height:45em}
-.show .phone .b.pw{top:160em;right:-4em;height:80em;border-radius:0 2em 2em 0}
-.show h3{font-size:1.5rem;letter-spacing:-.025em;margin-bottom:12px;font-weight:750}
-.show p{color:var(--fg-2);margin-bottom:16px}
+/* ── sections ───────────────────────────────────────────── */
+section{padding:84px 0}
+.kicker{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--lav-ink);margin-bottom:12px}
+h2{font-size:clamp(1.9rem,4vw,3rem);line-height:1.08;letter-spacing:-.04em;font-weight:850;margin-bottom:16px;text-wrap:balance}
+.lead{color:var(--fg-2);font-size:1.06rem;max-width:60ch}
+.center{text-align:center}.center .lead{margin-inline:auto}
+
+/* typing demo */
+.demo{margin-top:40px;display:grid;grid-template-columns:1fr auto 1fr;gap:22px;align-items:center}
+@media(max-width:820px){.demo{grid-template-columns:1fr}.demo .arrow{transform:rotate(90deg);justify-self:center}}
+.field{background:var(--card);border-radius:24px;padding:22px 24px;font-size:1.25rem;font-weight:600;min-height:76px;
+  display:flex;align-items:center;gap:12px}
+.field svg{flex-shrink:0;color:var(--fg-3)}
+.caret{display:inline-block;width:2px;height:1.2em;background:var(--lav-ink);margin-left:2px;vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.arrow{font-size:1.6rem;color:var(--fg-3)}
+.result{background:var(--sky);color:var(--sky-ink);border-radius:24px;padding:18px 20px;display:flex;align-items:center;gap:14px;
+  min-height:76px;transition:transform .45s var(--ease),opacity .35s}
+.result.hide{opacity:0;transform:scale(.94) translateY(8px)}
+.result .ic{width:44px;height:44px;border-radius:14px;background:color-mix(in srgb,var(--sky-ink) 14%,transparent);display:grid;place-items:center;flex-shrink:0}
+.result b{display:block;font-size:1.08rem}
+.result span{font-size:.9rem;opacity:.8}
+.result .rep{margin-left:auto;font-size:.76rem;font-weight:800;padding:5px 10px;border-radius:100px;background:var(--lav);color:var(--lav-ink)}
+.note{margin-top:14px;font-size:.84rem;color:var(--fg-3);text-align:center}
+
+/* feature rows */
+.row{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.row + .row{margin-top:96px}
+.row.flip .copy{order:2}
+@media(max-width:860px){.row{grid-template-columns:1fr;gap:36px}.row.flip .copy{order:0}}
+.row h3{font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.035em;line-height:1.1;font-weight:850;margin-bottom:14px}
+.row p{color:var(--fg-2);margin-bottom:18px}
+ul.ticks{list-style:none;display:grid;gap:12px;margin:22px 0}
+ul.ticks li{display:flex;gap:12px;align-items:flex-start;color:var(--fg-2);font-size:.97rem}
+ul.ticks li::before{content:'✓';flex-shrink:0;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  background:var(--mint);color:var(--mint-ink);font-size:.78rem;font-weight:900;margin-top:1px}
+ul.ticks b{color:var(--fg)}
+.panel{border-radius:40px;padding:48px 20px;display:grid;place-items:center;position:relative;overflow:hidden}
+.panel.lav{background:var(--lav)}.panel.sky{background:var(--sky)}.panel.mint{background:var(--mint)}
+.panel.butter{background:var(--butter)}.panel.peach{background:var(--peach)}
+.panel .phone{--w:min(280px,64vw)}
 .pills{display:flex;flex-wrap:wrap;gap:8px}
-.pill{font-family:var(--mono);font-size:.72rem;color:var(--fg-2);border:1px solid var(--line);
-  background:rgba(255,255,255,.02);border-radius:7px;padding:4px 10px}
+.pill{font-size:.78rem;font-weight:700;padding:6px 12px;border-radius:100px;background:var(--card);color:var(--fg-2)}
 
-/* feature grid */
-.feat{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
-  grid-template-columns:repeat(auto-fit,minmax(252px,1fr))}
-.feat > div{background:var(--ink-2);padding:28px 24px;transition:background .25s}
-.feat > div:hover{background:var(--card)}
-.feat .ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;margin-bottom:14px;
-  background:rgba(24,224,200,.09);border:1px solid rgba(24,224,200,.2);font-size:1.05rem}
-.feat h4{font-size:1rem;margin-bottom:6px;font-weight:700;letter-spacing:-.015em}
-.feat p{color:var(--fg-2);font-size:.9rem}
+/* team trio */
+.trio{display:flex;justify-content:center;align-items:flex-end;gap:22px;margin-top:48px;perspective:1200px}
+.trio .phone{--w:min(250px,28vw)}
+.trio .phone:nth-child(1){transform:rotate(-5deg) translateY(18px)}
+.trio .phone:nth-child(3){transform:rotate(5deg) translateY(18px)}
+.trio .phone{transition:transform .5s var(--ease)}
+.trio .phone:hover{transform:translateY(-10px) rotate(0)}
+@media(max-width:700px){.trio{gap:10px}.trio .phone{--w:31vw}}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px}
+.rule{background:var(--card);border-radius:22px;padding:22px}
+.rule .em{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;margin-bottom:12px;font-size:1.2rem}
+.rule h4{font-size:1rem;margin-bottom:4px}
+.rule p{color:var(--fg-2);font-size:.9rem}
+
+/* compare slider */
+.compare{position:relative;width:min(340px,80vw);margin:44px auto 0;aspect-ratio:600/1248;border-radius:44px;overflow:hidden;
+  background:var(--bezel);padding:12px;box-shadow:0 30px 60px -30px rgba(0,0,0,.35);user-select:none;touch-action:pan-y}
+.compare .in{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.compare .dark{clip-path:inset(0 0 0 var(--x,50%))}
+.compare .bar{position:absolute;top:0;bottom:0;left:var(--x,50%);width:3px;background:#fff;transform:translateX(-50%);z-index:2;pointer-events:none}
+.compare .knob{position:absolute;top:50%;left:var(--x,50%);width:46px;height:46px;border-radius:50%;background:#fff;color:#141416;
+  transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center;font-weight:900;box-shadow:0 6px 20px rgba(0,0,0,.3);pointer-events:none}
+.compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:4;margin:0}
+.labels{display:flex;justify-content:space-between;width:min(340px,80vw);margin:14px auto 0;font-size:.82rem;font-weight:700;color:var(--fg-3)}
+
+/* tech grid */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+@media(max-width:900px){.rules,.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.rules,.grid{grid-template-columns:1fr}}
+.cell{background:var(--card);border-radius:24px;padding:26px;transition:transform .3s var(--ease)}
+.cell:hover{transform:translateY(-4px)}
+.cell .em{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:1.25rem;margin-bottom:14px}
+.cell h4{font-size:1.05rem;margin-bottom:6px;letter-spacing:-.01em}
+.cell p{color:var(--fg-2);font-size:.92rem}
+.t-lav{background:var(--lav);color:var(--lav-ink)}.t-sky{background:var(--sky);color:var(--sky-ink)}
+.t-mint{background:var(--mint);color:var(--mint-ink)}.t-butter{background:var(--butter);color:var(--butter-ink)}
+.t-peach{background:var(--peach);color:var(--peach-ink)}.t-blush{background:var(--blush);color:var(--blush-ink)}
+
+/* gallery */
+.gallery{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 20px 26px;margin-top:40px;scrollbar-width:thin}
+.gallery figure{scroll-snap-align:center;flex-shrink:0}
+.gallery .phone{--w:220px}
+.gallery figcaption{text-align:center;font-size:.84rem;font-weight:600;color:var(--fg-2);margin-top:12px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{border-radius:24px;padding:24px;text-align:center}
+.stat b{display:block;font-size:2.2rem;font-weight:900;letter-spacing:-.04em;line-height:1.1}
+.stat span{font-size:.86rem;font-weight:600;opacity:.8}
 
 /* install */
-.install{background:var(--ink-2);border:1px solid var(--line);border-radius:22px;padding:44px;
-  display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
-@media(max-width:800px){.install{grid-template-columns:1fr;padding:32px;text-align:center}}
-ol.steps{counter-reset:s;display:grid;gap:13px;margin-top:20px}
-ol.steps li{list-style:none;counter-increment:s;padding-left:40px;position:relative;color:var(--fg-2);font-size:.94rem}
-ol.steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:26px;height:26px;border-radius:9px;
-  background:rgba(24,224,200,.09);border:1px solid rgba(24,224,200,.22);display:grid;place-items:center;
-  font-family:var(--mono);font-size:.76rem;color:var(--teal)}
+.install{background:var(--card);border-radius:36px;padding:48px;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
+@media(max-width:800px){.install{grid-template-columns:1fr;padding:30px;text-align:center}}
+ol.steps{counter-reset:s;display:grid;gap:14px;margin-top:22px}
+ol.steps li{list-style:none;counter-increment:s;padding-left:44px;position:relative;color:var(--fg-2)}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:30px;height:30px;border-radius:50%;
+  background:var(--lav);color:var(--lav-ink);display:grid;place-items:center;font-weight:800;font-size:.84rem}
 @media(max-width:800px){ol.steps li{text-align:left}}
+.changes{margin-top:26px;font-size:.92rem;color:var(--fg-2)}
+.changes summary{cursor:pointer;font-weight:700;color:var(--fg)}
+.changes ul{margin:12px 0 0 20px;display:grid;gap:6px}
 
-/* footer */
-footer{border-top:1px solid var(--line);padding:48px 0 56px;margin-top:40px}
-.foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
-.foot p{color:var(--fg-3);font-size:.88rem}
+footer{border-top:1px solid var(--line);padding:40px 0 56px}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;color:var(--fg-3);font-size:.9rem}
 .foot nav{display:flex;gap:22px}
-.foot nav a{color:var(--fg-2);font-size:.9rem;transition:color .2s}
-.foot nav a:hover{color:var(--teal)}
+.foot nav a:hover{color:var(--fg)}
 
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .75s cubic-bezier(.2,.8,.2,1),transform .75s cubic-bezier(.2,.8,.2,1)}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.1s}.reveal[data-d="2"]{transition-delay:.2s}.reveal[data-d="3"]{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal,h1 .w{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
-<div class="aura"></div><div class="grid-lines"></div>
 
 <header id="hdr"><div class="wrap nav">
-  <a class="logo" href="#top"><img class="mark" src="logo.svg" width="30" height="30" alt="">SynClock<span class="dot">.</span></a>
-  <a class="btn solid" href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">Download</a>
+  <a class="logo" href="#top"><img src="logo.svg" width="30" height="30" alt=""><span>SynClock<span class="dot">.</span></span></a>
+  <nav class="links">
+    <a href="#type">Just type it</a><a href="#teams">Teams</a><a href="#voice">Voice</a><a href="#built">How it works</a><a href="#privacy">Privacy</a>
+  </nav>
+  <div class="right">
+    <button class="icon-btn" id="theme" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+    <a class="btn solid" href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">Download</a>
+  </div>
 </div></header>
 
 <main id="top">
 
 <div class="wrap hero">
   <div>
-    <span class="eyebrow"><span class="pulse"></span> Android · Play Store internal testing</span>
-    <h1>Reminders that fire.<br><em>Signal or not.</em></h1>
-    <p class="sub">Say it the way you'd say it to a person. SynClock turns "remind me to submit the design review every Tuesday at 10" into a real recurring schedule, then fires it on time even with the network gone.</p>
-    <div class="actions">
-      <a class="btn solid" href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">Download the APK</a>
-      <a class="btn" href="#tour">Take the tour</a>
+    <span class="tag"><i></i> v1.0.13 · Coming soon to Google Play</span>
+    <h1><span class="w">Type it.</span> <span class="w">Share it.</span> <span class="w"><span class="hl">Know it got done.</span></span></h1>
+    <p class="sub">SynClock turns “call mom tomorrow at 8pm” into a reminder that rings on time — even offline. Share it with family, and when someone keeps snoozing, the people who asked find out.</p>
+    <div class="cta">
+      <a class="btn solid" href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+        Download for Android</a>
+      <a class="btn lav" href="#type">See how it works</a>
     </div>
-    <div class="meta">
-      <span>◈ Android 8.0+</span><span>◈ Always the newest build</span><span>◈ Free</span>
-    </div>
+    <div class="meta"><span>Android 8.0+</span><span>Free to use</span><span>No ads</span><span>English &amp; Hindi voice</span></div>
   </div>
-  <div class="device"><div class="halo"></div><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/home.png" alt="SynClock home screen with a live clock, AI assistant and focus session" width="540" height="1143"></div></div>
+  <div class="stage">
+    <div class="phone fade" id="heroPhone"><div class="scr">
+      <img class="on" src="shots/home.webp" alt="Home screen: greeting, next-up Standup call with Done and Snooze, quick add" width="600" height="1248">
+      <img src="shots/plan.webp" alt="Plan screen grouped into Daily, Today and This week" width="600" height="1248" loading="lazy">
+      <img src="shots/editor.webp" alt="Editor reading 'Take BP tablet every day at 9pm' as a daily 9 PM reminder" width="600" height="1248" loading="lazy">
+      <img src="shots/home-dark.webp" alt="Home screen in dark mode" width="600" height="1248" loading="lazy">
+    </div></div>
+    <div class="chip c1">✓ <span>Mom marked it done<small>Take BP tablet · 9:00 PM</small></span></div>
+    <div class="chip c2">⏰ <span>Snoozed 3× — family told<small>Pay electricity bill</small></span></div>
+    <div class="chip c3">🔁 <span>Daily at 9:00 PM<small>read from what you typed</small></span></div>
+  </div>
 </div>
 
-<section id="tour" class="wrap">
-  <div class="show reveal">
-    <div class="copy">
-      <p class="kicker">Natural language</p>
-      <h3>Type it like you'd say it</h3>
-      <p>No date pickers, no repeat-rule dropdowns. SynClock reads the sentence, works out the recurrence and shows you exactly what it understood before anything is saved — with alternatives if it guessed differently than you meant.</p>
-      <div class="pills"><span class="pill">Gemini</span><span class="pill">voice input</span><span class="pill">text-to-speech</span><span class="pill">confirm before save</span></div>
+<div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
+
+<!-- ── Just type it ─────────────────────────────────────── -->
+<section id="type" class="wrap">
+  <div class="center reveal">
+    <p class="kicker">Just type it</p>
+    <h2>Write it the way you'd say it</h2>
+    <p class="lead">No date pickers, no repeat dropdowns. SynClock reads the sentence on your phone — in microseconds, with no network — and fills in the day, the time and how often it repeats. Watch:</p>
+  </div>
+  <div class="demo reveal" data-d="1" aria-live="polite">
+    <div class="field"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg><span id="typed"></span><span class="caret"></span></div>
+    <div class="arrow">→</div>
+    <div class="result hide" id="result">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M5 3L2 6M22 6l-3-3"/></svg></div>
+      <div><b id="rTitle">Call mom</b><span id="rWhen">Tomorrow · 8:00 PM</span></div>
+      <span class="rep" id="rRep" hidden>Daily</span>
     </div>
-    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/ai.png" alt="The assistant parsing a sentence into a titled, timed, weekly repeating reminder" loading="lazy" width="540" height="1143"></div></div>
+  </div>
+  <p class="note reveal" data-d="2">Tricky phrasings (“the second Tuesday after Diwali”) fall back to Gemini through SynClock's own server.</p>
+
+  <div class="row" style="margin-top:90px">
+    <div class="copy reveal">
+      <p class="kicker">The editor</p>
+      <h3>Fewer taps than a sticky note</h3>
+      <p>Type one line and press enter. That's the whole flow for most reminders. Everything else is one chip away and stays out of sight until you need it.</p>
+      <ul class="ticks">
+        <li><span><b>Live reading.</b> The day and time pills fill in as you type, and a sparkle shows they came from your words.</span></li>
+        <li><span><b>Repeats understood.</b> “every day”, “weekly”, “every Monday”, “monthly” set the repeat and leave the title clean.</span></li>
+        <li><span><b>Quick moves.</b> +1 hour, Tonight and Tomorrow in one tap; the time turns pink if it's already passed.</span></li>
+        <li><span><b>Extras on demand.</b> Repeat, High priority, Team, Tag and Note — one opens at a time.</span></li>
+      </ul>
+    </div>
+    <div class="panel sky reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/editor.webp" alt="Reminder editor with Today, 9:00 PM and Daily selected" loading="lazy" width="600" height="1248"></div></div></div>
   </div>
 
-  <div class="show reveal">
-    <div class="copy">
-      <p class="kicker">Synclo</p>
-      <h3>An assistant that knows your day</h3>
-      <p>Ask what's on your schedule, how your habits are going, or who's in your team, and get a straight answer. It creates, edits and explains — not a search box wearing a chat costume.</p>
-      <div class="pills"><span class="pill">conversational</span><span class="pill">schedule aware</span><span class="pill">habits &amp; goals</span></div>
+  <div class="row flip">
+    <div class="copy reveal">
+      <p class="kicker">Your day</p>
+      <h3>What's next, and one tap to finish it</h3>
+      <p>Home opens on the one thing that matters now. Done and Snooze sit right on it — no opening, no scrolling. Plan groups the rest by how often it happens.</p>
+      <ul class="ticks">
+        <li><span><b>Next up</b> with a live countdown, and an overdue card that never gets stuck.</span></li>
+        <li><span><b>Snooze in one tap:</b> 5, 15, 30 minutes or an hour — the same everywhere in the app.</span></li>
+        <li><span><b>Done from the notification</b> itself: Done, 15m or Later without opening the app.</span></li>
+        <li><span><b>Home-screen widget</b> that shows what's next and updates live.</span></li>
+      </ul>
     </div>
-    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/chat.png" alt="Chat with Synclo answering a question about today's schedule" loading="lazy" width="540" height="1143"></div></div>
+    <div class="panel lav reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/plan.webp" alt="Plan screen with Next up, Daily, Today and This week sections" loading="lazy" width="600" height="1248"></div></div></div>
   </div>
+</section>
 
-  <div class="show reveal">
-    <div class="copy">
+<!-- ── Teams ────────────────────────────────────────────── -->
+<section id="teams" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="center reveal">
       <p class="kicker">Teams</p>
-      <h3>Reminders that reach someone else</h3>
-      <p>Create a team, share a code that expires in thirty minutes, and send a reminder straight to a teammate's phone. Roles decide who can add: in a P2P team anyone can, in an admin team only the owners and editors.</p>
-      <div class="pills"><span class="pill">invite codes</span><span class="pill">roles</span><span class="pill">push to a member</span><span class="pill">activity log</span></div>
+      <h2>Someone has your back</h2>
+      <p class="lead">Make a team for your family, your flat or your work crew. Send a reminder straight to someone's phone — it rings for them, not you — and hear back the moment they tap Done.</p>
     </div>
-    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/team.png" alt="A team page listing two members, an admin and an editor, with the team actions below" loading="lazy" width="540" height="1143"></div></div>
-  </div>
-
-  <div class="show reveal">
-    <div class="copy">
-      <p class="kicker">Accountability</p>
-      <h3>Who sent what, and when</h3>
-      <p>Every reminder sent, every member who joined or left, in one timeline. The team's reminders sit in their own tab, grouped the same way your own schedule is.</p>
-      <div class="pills"><span class="pill">audit trail</span><span class="pill">overdue &amp; today</span><span class="pill">priority</span></div>
+    <div class="trio reveal" data-d="1">
+      <div class="phone"><div class="scr"><img src="shots/team-create2.webp" alt="Team notification rules: who hears about new, done and snoozed reminders" loading="lazy" width="600" height="1248"></div></div>
+      <div class="phone"><div class="scr"><img src="shots/team-detail.webp" alt="Team page with members, reminders and activity tabs" loading="lazy" width="600" height="1248"></div></div>
+      <div class="phone"><div class="scr"><img src="shots/team-invite.webp" alt="Invite code sheet with a share button" loading="lazy" width="600" height="1248"></div></div>
     </div>
-    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/activity.png" alt="Team activity feed showing reminders sent to a member and a member joining" loading="lazy" width="540" height="1143"></div></div>
-  </div>
-
-  <div class="show reveal">
-    <div class="copy">
-      <p class="kicker">Focus</p>
-      <h3>Silence the noise, keep the important</h3>
-      <p>A Pomodoro timer that also changes what reaches you: switch on Hide Low-Priority and only the reminders that matter get through for the length of the session.</p>
-      <div class="pills"><span class="pill">5m to 1h</span><span class="pill">priority filtering</span><span class="pill">session streaks</span></div>
+    <div class="rules">
+      <div class="rule reveal"><div class="em t-lav">🏠</div><h4>Family, Work or Friends</h4><p>Each kind starts with sensible rules. Family reads aloud and can wake someone for medication; Work stays quiet in meetings.</p></div>
+      <div class="rule reveal" data-d="1"><div class="em t-sky">📣</div><h4>Who hears what</h4><p>New reminders go to everyone, them and the admins, or just them. Done receipts go to everyone, admins, or nobody.</p></div>
+      <div class="rule reveal" data-d="2"><div class="em t-butter">⏰</div><h4>Snooze escalation</h4><p>After 1, 2, 3 or 5 snoozes in a row the team is told — or never. Owners set it once for everyone.</p></div>
+      <div class="rule reveal"><div class="em t-mint">🔑</div><h4>Invite codes</h4><p>An eight-character code that expires in 30 minutes. Only admins can make one; everyone else can share it.</p></div>
+      <div class="rule reveal" data-d="1"><div class="em t-peach">👋</div><h4>Nudges</h4><p>Tap Nudge on a member and they get an “Are you doing it?” with a one-tap “On it” reply.</p></div>
+      <div class="rule reveal" data-d="2"><div class="em t-blush">🌙</div><h4>Quiet hours</h4><p>Team pushes stay silent during your quiet hours — unless the team allows urgent reminders to break through.</p></div>
     </div>
-    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/focus.png" alt="Focus Mode with a 25 minute timer and low-priority filtering" loading="lazy" width="540" height="1143"></div></div>
-  </div>
-
-  <div class="show reveal">
-    <div class="copy">
-      <p class="kicker">Your schedule</p>
-      <h3>Everything, in the order it happens</h3>
-      <p>Upcoming and completed, grouped by how often they repeat. Anything the assistant created is tagged, so you always know what came from a sentence and what you set by hand.</p>
-      <div class="pills"><span class="pill">recurring</span><span class="pill">priorities</span><span class="pill">offline-first</span></div>
-    </div>
-    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/plan.png" alt="Plan screen listing a weekly reminder tagged ai-scheduled" loading="lazy" width="540" height="1143"></div></div>
-  </div>
-
-  <div class="show reveal">
-    <div class="copy">
-      <p class="kicker">Make it yours</p>
-      <h3>Themed, timed, tuned</h3>
-      <p>Pick an accent, set a timezone, choose which sections greet you on the home screen. Small thing — but it's the difference between an app you tolerate and one you keep.</p>
-      <div class="pills"><span class="pill">8 accent colours</span><span class="pill">auto timezone</span><span class="pill">streaks</span></div>
-    </div>
-    <div class="phone"><i class="b act"></i><i class="b vu"></i><i class="b vd"></i><i class="b pw"></i><div class="scr"><img src="shots/settings.png" alt="Settings screen with theme, timezone and accent colour options" loading="lazy" width="540" height="1143"></div></div>
   </div>
 </section>
 
-<section class="wrap reveal" style="padding-top:0">
-  <p class="kicker">Under it</p>
-  <h2>Built for the moment the network isn't there</h2>
-  <p class="lead" style="margin-bottom:34px">A reminder app that only works online isn't a reminder app. These are the parts that make it hold.</p>
-  <div class="feat">
-    <div><div class="ic">⚡</div><h4>Exact alarms</h4><p>AlarmManager fires on the second, through Doze, and re-registers itself after a reboot.</p></div>
-    <div><div class="ic">🔌</div><h4>Offline-first</h4><p>Create and edit with no connection. Firestore reconciles the moment one returns.</p></div>
-    <div><div class="ic">👥</div><h4>Shared lists</h4><p>Team reminders with roles, so a group stays on one schedule without a group chat.</p></div>
-    <div><div class="ic">🔔</div><h4>Push that knows</h4><p>FCM carries teammates' changes; local notifications handle everything on-device.</p></div>
-    <div><div class="ic">☁️</div><h4>Serverless API</h4><p>NestJS on AWS Lambda, 41 endpoints, with backup and export built in.</p></div>
-    <div><div class="ic">🎙️</div><h4>Hands free</h4><p>Speak a reminder, hear it read back. Useful exactly when typing isn't.</p></div>
+<!-- ── Voice ────────────────────────────────────────────── -->
+<section id="voice" class="wrap">
+  <div class="row">
+    <div class="copy reveal">
+      <p class="kicker">Hear it, say “done”</p>
+      <h3>Made for parents and grandparents</h3>
+      <p>Reminders can be read aloud when they arrive — in English or Hindi — and answered by voice. Say “haan, ho gaya” and it's marked done, and whoever sent it hears back.</p>
+      <ul class="ticks">
+        <li><span><b>Easy-listening mode</b> speaks slower and lower, says the name first, and repeats once.</span></li>
+        <li><span><b>Voice quick add</b> — tap Speak on Home and say the reminder.</span></li>
+        <li><span><b>Urgent can wake</b> — medication reminders can ring through quiet hours if the family allows it.</span></li>
+      </ul>
+      <div class="pills"><span class="pill">text-to-speech</span><span class="pill">speech-to-text</span><span class="pill">Hindi</span><span class="pill">English</span></div>
+    </div>
+    <div class="panel mint reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/onb3.webp" alt="A reminder read aloud in Hindi and answered by voice" loading="lazy" width="600" height="1200"></div></div></div>
   </div>
 </section>
 
-<section class="wrap reveal">
-  <div class="install">
+<!-- ── Dark mode ────────────────────────────────────────── -->
+<section class="wrap center" style="padding-top:20px">
+  <div class="reveal">
+    <p class="kicker">Light &amp; dark</p>
+    <h2>Soft on the eyes, day or night</h2>
+    <p class="lead">Pastels that are calm in daylight and muted after dark — never neon. Drag to compare.</p>
+  </div>
+  <div class="compare reveal" data-d="1" id="compare">
+    <div class="in">
+      <img src="shots/home.webp" alt="Home in light mode" loading="lazy" width="600" height="1248">
+      <img class="dark" src="shots/home-dark.webp" alt="Home in dark mode" loading="lazy" width="600" height="1248">
+    </div>
+    <div class="bar"></div><div class="knob">⇆</div>
+    <input type="range" min="0" max="100" value="50" aria-label="Compare light and dark mode">
+  </div>
+  <div class="labels"><span>Light</span><span>Dark</span></div>
+</section>
+
+<!-- ── How it works ─────────────────────────────────────── -->
+<section id="built" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="kicker">Under the hood</p>
+      <h2>Built for the moment the network isn't there</h2>
+      <p class="lead">A reminder app that only works online isn't a reminder app. These are the parts that make it hold.</p>
+    </div>
+    <div class="stats">
+      <div class="stat t-lav reveal"><b data-count="0">0</b><span>network calls to parse “tomorrow 8pm”</span></div>
+      <div class="stat t-sky reveal" data-d="1"><b>24/7</b><span>alarms work offline</span></div>
+      <div class="stat t-mint reveal" data-d="2"><b data-count="30">0</b><span>minutes an invite code lives</span></div>
+      <div class="stat t-butter reveal" data-d="3"><b data-count="2">0</b><span>languages read aloud</span></div>
+    </div>
+    <div class="grid">
+      <div class="cell reveal"><div class="em t-sky">⚡</div><h4>Exact alarms</h4><p>Android's AlarmManager fires on the second, through Doze, and re-registers itself after a reboot. A banner warns you if the permission is ever switched off.</p></div>
+      <div class="cell reveal" data-d="1"><div class="em t-mint">📴</div><h4>Offline-first</h4><p>Everything is stored on the phone first (Hive) and synced when you're back online — and again every time you open the app.</p></div>
+      <div class="cell reveal" data-d="2"><div class="em t-lav">🧠</div><h4>On-device parsing</h4><p>Everyday phrasings are read locally in microseconds. Only the genuinely ambiguous ones go to Gemini, with per-user daily limits and caching.</p></div>
+      <div class="cell reveal"><div class="em t-butter">🔔</div><h4>Actions in the shade</h4><p>Done, 15 minutes and Later work straight from the notification, even when the app is closed — handled in a background isolate.</p></div>
+      <div class="cell reveal" data-d="1"><div class="em t-peach">☁️</div><h4>Own backend</h4><p>NestJS on Oracle Cloud with SQLite/libSQL, JWT auth, rate limits and push through Firebase Cloud Messaging.</p></div>
+      <div class="cell reveal" data-d="2"><div class="em t-blush">🧩</div><h4>Widget &amp; deep links</h4><p>A live home-screen widget, and synclock:// links that open the exact reminder — never a blank duplicate.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Gallery ──────────────────────────────────────────── -->
+<section class="center" style="padding-bottom:40px">
+  <div class="wrap reveal">
+    <p class="kicker">Every screen</p>
+    <h2>Take the tour</h2>
+    <p class="lead">Scroll sideways through the app.</p>
+  </div>
+  <div class="gallery reveal" data-d="1">
+    <figure><div class="phone"><div class="scr"><img src="shots/onb1.webp" alt="Onboarding: Just type it" loading="lazy" width="600" height="1200"></div></div><figcaption>Welcome</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/home.webp" alt="Home" loading="lazy" width="600" height="1248"></div></div><figcaption>Home</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/editor.webp" alt="New reminder" loading="lazy" width="600" height="1248"></div></div><figcaption>New reminder</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/plan.webp" alt="Plan" loading="lazy" width="600" height="1248"></div></div><figcaption>Plan</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/team-create.webp" alt="Create a team" loading="lazy" width="600" height="1248"></div></div><figcaption>Create a team</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/team-settings.webp" alt="Team settings" loading="lazy" width="600" height="1248"></div></div><figcaption>Team settings</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/team-activity.webp" alt="Team activity" loading="lazy" width="600" height="1248"></div></div><figcaption>Activity</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/onb2.webp" alt="Accountability" loading="lazy" width="600" height="1200"></div></div><figcaption>Accountability</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/settings.webp" alt="Settings" loading="lazy" width="600" height="1248"></div></div><figcaption>Settings</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/plan-dark.webp" alt="Plan in dark mode" loading="lazy" width="600" height="1248"></div></div><figcaption>Plan, dark</figcaption></figure>
+  </div>
+</section>
+
+<!-- ── Privacy ──────────────────────────────────────────── -->
+<section id="privacy" class="wrap">
+  <div class="row">
+    <div class="copy reveal">
+      <p class="kicker">Privacy</p>
+      <h3>Your reminders are yours</h3>
+      <p>No ads and nothing sold. SynClock keeps only what it needs to ring your phone and your family's, and tells you exactly what that is.</p>
+      <ul class="ticks">
+        <li><span><b>Delete your account in the app</b> — reminders, team memberships, AI usage and sign-in records go with it.</span></li>
+        <li><span><b>Encrypted in transit</b> over HTTPS to SynClock's own server.</span></li>
+        <li><span><b>Clear data-safety labels</b> — what is collected, why, and how to remove it, in the privacy policy.</span></li>
+      </ul>
+    </div>
+    <div class="panel peach reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/settings.webp" alt="Settings with profile, stats, dark mode and notification settings" loading="lazy" width="600" height="1248"></div></div></div>
+  </div>
+</section>
+
+<!-- ── Install ──────────────────────────────────────────── -->
+<section class="wrap" style="padding-top:20px">
+  <div class="install reveal">
     <div>
-      <p class="kicker">Getting it</p>
-      <h2 style="font-size:clamp(1.5rem,3vw,2rem)">Two minutes, no store account</h2>
+      <p class="kicker">Get it</p>
+      <h2 style="font-size:clamp(1.6rem,3vw,2.2rem)">Two minutes, no store account</h2>
       <ol class="steps">
-        <li>Download the APK — the link always serves the newest build.</li>
+        <li>Download the APK — this link always serves the newest build.</li>
         <li>Android will warn about installing outside the Play Store. Allow your browser to install unknown apps.</li>
-        <li>Open the file and install. Re-download any time to update.</li>
+        <li>Open the file and install. Download again any time to update.</li>
       </ol>
+      <details class="changes">
+        <summary>What's new in 1.0.13</summary>
+        <ul>
+          <li>A calmer pastel design across every screen, with a softer dark mode.</li>
+          <li>“every day”, “weekly”, “every Monday” and “monthly” now set the repeat.</li>
+          <li>Done and Snooze work straight from the notification.</li>
+          <li>Team rules are visible and editable when you create a team.</li>
+          <li>Teams show each team's next reminder and its members at a glance.</li>
+          <li>Deleting a reminder takes you straight back; landscape layouts fixed.</li>
+        </ul>
+      </details>
     </div>
-    <a class="btn solid" href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">Download the APK</a>
+    <a class="btn solid" href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+      Download the APK</a>
   </div>
 </section>
 
@@ -306,19 +501,81 @@ footer{border-top:1px solid var(--line);padding:48px 0 56px;margin-top:40px}
 
 <footer class="wrap">
   <div class="foot">
-    <p>SynClock — built by Shaurya Shakya</p>
+    <span>SynClock — built by Shaurya Shakya</span>
     <nav>
       <a href="https://shaurya-8055.github.io/">Portfolio</a>
-      <a href="https://github.com/shaurya-8055/synclock-app">Repo</a>
+      <a href="https://github.com/shaurya-8055/synclock-app">GitHub</a>
       <a href="https://www.linkedin.com/in/shaurya-shakya8055">LinkedIn</a>
     </nav>
   </div>
 </footer>
 
 <script>
-const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1,rootMargin:'0px 0px -60px'});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-const hdr=document.getElementById('hdr');
-addEventListener('scroll',()=>hdr.classList.toggle('stuck',scrollY>12),{passive:true});
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Theme: follows the system until the visitor picks one.
+const root = document.documentElement;
+try { const t = localStorage.getItem('sc-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+document.getElementById('theme').onclick = () => {
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+  try { localStorage.setItem('sc-theme', root.dataset.theme); } catch (e) {}
+};
+
+// Header border once scrolled.
+const hdr = document.getElementById('hdr');
+addEventListener('scroll', () => hdr.classList.toggle('stuck', scrollY > 10), { passive: true });
+
+// Reveal on scroll, and count the stats up when they arrive.
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in'); io.unobserve(e.target);
+  e.target.querySelectorAll('[data-count]').forEach(n => {
+    const to = +n.dataset.count; let v = 0;
+    if (reduce || to === 0) { n.textContent = to; return; }
+    const step = () => { v++; n.textContent = v; if (v < to) setTimeout(step, 900 / to); };
+    step();
+  });
+}), { threshold: .12, rootMargin: '0px 0px -40px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Hero phone crossfades through the app.
+const shots = [...document.querySelectorAll('#heroPhone img')];
+let s = 0;
+if (!reduce) setInterval(() => { shots[s].classList.remove('on'); s = (s + 1) % shots.length; shots[s].classList.add('on'); }, 3200);
+
+// Marquee of things people actually type.
+const said = ['call mom <b>tomorrow at 8pm</b>','take BP tablet <b>every day at 9pm</b>','pay rent <b>friday 10am</b>','dentist <b>in 2 hours</b>',
+  'water the plants <b>daily</b>','team sync <b>every monday 10am</b>','renew insurance <b>monthly</b>','pick up Aarav <b>at 2pm</b>','gym <b>tonight</b>'];
+const track = document.getElementById('track');
+track.innerHTML = [...said, ...said].map(t => `<span>“${t}”</span>`).join('');
+
+// Typing demo — the same results the app's parser gives.
+const demo = [
+  ['call mom tomorrow at 8pm', 'Call mom', 'Tomorrow · 8:00 PM', ''],
+  ['take BP tablet every day at 9pm', 'Take BP tablet', 'Today · 9:00 PM', 'Daily'],
+  ['team sync every monday 10am', 'Team sync', 'Monday · 10:00 AM', 'Weekly'],
+  ['pay electricity bill friday 10am', 'Pay electricity bill', 'Friday · 10:00 AM', ''],
+  ['dentist in 2 hours', 'Dentist', 'In 2 hours', ''],
+];
+const typed = document.getElementById('typed'), res = document.getElementById('result');
+const rT = document.getElementById('rTitle'), rW = document.getElementById('rWhen'), rR = document.getElementById('rRep');
+const wait = ms => new Promise(r => setTimeout(r, ms));
+function show([, t, w, rep]) { rT.textContent = t; rW.textContent = w; rR.hidden = !rep; rR.textContent = rep; res.classList.remove('hide'); }
+(async function loop() {
+  if (reduce) { typed.textContent = demo[1][0]; show(demo[1]); return; }
+  for (let i = 0; ; i = (i + 1) % demo.length) {
+    const d = demo[i];
+    for (const ch of d[0]) { typed.textContent += ch; await wait(55 + Math.random() * 45); }
+    await wait(350); show(d); await wait(2600);
+    res.classList.add('hide');
+    while (typed.textContent) { typed.textContent = typed.textContent.slice(0, -1); await wait(18); }
+    await wait(400);
+  }
+})();
+
+// Light/dark compare slider.
+const cmp = document.getElementById('compare');
+cmp.querySelector('input').addEventListener('input', e => cmp.style.setProperty('--x', e.target.value + '%'));
 </script>
 </body></html>

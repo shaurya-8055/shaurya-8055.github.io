@@ -494,13 +494,13 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 
     <article class="card tilt">
       <div class="row"><h3>SynClock</h3><span class="muted">2026</span></div>
-      <p class="role">Smart reminders &amp; team productivity</p>
+      <p class="role">Family reminders with accountability</p>
       <ul class="bullets">
-        <li>Reminder app that turns plain-language input into scheduled alarms and lets teams share them, on a Flutter client with offline-first Firestore sync.</li>
-        <li>Google Gemini parses the natural language, with voice input, text-to-speech playback and an in-app chat assistant, over an FCM + AlarmManager pipeline for exact-time alarms.</li>
-        <li>Serverless NestJS API on AWS Lambda (40+ endpoints) with RevenueCat subscription billing; shipped to the Play Store internal testing track.</li>
+        <li>Android reminder app where a typed or spoken line becomes an exact alarm: an on-device parser handles everyday phrasing and repeats in microseconds, with Gemini as a rate-limited, cached fallback.</li>
+        <li>Offline-first Flutter client (Riverpod, Hive) with AlarmManager exact alarms, notification actions handled in a background isolate, a live home-screen widget and read-aloud reminders in Hindi and English.</li>
+        <li>Family and work teams with owner-set notification rules, snooze escalation and nudges, served by a NestJS API on Oracle Cloud (SQLite/libSQL, JWT, rate limits, FCM) deployed by GitHub Actions.</li>
       </ul>
-      <div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">NestJS</span><span class="chip">AWS Lambda</span><span class="chip">Firebase</span><span class="chip">Gemini</span><span class="chip">RevenueCat</span></div>
+      <div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">Hive</span><span class="chip">NestJS</span><span class="chip">Oracle Cloud</span><span class="chip">SQLite</span><span class="chip">FCM</span><span class="chip">Gemini</span><span class="chip">RevenueCat</span></div>
       <div class="links">
         <a href="./synclock/">Product page →</a>
         <a href="https://github.com/shaurya-8055/synclock-app" target="_blank" rel="noopener">GitHub →</a>
