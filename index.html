@@ -13,12 +13,13 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%2312a594'/><text x='32' y='46' font-size='38' font-family='Inter,sans-serif' font-weight='700' fill='%23fff' text-anchor='middle'>S</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ============ tokens ============ */
 :root{
   --radius:16px; --max:1140px;
   --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --display:'Space Grotesk','Inter',system-ui,sans-serif;
   --ps:.78;                        /* phone scale */
   --app:#0F766E;                   /* live-app accent, set by JS */
 }
@@ -106,9 +107,24 @@ header{
 @keyframes pulse{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) 344px; gap:56px; align-items:center; margin-bottom:52px}
 @media(max-width:900px){.hero-grid{grid-template-columns:1fr; gap:36px}}
-h1{font-size:clamp(2.4rem,6vw,3.9rem); line-height:1.04; letter-spacing:-.04em; font-weight:800; margin-bottom:10px}
-.rule{width:52px; height:3px; background:var(--accent); border-radius:2px; margin:0 0 16px}
-.typed{font-family:var(--mono); font-size:clamp(.88rem,2vw,1rem); color:var(--fg-2); margin-bottom:18px; min-height:1.7em}
+.eyebrow{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--fg-3); margin-bottom:14px; display:block;
+}
+h1{font-family:var(--display); font-size:clamp(2.1rem,5vw,3.1rem); line-height:1;
+   letter-spacing:-.035em; font-weight:700; margin-bottom:18px}
+/* the statement line — this is what carries the page */
+.claim{
+  font-family:var(--display); font-weight:700;
+  font-size:clamp(1.75rem,4vw,2.95rem); line-height:1.14; letter-spacing:-.035em;
+  margin-bottom:22px; max-width:19ch; text-wrap:balance;
+}
+.claim .hl{
+  background:var(--accent); color:#fff; padding:.02em .2em .09em;
+  border-radius:6px; white-space:nowrap;          /* never split a highlighted phrase */
+  box-decoration-break:clone; -webkit-box-decoration-break:clone;
+}
+.typed{font-family:var(--mono); font-size:clamp(.82rem,2vw,.94rem); color:var(--fg-3); margin-bottom:18px; min-height:1.7em}
 .typed b{color:var(--accent); font-weight:500}
 .caret{display:inline-block; width:8px; background:var(--accent); margin-left:2px; animation:blink 1s steps(1) infinite; color:transparent}
 @keyframes blink{50%{opacity:0}}
@@ -124,11 +140,31 @@ h1{font-size:clamp(2.4rem,6vw,3.9rem); line-height:1.04; letter-spacing:-.04em; 
   border-radius:20px; border:1px solid var(--line-2); box-shadow:var(--shadow); filter:saturate(.96);
 }
 .portrait figcaption{
-  position:absolute; left:-18px; bottom:24px; background:var(--bg-2);
+  position:absolute; left:-20px; bottom:26px; background:var(--bg-2);
   border:1px solid var(--line); border-radius:12px; padding:11px 15px;
   box-shadow:var(--shadow); max-width:82%;
 }
 @media(max-width:900px){.portrait figcaption{left:12px}}
+/* floating fact cards — the portfolio equivalent of SynClock's notification cards */
+.float{
+  position:absolute; z-index:3; display:flex; align-items:center; gap:9px;
+  background:color-mix(in srgb,var(--bg-2) 88%,transparent);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--line-2); border-radius:13px; padding:9px 13px;
+  box-shadow:0 18px 40px -20px rgba(0,0,0,.55);
+  font-size:.78rem; line-height:1.35; white-space:nowrap;
+  animation:bob 7s ease-in-out infinite;
+}
+.float b{display:block; font-size:.83rem; letter-spacing:-.01em}
+.float span{color:var(--fg-3); font-family:var(--mono); font-size:.68rem}
+.float .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+           background:color-mix(in srgb,var(--accent) 16%,transparent); color:var(--accent);
+           font-size:.8rem; flex-shrink:0}
+.f1{top:-22px;   right:-58px; animation-delay:-.8s}
+.f2{top:41%;     left:-118px; animation-delay:-3.1s}
+.f3{bottom:-40px; right:-64px; animation-delay:-1.9s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@media(max-width:1180px){.float{display:none}}
 .portrait figcaption b{display:block; font-size:.86rem; letter-spacing:-.01em}
 .portrait figcaption span{font-size:.75rem; color:var(--fg-3); font-family:var(--mono)}
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow)}
@@ -137,13 +173,32 @@ h1{font-size:clamp(2.4rem,6vw,3.9rem); line-height:1.04; letter-spacing:-.04em; 
 .stat b{display:block; font-size:1.7rem; letter-spacing:-.03em; font-weight:800}
 .stat span{font-size:.8rem; color:var(--fg-3)}
 
+/* ============ marquee ============ */
+.marquee{
+  overflow:hidden; border-block:1px solid var(--line);
+  background:color-mix(in srgb,var(--bg-2) 55%,transparent);
+  padding:13px 0; margin:6px 0 4px; position:relative; z-index:1;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+.marquee .track{display:flex; gap:0; width:max-content; animation:slide 38s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee i{
+  font-style:normal; font-family:var(--mono); font-size:.8rem; color:var(--fg-2);
+  padding:0 18px; display:inline-flex; align-items:center; gap:18px; white-space:nowrap;
+}
+.marquee i::after{content:"◆"; color:var(--accent); font-size:.5rem; opacity:.7}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
 /* ============ sections ============ */
 section{padding:56px 0; scroll-margin-top:76px}
-.head{display:flex; align-items:baseline; gap:14px; margin-bottom:28px; flex-wrap:wrap}
-h2{font-size:clamp(1.55rem,3.2vw,2.15rem); letter-spacing:-.03em; font-weight:800}
-.head .num{font-family:var(--mono); font-size:.78rem; color:var(--accent)}
-.head .note{font-family:var(--mono); font-size:.76rem; color:var(--fg-3)}
-.head .sp{margin-left:auto; display:flex; gap:8px}
+.head{display:block; margin-bottom:30px}
+.head .num{display:block; font-family:var(--mono); font-size:.7rem; letter-spacing:.22em;
+           text-transform:uppercase; color:var(--accent); margin-bottom:7px}
+.head h2{display:inline-block; margin-right:14px}
+.head .note{font-family:var(--mono); font-size:.75rem; color:var(--fg-3)}
+.head .sp{float:right; display:flex; gap:8px}
+h2{font-family:var(--display); font-size:clamp(1.7rem,3.6vw,2.6rem); letter-spacing:-.035em; font-weight:700; line-height:1.08}
 h3{font-size:1.08rem; letter-spacing:-.015em; font-weight:700}
 
 .card{
@@ -414,10 +469,11 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
   <div class="hero-grid">
     <div>
       <span class="tag"><span class="pulse"></span> Open to entry-level Software Engineer roles</span>
+      <span class="eyebrow">Software Engineer &middot; IIIT Bhagalpur &middot; 2027</span>
       <h1>Shaurya Shakya</h1>
-      <div class="rule"></div>
-      <p class="typed">Building <b><span id="tw"></span></b><span class="caret">.</span></p>
-      <p class="lede">Software engineer shipping production backend and full-stack systems in <strong>Go</strong>, <strong>Node.js</strong>, <strong>Flutter</strong> and <strong>Next.js</strong> — with a focus on payments, ledger correctness and offline-capable mobile clients. Currently building payment infrastructure at <strong>Travafa</strong>.</p>
+      <p class="claim">I build backends that <span class="hl">move money</span> and apps that <span class="hl">work offline</span>.</p>
+      <p class="typed">Currently building <b><span id="tw"></span></b><span class="caret">.</span></p>
+      <p class="lede">Production systems in <strong>Go</strong>, <strong>Node.js</strong>, <strong>NestJS</strong> and <strong>Flutter</strong> — payment services, ledger correctness and offline-capable mobile clients. Software Engineer Intern at <strong>Travafa</strong>, and founder of a live e-pharmacy.</p>
       <div class="cta">
         <a class="btn primary" href="mailto:iiitianshauryashakya8055@gmail.com">Get in touch</a>
         <a class="btn" href="#apps">See the work ↓</a>
@@ -428,6 +484,10 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
     <figure class="portrait">
       <img src="img/shaurya.jpg" alt="Shaurya Shakya" width="800" height="1000" fetchpriority="high">
       <figcaption><b>Software Engineer Intern</b><span>Travafa · Dec 2025 — Present</span></figcaption>
+
+      <div class="float f1"><span class="ic">◈</span><span><b>Go payment service</b><span>96 files · ~11K LOC</span></span></div>
+      <div class="float f2"><span class="ic">◆</span><span><b>MCP connector</b><span>ChatGPT · Claude · Copilot</span></span></div>
+      <div class="float f3"><span class="ic">▲</span><span><b>76K impressions</b><span>live e-pharmacy · 3 months</span></span></div>
     </figure>
   </div>
   <div class="stats">
@@ -437,6 +497,11 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
     <div class="stat"><b class="cnt" data-to="8.51" data-dec="2">0</b><span>CGPA · IIIT Bhagalpur</span></div>
   </div>
 </section>
+
+
+<div class="marquee" aria-hidden="true">
+  <div class="track"><i>Go</i><i>TypeScript</i><i>Node.js</i><i>NestJS</i><i>PostgreSQL</i><i>Flutter</i><i>Next.js</i><i>Redis</i><i>Docker</i><i>AWS</i><i>gRPC</i><i>MCP</i><i>Gemini API</i><i>React</i><i>Prisma</i><i>BullMQ</i><i>Go</i><i>TypeScript</i><i>Node.js</i><i>NestJS</i><i>PostgreSQL</i><i>Flutter</i><i>Next.js</i><i>Redis</i><i>Docker</i><i>AWS</i><i>gRPC</i><i>MCP</i><i>Gemini API</i><i>React</i><i>Prisma</i><i>BullMQ</i></div>
+</div>
 
 <section id="experience" class="wrap reveal">
   <div class="head"><span class="num">01</span><h2>Experience</h2></div>
@@ -499,6 +564,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
         <li>Android reminder app where a typed or spoken line becomes an exact alarm: an on-device parser handles everyday phrasing and repeats in microseconds, with Gemini as a rate-limited, cached fallback.</li>
         <li>Offline-first Flutter client (Riverpod, Hive) with AlarmManager exact alarms, notification actions handled in a background isolate, a live home-screen widget and read-aloud reminders in Hindi and English.</li>
         <li>Family and work teams with owner-set notification rules, snooze escalation and nudges, served by a NestJS API on Oracle Cloud (SQLite/libSQL, JWT, rate limits, FCM) deployed by GitHub Actions.</li>
+        <li>Hardened end to end: rotating refresh tokens with replay detection, server-side recurrence and alarm reconciliation across devices, Pro plans enforced from RevenueCat webhooks, CI with a test gate, health check and rollback — about 320 automated tests.</li>
       </ul>
       <div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">Hive</span><span class="chip">NestJS</span><span class="chip">Oracle Cloud</span><span class="chip">SQLite</span><span class="chip">FCM</span><span class="chip">Gemini</span><span class="chip">RevenueCat</span></div>
       <div class="links">
@@ -735,7 +801,7 @@ const spy = new IntersectionObserver(es => es.forEach(e => {
 });
 
 /* ---------- typewriter ---------- */
-const ROLES = ["Go payment services","offline-first Flutter apps","NestJS + PostgreSQL platforms","Next.js front ends","a live e-pharmacy"];
+const ROLES = ["payment infrastructure at Travafa","offline-first Flutter apps","NestJS + PostgreSQL platforms","a live e-pharmacy for army families"];
 const tw = document.getElementById("tw");
 let ri = 0, ci = 0, del = false;
 (function type(){

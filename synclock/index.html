@@ -303,7 +303,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
 
 <div class="wrap hero">
   <div>
-    <span class="tag"><i></i> v1.0.13 · Coming soon to Google Play</span>
+    <span class="tag"><i></i> v1.0.14 · Coming soon to Google Play</span>
     <h1><span class="w">Type it.</span> <span class="w">Share it.</span> <span class="w"><span class="hl">Know it got done.</span></span></h1>
     <p class="sub">SynClock turns “call mom tomorrow at 8pm” into a reminder that rings on time — even offline. Share it with family, and when someone keeps snoozing, the people who asked find out.</p>
     <div class="cta">
@@ -312,7 +312,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
         Download for Android</a>
       <a class="btn lav" href="#type">See how it works</a>
     </div>
-    <div class="meta"><span>Android 8.0+</span><span>Free to use</span><span>No ads</span><span>English &amp; Hindi voice</span></div>
+    <div class="meta"><span>Android 8.0+</span><span>Free · optional Pro</span><span>No ads</span><span>English &amp; Hindi voice</span></div>
   </div>
   <div class="stage">
     <div class="phone fade" id="heroPhone"><div class="scr">
@@ -412,7 +412,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
     <div class="copy reveal">
       <p class="kicker">Hear it, say “done”</p>
       <h3>Made for parents and grandparents</h3>
-      <p>Reminders can be read aloud when they arrive — in English or Hindi — and answered by voice. Say “haan, ho gaya” and it's marked done, and whoever sent it hears back.</p>
+      <p>Reminders can be read aloud when they arrive — in English or Hindi — and answered by voice. With the app open, say “haan, ho gaya” and it's marked done, and whoever sent it hears back. “Not yet” and “nahi” are never mistaken for a yes.</p>
       <ul class="ticks">
         <li><span><b>Easy-listening mode</b> speaks slower and lower, says the name first, and repeats once.</span></li>
         <li><span><b>Voice quick add</b> — tap Speak on Home and say the reminder.</span></li>
@@ -455,11 +455,11 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
       <div class="stat t-butter reveal" data-d="3"><b data-count="2">0</b><span>languages read aloud</span></div>
     </div>
     <div class="grid">
-      <div class="cell reveal"><div class="em t-sky">⚡</div><h4>Exact alarms</h4><p>Android's AlarmManager fires on the second, through Doze, and re-registers itself after a reboot. A banner warns you if the permission is ever switched off.</p></div>
-      <div class="cell reveal" data-d="1"><div class="em t-mint">📴</div><h4>Offline-first</h4><p>Everything is stored on the phone first (Hive) and synced when you're back online — and again every time you open the app.</p></div>
+      <div class="cell reveal"><div class="em t-sky">⚡</div><h4>Exact alarms</h4><p>Android's AlarmManager fires on the second, through Doze, and re-registers itself after a reboot. SynClock asks once, in plain words, and re-arms every alarm the moment you allow it.</p></div>
+      <div class="cell reveal" data-d="1"><div class="em t-mint">📴</div><h4>Offline-first</h4><p>Everything is stored on the phone first (Hive) and synced when you're back online. An edit or a Done on one phone moves or cancels the alarm on the others too.</p></div>
       <div class="cell reveal" data-d="2"><div class="em t-lav">🧠</div><h4>On-device parsing</h4><p>Everyday phrasings are read locally in microseconds. Only the genuinely ambiguous ones go to Gemini, with per-user daily limits and caching.</p></div>
       <div class="cell reveal"><div class="em t-butter">🔔</div><h4>Actions in the shade</h4><p>Done, 15 minutes and Later work straight from the notification, even when the app is closed — handled in a background isolate.</p></div>
-      <div class="cell reveal" data-d="1"><div class="em t-peach">☁️</div><h4>Own backend</h4><p>NestJS on Oracle Cloud with SQLite/libSQL, JWT auth, rate limits and push through Firebase Cloud Messaging.</p></div>
+      <div class="cell reveal" data-d="1"><div class="em t-peach">☁️</div><h4>Own backend</h4><p>NestJS on Oracle Cloud with SQLite/libSQL, rotating JWT sessions, rate limits and push through Firebase Cloud Messaging. Repeating reminders keep going even when Done is tapped from the notification.</p></div>
       <div class="cell reveal" data-d="2"><div class="em t-blush">🧩</div><h4>Widget &amp; deep links</h4><p>A live home-screen widget, and synclock:// links that open the exact reminder — never a blank duplicate.</p></div>
     </div>
   </div>
@@ -494,8 +494,9 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
       <h3>Your reminders are yours</h3>
       <p>No ads and nothing sold. SynClock keeps only what it needs to ring your phone and your family's, and tells you exactly what that is.</p>
       <ul class="ticks">
-        <li><span><b>Delete your account in the app</b> — reminders, team memberships, AI usage and sign-in records go with it.</span></li>
-        <li><span><b>Encrypted in transit</b> over HTTPS to SynClock's own server.</span></li>
+        <li><span><b>Delete your account in the app</b> — your reminders, devices, AI usage and sign-in records go with it; shared team reminders stay with the team, with your name removed.</span></li>
+        <li><span><b>Encrypted in transit</b> over HTTPS to SynClock's own server, and your sign-in is kept in Android's secure Keystore.</span></li>
+        <li><span><b>Your choice on analytics</b> — turn off usage and crash reports in Settings.</span></li>
         <li><span><b>Clear data-safety labels</b> — what is collected, why, and how to remove it, in the privacy policy.</span></li>
       </ul>
     </div>
@@ -509,20 +510,22 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
     <div>
       <p class="kicker">Get it</p>
       <h2 style="font-size:clamp(1.6rem,3vw,2.2rem)">Two minutes, no store account</h2>
+      <p class="lead" style="margin:6px 0 14px">Free for everything that makes a reminder ring and tells your family — no limits. <b>SynClock Pro</b> adds 200 AI requests a day (Free: 10), as many teams as you need, and up to 20 people in each (Free: one team of 5).</p>
       <ol class="steps">
         <li>Download the APK — this link always serves the newest build.</li>
         <li>Android will warn about installing outside the Play Store. Allow your browser to install unknown apps.</li>
         <li>Open the file and install. Download again any time to update.</li>
       </ol>
       <details class="changes">
-        <summary>What's new in 1.0.13</summary>
+        <summary>What's new in 1.0.14</summary>
         <ul>
-          <li>A calmer pastel design across every screen, with a softer dark mode.</li>
-          <li>“every day”, “weekly”, “every Monday” and “monthly” now set the repeat.</li>
-          <li>Done and Snooze work straight from the notification.</li>
-          <li>Team rules are visible and editable when you create a team.</li>
-          <li>Teams show each team's next reminder and its members at a glance.</li>
-          <li>Deleting a reminder takes you straight back; landscape layouts fixed.</li>
+          <li>Repeating reminders keep going when you tap Done from the notification or the widget.</li>
+          <li>Edits and deletes on one phone move or cancel the alarm on your others.</li>
+          <li>Sound, Silent and Vibration settings now apply — plus “Ring like an alarm” for medicine.</li>
+          <li>Tapping a notification opens the reminder; the widget shows your next few and skips to the next after Done.</li>
+          <li>Snoozing no longer shifts a daily reminder's time; Focus mode and quiet hours stick.</li>
+          <li>Safer accounts: verified sign-up, sign-in in the Keystore, and more.</li>
+          <li>Pro: more AI help and bigger teams.</li>
         </ul>
       </details>
     </div>
