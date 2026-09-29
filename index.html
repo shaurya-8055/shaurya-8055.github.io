@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shaurya Shakya — Software Engineer</title>
+<title>Shaurya Shakya — Product Designer &amp; Engineer</title>
 <meta name="description" content="I design and build product interfaces — travafa.com's web product from zero, a Flutter app on both stores, design systems, offline-first flows and bilingual Hindi/English UI. Playable design demos and five live apps you can run in the page.">
 <meta name="theme-color" content="#0a0b0d">
-<meta property="og:title" content="Shaurya Shakya — Software Engineer">
+<meta property="og:title" content="Shaurya Shakya — Product Designer &amp; Engineer">
 <meta property="og:description" content="Product interfaces, design systems and offline-first flows — plus payments and Go services. Playable demos and five live apps, right in the page.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shaurya-8055.github.io/">
@@ -26,15 +26,15 @@
 /* One accent, used sparingly. Everything else is neutral ink and paper. */
 :root[data-theme="dark"]{
   --bg:#0a0b0d; --bg-2:#101216; --bg-3:#171a20; --line:#20242b; --line-2:#2e333c;
-  --fg:#f2f3f5; --fg-2:#a0a6b0; --fg-3:#6b7280;
-  --accent:#12a594; --accent-soft:#1d7a70;
+  --fg:#f2f3f5; --fg-2:#a0a6b0; --fg-3:#8b929c;
+  --accent:#12a594; --accent-soft:#1d7a70; --on-accent:#04201c; --accent-ink:#5fd8c7;
   --glow:rgba(18,165,148,.22); --shadow:0 30px 70px -30px rgba(0,0,0,.85);
   --stage-1:#0d0f12; --stage-2:#07080a;
 }
 :root[data-theme="light"]{
   --bg:#f7f7f5; --bg-2:#ffffff; --bg-3:#efefec; --line:#e4e4df; --line-2:#cfcfc8;
-  --fg:#101113; --fg-2:#4b5158; --fg-3:#80858c;
-  --accent:#0b7a6b; --accent-soft:#0e9483;
+  --fg:#101113; --fg-2:#4b5158; --fg-3:#5f656d;
+  --accent:#0b7a6b; --accent-soft:#0e9483; --on-accent:#ffffff; --accent-ink:#065f53;
   --glow:rgba(11,122,107,.16); --shadow:0 24px 60px -30px rgba(20,24,28,.28);
   --stage-1:#f1f1ee; --stage-2:#e6e6e1;
 }
@@ -90,25 +90,25 @@ header.scrolled .nav{
   border-radius:99px; transition:width .1s linear; pointer-events:none;
 }
 .brand{font-weight:800; letter-spacing:-.03em; text-decoration:none; font-size:1.02rem; display:flex; align-items:center; gap:9px}
-.brand i{width:26px; height:26px; border-radius:8px; background:var(--accent); display:grid; place-items:center; color:#fff; font-size:.78rem; font-style:normal; font-weight:800}
+.brand i{width:26px; height:26px; border-radius:8px; background:var(--accent); display:grid; place-items:center; color:var(--on-accent); font-size:.78rem; font-style:normal; font-weight:800}
 .brand span{color:var(--accent)}
 .nav-links{display:flex; gap:4px; align-items:center}
-.nav-links a.lnk{color:var(--fg-2); text-decoration:none; font-size:.875rem; padding:8px 13px; border-radius:99px; transition:color .2s, background .2s; white-space:nowrap}
+.nav-links a.lnk{color:var(--fg-2); text-decoration:none; font-size:.875rem; padding:12px 13px; border-radius:99px; transition:color .2s, background .2s; white-space:nowrap; display:inline-flex; align-items:center; min-height:44px}
 .nav-links a.lnk:hover{color:var(--fg); background:var(--bg-3)}
 .nav-links a.lnk.on{color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,transparent)}
 @media(max-width:900px){.nav-links a.lnk{display:none}}
 
 .btn{
   display:inline-flex; align-items:center; gap:8px; text-decoration:none; cursor:pointer;
-  font-size:.875rem; font-weight:600; padding:9px 16px; border-radius:99px;
+  font-size:.875rem; font-weight:600; padding:11px 18px; border-radius:99px; min-height:44px;
   border:1px solid var(--line-2); color:var(--fg); background:var(--bg-2);
   transition:transform .2s, border-color .2s, background .2s, box-shadow .2s;
 }
 .btn:hover{transform:translateY(-2px); border-color:var(--accent); box-shadow:0 10px 24px -12px var(--glow)}
-.btn.primary{background:var(--accent); border-color:var(--accent); color:#fff}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:var(--on-accent)}
 .btn.primary:hover{filter:brightness(1.1); box-shadow:0 14px 30px -12px var(--glow)}
 .icon-btn{
-  width:38px; height:38px; border-radius:99px; display:grid; place-items:center; cursor:pointer;
+  width:44px; height:44px; border-radius:99px; display:grid; place-items:center; cursor:pointer;
   border:1px solid var(--line-2); background:var(--bg-2); color:var(--fg-2);
   transition:transform .25s, color .2s, border-color .2s;
 }
@@ -119,7 +119,8 @@ header.scrolled .nav{
 :root[data-theme="light"] .sun{display:none}  :root[data-theme="light"] .moon{display:block}
 
 /* ============ hero ============ */
-.hero{padding:84px 0 62px}
+.hero{padding-block:84px 62px}
+@media(max-width:700px){ .hero{padding-block:34px 44px} }
 .tag{
   display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:.76rem;
   color:var(--fg-2); border:1px solid var(--line); background:var(--bg-2);
@@ -133,6 +134,7 @@ header.scrolled .nav{
   font-family:var(--mono); font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
   color:var(--fg-3); margin-bottom:14px; display:block;
 }
+@media(max-width:700px){ .eyebrow{letter-spacing:.12em; font-size:.68rem} }
 h1{font-family:var(--display); font-size:clamp(2.1rem,5vw,3.1rem); line-height:1;
    letter-spacing:-.035em; font-weight:700; margin-bottom:18px}
 /* the statement line — this is what carries the page */
@@ -142,7 +144,7 @@ h1{font-family:var(--display); font-size:clamp(2.1rem,5vw,3.1rem); line-height:1
   margin-bottom:22px; max-width:19ch; text-wrap:balance;
 }
 .claim .hl{
-  background:var(--accent); color:#fff; padding:.02em .2em .09em;
+  background:var(--accent); color:var(--on-accent); padding:.02em .2em .09em;
   border-radius:6px; white-space:nowrap;          /* never split a highlighted phrase */
   box-decoration-break:clone; -webkit-box-decoration-break:clone;
 }
@@ -180,7 +182,7 @@ h1{font-family:var(--display); font-size:clamp(2.1rem,5vw,3.1rem); line-height:1
 .float b{display:block; font-size:.83rem; letter-spacing:-.01em}
 .float span{color:var(--fg-3); font-family:var(--mono); font-size:.68rem}
 .float .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
-           background:color-mix(in srgb,var(--accent) 16%,transparent); color:var(--accent);
+           background:color-mix(in srgb,var(--accent) 22%,transparent); color:var(--accent-ink);
            font-size:.8rem; flex-shrink:0}
 .f1{top:-22px;   right:-58px; animation-delay:-.8s}
 .f2{top:41%;     left:-118px; animation-delay:-3.1s}
@@ -249,7 +251,7 @@ ul.bullets li strong{color:var(--fg); font-weight:650}
 .chip{font-family:var(--mono); font-size:.73rem; color:var(--fg-2); border:1px solid var(--line); border-radius:7px; padding:4px 9px; background:var(--bg); transition:border-color .2s}
 .card:hover .chip{border-color:var(--line-2)}
 .links{display:flex; gap:16px; margin-top:18px; flex-wrap:wrap}
-.links a{font-size:.85rem; text-decoration:none; color:var(--accent); font-weight:600}
+.links a{font-size:.85rem; text-decoration:none; color:var(--accent); font-weight:600; display:inline-flex; align-items:center; min-height:44px}
 .links a:hover{text-decoration:underline}
 .metric{display:grid; grid-template-columns:repeat(auto-fit,minmax(88px,1fr)); gap:10px 18px; margin:16px 0 2px; padding:14px 16px; border:1px dashed var(--line-2); border-radius:12px; background:var(--bg)}
 .metric div b{display:block; font-size:1.05rem; letter-spacing:-.02em}
@@ -352,7 +354,7 @@ ul.bullets li strong{color:var(--fg); font-weight:650}
 }
 .app-btn:hover{background:var(--bg-3); color:var(--fg)}
 .app-btn.on{background:var(--bg-3); border-color:var(--line-2); color:var(--fg)}
-.app-btn .ic{width:38px; height:38px; border-radius:11px; flex-shrink:0; display:grid; place-items:center; color:#fff; font-weight:800; font-size:.95rem}
+.app-btn .ic{width:38px; height:38px; border-radius:11px; flex-shrink:0; display:grid; place-items:center; color:#fff; font-weight:800; font-size:.95rem; text-shadow:0 1px 2px rgba(0,0,0,.35)}
 .app-btn small{display:block; color:var(--fg-3); font-size:.75rem; font-weight:400}
 .app-btn.on .nm{font-weight:650}
 .rail .about{margin-top:16px; padding-top:16px; border-top:1px solid var(--line)}
@@ -433,13 +435,13 @@ ul.bullets li strong{color:var(--fg); font-weight:650}
   display:none; place-items:center; padding:24px}
 .lb.on{display:grid}
 .lb img{max-width:min(1000px,94vw); max-height:88vh; border-radius:12px; box-shadow:0 40px 90px rgba(0,0,0,.6)}
-.lb .x{position:absolute; top:18px; right:20px; width:40px; height:40px; border-radius:99px; cursor:pointer;
+.lb .x{position:absolute; top:18px; right:20px; width:44px; height:44px; border-radius:99px; cursor:pointer;
   border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.1); color:#fff; font-size:1.2rem; display:grid; place-items:center}
-.nav-btn{
+.nav-btn{min-width:44px; min-height:44px; 
   width:36px; height:36px; border-radius:99px; display:grid; place-items:center; cursor:pointer;
   border:1px solid var(--line-2); background:var(--bg-2); color:var(--fg-2); transition:.2s;
 }
-.nav-btn:hover{color:#fff; background:var(--accent); border-color:var(--accent)}
+.nav-btn:hover{color:var(--on-accent); background:var(--accent); border-color:var(--accent)}
 .nav-btn svg{width:16px; height:16px}
 
 /* ============ skills / achievements / footer ============ */
@@ -526,6 +528,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
   border-bottom-width:2px; border-radius:6px; padding:3px 6px; color:var(--fg);
 }
 .kbd-hint b{color:var(--fg); font-weight:600}
+.h4{font-size:.95rem !important; font-weight:700 !important}
 .reveal{opacity:0; transform:translateY(16px); transition:opacity .65s ease, transform .65s ease}
 .reveal.in{opacity:1; transform:none}
 </style>
@@ -557,39 +560,39 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 <section class="hero wrap">
   <div class="hero-grid">
     <div>
-      <span class="tag"><span class="pulse"></span> Open to entry-level Software Engineer roles</span>
-      <span class="eyebrow">Software Engineer &middot; IIIT Bhagalpur &middot; 2027</span>
+      <span class="tag"><span class="pulse"></span> Open to Product Design internships</span>
+      <span class="eyebrow">Product Designer &amp; Engineer &middot; IIIT Bhagalpur &middot; 2027</span>
       <h1>Shaurya Shakya</h1>
-      <p class="claim">I build backends that <span class="hl">move money</span> and apps that <span class="hl">work offline</span>.</p>
-      <p class="typed">Currently building <b><span id="tw"></span></b><span class="caret">.</span></p>
-      <p class="lede">Production systems in <strong>Go</strong>, <strong>Node.js</strong>, <strong>NestJS</strong> and <strong>Flutter</strong> — payment services, ledger correctness and offline-capable mobile clients. Software Engineer Intern at <strong>Travafa</strong>, and founder of a live e-pharmacy.</p>
+      <p class="claim">I design the interface, then <span class="hl">build it.</span></p>
+      <p class="typed">Currently building <b><span id="tw"></span></b><span class="caret" aria-hidden="true">.</span></p>
+      <p class="lede">I built <strong>travafa.com</strong>&rsquo;s product interface from zero &mdash; flows, layouts, the component library and the states nobody demos. I work in <strong>flows and states, not screens</strong>, and most of what I ship is bilingual Hindi/English for users outside metros.</p>
       <div class="cta">
         <a class="btn primary" href="mailto:iiitianshauryashakya8055@gmail.com">Get in touch</a>
-        <a class="btn" href="#apps">See the work ↓</a>
+        <a class="btn" href="#projects">See the work ↓</a>
         <a class="btn" href="https://github.com/shaurya-8055" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/shaurya-shakya8055" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
     <figure class="portrait">
       <img src="img/shaurya.jpg" alt="Shaurya Shakya" width="800" height="1000" fetchpriority="high">
-      <figcaption><b>Software Engineer Intern</b><span>Travafa · Dec 2025 — Present</span></figcaption>
+      <figcaption><b>Design + frontend</b><span>Travafa · Dec 2025 — Present</span></figcaption>
 
-      <div class="float f1"><span class="ic">◈</span><span><b>Go payment service</b><span>96 files · ~11K LOC</span></span></div>
-      <div class="float f2"><span class="ic">◆</span><span><b>MCP connector</b><span>ChatGPT · Claude · Copilot</span></span></div>
-      <div class="float f3"><span class="ic">▲</span><span><b>76K impressions</b><span>live e-pharmacy · 3 months</span></span></div>
+      <div class="float f1"><span class="ic">◈</span><span><b>Design system</b><span>6 tones · 15 components</span></span></div>
+      <div class="float f2"><span class="ic">◆</span><span><b>travafa.com</b><span>interface built from zero</span></span></div>
+      <div class="float f3"><span class="ic">▲</span><span><b>Hindi · Hinglish · English</b><span>3 bilingual products</span></span></div>
     </figure>
   </div>
   <div class="stats">
-    <div class="stat"><b class="cnt" data-to="407">0</b><span>commits shipped in 9 months</span></div>
-    <div class="stat"><b class="cnt" data-to="7">0</b><span>production repositories</span></div>
-    <div class="stat"><b class="cnt" data-to="11" data-prefix="~" data-suffix="K">0</b><span>LOC Go payment service</span></div>
-    <div class="stat"><b class="cnt" data-to="8.51" data-dec="2">0</b><span>CGPA · IIIT Bhagalpur</span></div>
+    <div class="stat"><b class="cnt" data-to="102">0</b><span>pages designed · travafa.com</span></div>
+    <div class="stat"><b class="cnt" data-to="397">0</b><span>components in the system</span></div>
+    <div class="stat"><b class="cnt" data-to="5">0</b><span>products shipped end to end</span></div>
+    <div class="stat"><b class="cnt" data-to="3">0</b><span>bilingual Hindi/English</span></div>
   </div>
 </section>
 
 
 <div class="marquee" aria-hidden="true">
-  <div class="track"><i>Go</i><i>TypeScript</i><i>Node.js</i><i>NestJS</i><i>PostgreSQL</i><i>Flutter</i><i>Next.js</i><i>Redis</i><i>Docker</i><i>AWS</i><i>gRPC</i><i>MCP</i><i>Gemini API</i><i>React</i><i>Prisma</i><i>BullMQ</i><i>Go</i><i>TypeScript</i><i>Node.js</i><i>NestJS</i><i>PostgreSQL</i><i>Flutter</i><i>Next.js</i><i>Redis</i><i>Docker</i><i>AWS</i><i>gRPC</i><i>MCP</i><i>Gemini API</i><i>React</i><i>Prisma</i><i>BullMQ</i></div>
+  <div class="track"><i>Figma</i><i>Rive</i><i>Design systems</i><i>Design tokens</i><i>UX audit</i><i>Information architecture</i><i>Prototyping</i><i>Motion</i><i>Accessibility</i><i>Bilingual UI</i><i>Offline-first</i><i>Flutter</i><i>Next.js</i><i>React</i><i>Tailwind</i><i>TypeScript</i><i>Figma</i><i>Rive</i><i>Design systems</i><i>Design tokens</i><i>UX audit</i><i>Information architecture</i><i>Prototyping</i><i>Motion</i><i>Accessibility</i><i>Bilingual UI</i><i>Offline-first</i><i>Flutter</i><i>Next.js</i><i>React</i><i>Tailwind</i><i>TypeScript</i></div>
 </div>
 
 <section id="experience" class="wrap reveal">
@@ -798,7 +801,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
     </div>
 
     <div class="rail">
-      <h4>Pick an app</h4>
+      <h3 class="h4">Pick an app</h3>
       <div id="dock"></div>
       <div class="about">
         <div class="row"><h3 id="a-name">—</h3><span class="muted" id="a-num">01</span></div>
@@ -905,12 +908,12 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 <section id="skills" class="wrap reveal">
   <div class="head"><span class="num">06</span><h2>Technical skills</h2></div>
   <div class="skill-grid">
-    <div class="card tilt"><h4>Languages</h4><div class="chips"><span class="chip">Go</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Dart</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">SQL</span></div></div>
-    <div class="card tilt"><h4>Frameworks</h4><div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Node.js</span><span class="chip">NestJS</span><span class="chip">Express</span><span class="chip">FastAPI</span></div></div>
-    <div class="card tilt"><h4>Data</h4><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MongoDB</span><span class="chip">Redis</span><span class="chip">Prisma</span><span class="chip">SQLite / Drift</span><span class="chip">Firebase</span></div></div>
-    <div class="card tilt"><h4>Cloud &amp; tooling</h4><div class="chips"><span class="chip">AWS Lambda</span><span class="chip">S3</span><span class="chip">GCP Pub/Sub</span><span class="chip">Docker</span><span class="chip">BullMQ</span><span class="chip">Socket.IO</span><span class="chip">Sentry</span><span class="chip">GitHub Actions</span></div></div>
-    <div class="card tilt"><h4>APIs &amp; integrations</h4><div class="chips"><span class="chip">REST</span><span class="chip">gRPC</span><span class="chip">Protocol Buffers</span><span class="chip">MCP</span><span class="chip">OAuth 2.1</span><span class="chip">JWT</span><span class="chip">Razorpay</span><span class="chip">Stripe</span><span class="chip">Gemini API</span><span class="chip">FCM</span></div></div>
-    <div class="card tilt"><h4>Education</h4><p style="color:var(--fg-2);font-size:.92rem">B.Tech Computer Science &amp; Engineering<br>IIIT Bhagalpur · 2023 — 2027<br><span class="muted">CGPA 8.51 / 10</span></p></div>
+    <div class="card tilt"><h3 class="h4">Languages</h3><div class="chips"><span class="chip">Go</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Dart</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">SQL</span></div></div>
+    <div class="card tilt"><h3 class="h4">Frameworks</h3><div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Node.js</span><span class="chip">NestJS</span><span class="chip">Express</span><span class="chip">FastAPI</span></div></div>
+    <div class="card tilt"><h3 class="h4">Data</h3><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MongoDB</span><span class="chip">Redis</span><span class="chip">Prisma</span><span class="chip">SQLite / Drift</span><span class="chip">Firebase</span></div></div>
+    <div class="card tilt"><h3 class="h4">Cloud &amp; tooling</h3><div class="chips"><span class="chip">AWS Lambda</span><span class="chip">S3</span><span class="chip">GCP Pub/Sub</span><span class="chip">Docker</span><span class="chip">BullMQ</span><span class="chip">Socket.IO</span><span class="chip">Sentry</span><span class="chip">GitHub Actions</span></div></div>
+    <div class="card tilt"><h3 class="h4">APIs &amp; integrations</h3><div class="chips"><span class="chip">REST</span><span class="chip">gRPC</span><span class="chip">Protocol Buffers</span><span class="chip">MCP</span><span class="chip">OAuth 2.1</span><span class="chip">JWT</span><span class="chip">Razorpay</span><span class="chip">Stripe</span><span class="chip">Gemini API</span><span class="chip">FCM</span></div></div>
+    <div class="card tilt"><h3 class="h4">Education</h3><p style="color:var(--fg-2);font-size:.92rem">B.Tech Computer Science &amp; Engineering<br>IIIT Bhagalpur · 2023 — 2027<br><span class="muted">CGPA 8.51 / 10</span></p></div>
   </div>
 </section>
 
@@ -972,7 +975,7 @@ const spy = new IntersectionObserver(es => es.forEach(e => {
 });
 
 /* ---------- typewriter ---------- */
-const ROLES = ["payment infrastructure at Travafa","offline-first Flutter apps","NestJS + PostgreSQL platforms","a live e-pharmacy for army families"];
+const ROLES = ["travafa.com's product interface","a 6-tone design system","offline-first flows","bilingual Hindi/English UI"];
 const tw = document.getElementById("tw");
 let ri = 0, ci = 0, del = false;
 (function type(){
