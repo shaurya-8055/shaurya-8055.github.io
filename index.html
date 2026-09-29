@@ -460,93 +460,46 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 
 /* ============ reveal ============ */
 
-/* ============ playable design demos ============ */
-.demos{display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); margin-top:22px}
-.demo{
-  border:1px solid var(--line); border-radius:var(--radius); background:var(--bg-2);
-  padding:20px; display:flex; flex-direction:column; gap:12px; position:relative; overflow:hidden;
-  transition:border-color .3s, box-shadow .3s, transform .3s;
-}
-.demo:hover{border-color:var(--line-2); box-shadow:0 22px 50px -34px rgba(0,0,0,.6)}
-.demo h3{font-family:var(--display); font-size:1.02rem; letter-spacing:-.02em; line-height:1.3}
-.demo .sub{color:var(--fg-2); font-size:.86rem; line-height:1.55}
-.demo .hint{
-  font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--accent); display:flex; align-items:center; gap:6px;
-}
-.demo .hint::before{content:""; width:5px; height:5px; border-radius:99px; background:var(--accent); animation:pulse 1.8s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1; transform:scale(1)} 50%{opacity:.35; transform:scale(1.5)}}
-.stage{
-  border:1px solid var(--line); border-radius:12px; background:var(--bg-3);
-  padding:16px; display:grid; gap:10px; min-height:236px; align-content:center;
-}
-.why{font-size:.83rem; color:var(--fg-2); line-height:1.55; min-height:4.6em; margin-top:auto}
-.why b{color:var(--fg)}
 
-/* --- tone swatches --- */
-.tones{display:flex; gap:8px; flex-wrap:wrap}
-.tone{
-  width:38px; height:38px; border-radius:11px; cursor:pointer; border:2px solid transparent;
-  display:grid; place-items:center; font-weight:800; font-size:.8rem;
-  transition:transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s, border-color .2s;
+/* ============ project timeline ============ */
+.tl{position:relative; margin-top:26px; padding-left:46px}
+.tl::before{
+  content:""; position:absolute; left:15px; top:14px; bottom:14px; width:2px; border-radius:2px;
+  background:linear-gradient(180deg, var(--line) 0%, var(--line-2) 22%, var(--line-2) 78%, var(--line) 100%);
 }
-.tone:hover{transform:translateY(-4px) scale(1.06)}
-.tone[aria-pressed="true"]{border-color:var(--fg); transform:translateY(-3px); box-shadow:0 10px 22px -12px rgba(0,0,0,.5)}
-.chip-demo{border-radius:99px; padding:7px 14px; font-weight:700; font-size:.84rem; display:inline-block}
-.card-demo{border-radius:12px; padding:13px 15px; display:grid; gap:5px}
-.card-demo .t{font-weight:700; font-size:.92rem}
-.card-demo .d{font-size:.8rem; opacity:.82}
-.swap{
-  display:inline-flex; gap:0; border:1px solid var(--line-2); border-radius:99px; overflow:hidden; background:var(--bg-3);
+.tl-item{position:relative; margin-bottom:11px}
+.tl-dot{
+  position:absolute; left:-37px; top:22px; width:14px; height:14px; border-radius:99px; z-index:2;
+  background:var(--bg); border:2px solid var(--line-2);
+  transition:background .3s, border-color .3s, box-shadow .3s, transform .3s;
 }
-.swap button{
-  border:0; cursor:pointer; background:transparent; color:var(--fg-2);
-  font:600 .76rem/1 Inter,sans-serif; padding:7px 13px; transition:background .2s,color .2s;
+.tl-item.open .tl-dot{background:var(--accent); border-color:var(--accent); box-shadow:0 0 0 5px var(--glow); transform:scale(1.12)}
+.tl-head{
+  width:100%; display:flex; align-items:center; gap:14px; cursor:pointer; text-align:left;
+  background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:15px 17px;
+  color:var(--fg); font:inherit;
+  transition:border-color .25s, background .25s, box-shadow .25s, transform .25s;
 }
-.swap button[aria-pressed="true"]{background:var(--accent); color:#fff}
-
-/* --- phone mock for the nav iteration --- */
-.mock{
-  width:122px; margin-inline:auto; aspect-ratio:9/16.5; border-radius:20px; position:relative;
-  background:linear-gradient(170deg,var(--stage-1),var(--stage-2)); border:1px solid var(--line-2);
-  overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; padding:9px;
+.tl-head:hover{border-color:var(--line-2); transform:translateX(3px)}
+.tl-item.open .tl-head{
+  border-color:color-mix(in srgb,var(--accent) 42%,var(--line));
+  box-shadow:0 14px 34px -26px var(--glow);
 }
-.mock .skel{position:absolute; left:11px; right:11px; top:14px; display:grid; gap:6px}
-.mock .skel i{height:7px; border-radius:99px; background:color-mix(in srgb,var(--fg) 11%,transparent); display:block}
-.mock .skel i:nth-child(2){width:72%} .mock .skel i:nth-child(3){width:54%}
-.navmock{display:flex; justify-content:space-around; align-items:center; transition:all .4s cubic-bezier(.34,1.3,.64,1)}
-.navmock em{width:15px; height:15px; border-radius:5px; background:color-mix(in srgb,var(--fg) 26%,transparent); display:block}
-.navmock s{display:block; font-size:.42rem; text-decoration:none; text-align:center; margin-top:3px; color:var(--fg-2)}
-.navmock > span{display:grid; place-items:center; padding:5px 3px; border-radius:9px; transition:background .3s}
-/* v1 docked */
-.navmock.v1{background:var(--bg-2); border-top:1px solid var(--line); margin:0 -9px -9px; padding:8px 4px}
-/* v2 floating pill, no labels */
-.navmock.v2{background:var(--bg-2); border:1px solid var(--line-2); border-radius:99px; padding:8px 6px; box-shadow:0 8px 20px -12px rgba(0,0,0,.6)}
-/* v3 floating pill, labelled + coloured */
-.navmock.v3{background:var(--bg-2); border:1px solid var(--line-2); border-radius:99px; padding:7px 5px; box-shadow:0 8px 20px -12px rgba(0,0,0,.6)}
-
-/* --- offline simulator --- */
-.trip{border:1px solid var(--line-2); border-radius:12px; overflow:hidden; background:var(--bg-2)}
-.banner{
-  font-size:.74rem; font-weight:700; padding:7px 12px; display:flex; align-items:center; gap:7px;
-  background:#FFE7A8; color:#7A5400; transform:translateY(-100%); height:0; opacity:0;
-  transition:transform .35s ease, opacity .3s ease, height .35s ease;
+.tl-t{display:flex; flex-direction:column; gap:2px; flex:1; min-width:0}
+.tl-title{font-family:var(--display); font-weight:700; font-size:1.02rem; letter-spacing:-.02em}
+.tl-role{font-size:.8rem; color:var(--fg-2)}
+.tl-when{font-family:var(--mono); font-size:.68rem; color:var(--fg-3); white-space:nowrap}
+.tl-chev{width:17px; height:17px; color:var(--fg-3); flex:none; transition:transform .35s cubic-bezier(.4,0,.2,1), color .25s}
+.tl-item.open .tl-chev{transform:rotate(180deg); color:var(--accent)}
+.tl-body{max-height:0; overflow:hidden; transition:max-height .5s cubic-bezier(.4,0,.2,1)}
+.tl-inner{padding:16px 18px 6px 4px}
+.tl-inner .bullets{margin:0}
+@media(max-width:600px){
+  .tl{padding-left:30px}
+  .tl::before{left:7px}
+  .tl-dot{left:-30px; width:12px; height:12px}
+    .tl-when{display:none}
 }
-.trip.off .banner{transform:none; height:auto; opacity:1}
-.trip-body{padding:13px 14px; display:grid; gap:9px}
-.trip-body .t{font-weight:700; font-size:.92rem}
-.trip-body .m{font-size:.78rem; color:var(--fg-2)}
-.acts{display:flex; gap:7px; flex-wrap:wrap}
-.act{
-  font:600 .76rem/1 Inter,sans-serif; padding:8px 12px; border-radius:99px; cursor:pointer;
-  border:1px solid var(--line-2); background:var(--bg-3); color:var(--fg); transition:all .3s;
-}
-.act.pri{background:var(--accent); border-color:var(--accent); color:#fff}
-.trip.off .act[data-net]{opacity:.42; cursor:not-allowed; filter:grayscale(1)}
-.reason{font-size:.72rem; color:var(--fg-3); min-height:1.2em; transition:opacity .3s}
-.tag-ok{color:var(--accent); font-weight:700}
-@media(max-width:560px){ .mock{width:132px} }
-
 
 /* ============ global interaction polish ============ */
 .card, .demo{position:relative}
@@ -584,7 +537,6 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
     <a class="brand" href="#top"><i>S</i>shaurya<span>.dev</span></a>
     <nav class="nav-links">
       <a class="lnk" href="#experience">Experience</a>
-      <a class="lnk" href="#design">Design</a>
       <a class="lnk" href="#projects">Projects</a>
       <a class="lnk" href="#apps">Live apps</a>
       <a class="lnk" href="#sites">Websites</a>
@@ -674,166 +626,144 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
   </article>
 </section>
 
-<section id="design" class="wrap reveal">
-  <div class="head"><span class="num">02</span><h2>Design, playable</h2><span class="note">three real decisions — click them</span></div>
-
-  <div class="demos">
-
-    <!-- 1. design tokens -->
-    <article class="demo">
-      <span class="hint">Design system</span>
-      <h3>A palette that can't produce an unreadable label</h3>
-      <p class="sub">SynClock ships six accent tones. Every pale fill travels bound to its own dark ink, and the pair moves together into dark mode — so no one can pick a fill without the text that stays legible on it.</p>
-      <div class="tones" id="tones" role="group" aria-label="Choose an accent tone"></div>
-      <div class="stage" id="tone-stage"></div>
-      <div class="swap" role="group" aria-label="Preview mode">
-        <button id="tl" aria-pressed="true">Light</button><button id="td" aria-pressed="false">Dark</button>
-      </div>
-      <p class="why" id="tone-why"></p>
-    </article>
-
-    <!-- 2. nav iteration -->
-    <article class="demo">
-      <span class="hint">Iteration</span>
-      <h3>The bottom bar, three times</h3>
-      <p class="sub">Shipped, tested on real devices, changed. Each version fixed what the last one got wrong.</p>
-      <div class="swap" role="group" aria-label="Navigation version">
-        <button class="nv" data-v="1" aria-pressed="true">v1</button><button class="nv" data-v="2" aria-pressed="false">v2</button><button class="nv" data-v="3" aria-pressed="false">v3</button>
-      </div>
-      <div class="stage">
-        <div class="mock">
-          <div class="skel"><i></i><i></i><i></i></div>
-          <div class="navmock v1" id="navmock"></div>
-        </div>
-      </div>
-      <p class="why" id="nav-why"></p>
-    </article>
-
-    <!-- 3. offline -->
-    <article class="demo">
-      <span class="hint">Offline-first</span>
-      <h3>What it does when the network is gone</h3>
-      <p class="sub">Cached trips still open. Anything that needs the server is disabled up front with a reason — never a form you fill in and lose at the end.</p>
-      <div class="swap" role="group" aria-label="Connection state">
-        <button id="on" aria-pressed="true">Online</button><button id="off" aria-pressed="false">Offline</button>
-      </div>
-      <div class="stage">
-        <div class="trip" id="trip">
-          <div class="banner">⚠ Offline — showing your saved copy</div>
-          <div class="trip-body">
-            <div class="t">Manali · 4 days</div>
-            <div class="m" id="trip-m">Synced just now</div>
-            <div class="acts">
-              <button class="act pri" data-net data-r="Booking needs a live connection — we don't take a payment we can't confirm.">Book stay</button>
-              <button class="act" data-r="Saved on your device.">View itinerary</button>
-              <button class="act" data-net data-r="Inviting sends an email, so it waits for the network.">Invite</button>
-            </div>
-            <div class="reason" id="reason">Everything's available.</div>
-          </div>
-        </div>
-      </div>
-      <p class="why" id="off-why">Tap a disabled control — it tells you <b>why</b>, not just that it failed.</p>
-    </article>
-
-  </div>
-</section>
-
 <section id="projects" class="wrap reveal">
-  <div class="head"><span class="num">03</span><h2>Selected projects</h2></div>
-  <div class="grid">
-
-    <article class="card tilt">
-      <div class="row"><h3>travafa.com — the web product</h3><span class="muted">2026 — now</span></div>
-      <p class="role">Built the product interface from zero · Live</p>
-      <ul class="bullets">
+  <div class="head"><span class="num">02</span><h2>What I've built</h2><span class="note">click a project</span></div>
+  <div class="tl">
+    <div class="tl-item open">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <button class="tl-head" aria-expanded="true">
+        <span class="tl-t">
+          <span class="tl-title">travafa.com — the web product</span>
+          <span class="tl-role">Built the product interface from zero · Live</span>
+        </span>
+        <span class="tl-when">2026 — now</span>
+        <svg class="tl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="tl-body"><div class="tl-inner">
+        <ul class="bullets">
         <li>Designed and built the surfaces people actually use: <strong>Explore &amp; destination search, Profile, Friends, group Discussions and chat, AI and manual trip creation, the trip itinerary, Group Travel, Transfers</strong> and trip-helper services.</li>
         <li>The <strong>interactive 3D globe</strong> — route arcs, journal pins and lit countries, with "been there" read apart from "want to go", a friends view, fullscreen and loading skeletons. A travelog that fails to load no longer looks identical to an empty one.</li>
         <li>Drove a <strong>design-system consolidation</strong>: home, product pages, globe and transfers rebuilt onto shared components, replacing one-off screens.</li>
         <li>Owned the <strong>information architecture</strong> for destination guides — answer blocks, internal linking and navigation structure across the location pages.</li>
       </ul>
-      <div class="metric">
+        <div class="metric">
         <div><b>102</b><span>pages designed</span></div>
         <div><b>397</b><span>components</span></div>
         <div><b>30</b><span>feature modules</span></div>
       </div>
-      <div class="chips"><span class="chip">Next.js</span><span class="chip">React</span><span class="chip">Tailwind</span><span class="chip">Design system</span><span class="chip">UX audit</span><span class="chip">IA</span></div>
-      <div class="links">
+        <div class="chips"><span class="chip">Next.js</span><span class="chip">React</span><span class="chip">Tailwind</span><span class="chip">Design system</span><span class="chip">UX audit</span><span class="chip">IA</span></div>
+        <div class="links">
         <a href="https://travafa.com" target="_blank" rel="noopener">Visit site →</a>
       </div>
-    </article>
-
-    <article class="card tilt">
-      <div class="row"><h3>Sehat Sathi — rural telemedicine</h3><span class="muted">SIH 2025</span></div>
-      <p class="role">Team lead · 4th of 58 in the qualifier, 6th overall</p>
-      <ul class="bullets">
-        <li>Designed a telemedicine app for <strong>173 villages around Nabha</strong>, where the constraint is not the feature list — it is a connection that appears for thirty seconds and vanishes.</li>
-        <li><strong>Multilingual by design</strong>, not by translated labels: the flows, not just the strings, were built for users whose first language is not English and who may be using a smartphone for the first time.</li>
-        <li>Offline-capable consultation records, so a visit is not wasted when the network is not there.</li>
-        <li>Led a team of six under a 36-hour clock: set the interfaces early so people could work in parallel, and kept one thin end-to-end path working from the start.</li>
-      </ul>
-      <div class="chips"><span class="chip">Flutter</span><span class="chip">WebRTC</span><span class="chip">Offline-first</span><span class="chip">Multilingual</span><span class="chip">Team lead</span></div>
-      <div class="links">
-        <a href="https://github.com/SIH2025PS18/QBIT012025" target="_blank" rel="noopener">GitHub →</a>
-      </div>
-    </article>
-
-    <article class="card tilt">
-      <div class="row"><h3>Army Medicine Supplier</h3><span class="muted">2026 — now</span></div>
-      <p class="role">Founder · Live in production</p>
-      <ul class="bullets">
+      </div></div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <button class="tl-head" aria-expanded="false">
+        <span class="tl-t">
+          <span class="tl-title">Army Medicine Supplier</span>
+          <span class="tl-role">Founder · Live in production</span>
+        </span>
+        <span class="tl-when">2026 — now</span>
+        <svg class="tl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="tl-body"><div class="tl-inner">
+        <ul class="bullets">
         <li>A customer photographs a prescription and ECHS card, a pharmacist verifies it and prices a quote, and medicines reach the door — cash on delivery or Razorpay, live tracking, in-app chat, bilingual English/Hindi.</li>
         <li>The prescription-to-doorstep flow is a <strong>pure, unit-tested 15-state machine</strong> where illegal transitions throw, with idempotency keys on every payment path and an audit row behind every status change.</li>
         <li>Built and run both apps solo: 26 NestJS modules, 159 endpoints, 35 Prisma models, 5 JWT-secured roles, and CI typechecking, testing and building both apps on every push.</li>
       </ul>
-      <div class="metric">
+        <div class="metric">
         <div><b>76K</b><span>impressions / 3 months</span></div>
         <div><b>980</b><span>organic clicks</span></div>
         <div><b>7.4</b><span>avg. search position</span></div>
       </div>
-      <div class="chips"><span class="chip">Next.js</span><span class="chip">NestJS</span><span class="chip">PostgreSQL</span><span class="chip">Prisma</span><span class="chip">Redis</span><span class="chip">BullMQ</span><span class="chip">Razorpay</span><span class="chip">AWS</span></div>
-      <div class="links">
+        <div class="chips"><span class="chip">Next.js</span><span class="chip">NestJS</span><span class="chip">PostgreSQL</span><span class="chip">Prisma</span><span class="chip">Redis</span><span class="chip">BullMQ</span><span class="chip">Razorpay</span><span class="chip">AWS</span></div>
+        <div class="links">
         <a href="https://armymedicinesupplier.in" target="_blank" rel="noopener">Visit site →</a>
         <a href="https://github.com/shaurya-8055/army-medicine-supplier" target="_blank" rel="noopener">GitHub →</a>
       </div>
-    </article>
-
-    <article class="card tilt">
-      <div class="row"><h3>SynClock</h3><span class="muted">2026</span></div>
-      <p class="role">Family reminders with accountability</p>
-      <ul class="bullets">
+      </div></div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <button class="tl-head" aria-expanded="false">
+        <span class="tl-t">
+          <span class="tl-title">SynClock</span>
+          <span class="tl-role">Family reminders with accountability</span>
+        </span>
+        <span class="tl-when">2026</span>
+        <svg class="tl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="tl-body"><div class="tl-inner">
+        <ul class="bullets">
         <li>Android reminder app where a typed or spoken line becomes an exact alarm: an on-device parser handles everyday phrasing and repeats in microseconds, with Gemini as a rate-limited, cached fallback.</li>
         <li>Offline-first Flutter client (Riverpod, Hive) with AlarmManager exact alarms, notification actions handled in a background isolate, a live home-screen widget and read-aloud reminders in Hindi and English.</li>
         <li>Family and work teams with owner-set notification rules, snooze escalation and nudges, served by a NestJS API on Oracle Cloud (SQLite/libSQL, JWT, rate limits, FCM) deployed by GitHub Actions.</li>
         <li>Hardened end to end: rotating refresh tokens with replay detection, server-side recurrence and alarm reconciliation across devices, Pro plans enforced from RevenueCat webhooks, CI with a test gate, health check and rollback — about 320 automated tests.</li>
       </ul>
-      <div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">Hive</span><span class="chip">NestJS</span><span class="chip">Oracle Cloud</span><span class="chip">SQLite</span><span class="chip">FCM</span><span class="chip">Gemini</span><span class="chip">RevenueCat</span></div>
-      <div class="links">
+        
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">Hive</span><span class="chip">NestJS</span><span class="chip">Oracle Cloud</span><span class="chip">SQLite</span><span class="chip">FCM</span><span class="chip">Gemini</span><span class="chip">RevenueCat</span></div>
+        <div class="links">
         <a href="./synclock/">Product page →</a>
         <a href="https://github.com/shaurya-8055/synclock-app" target="_blank" rel="noopener">GitHub →</a>
         <a href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">Download APK →</a>
       </div>
-    </article>
-
-    <article class="card tilt">
-      <div class="row"><h3>QuickGo</h3><span class="muted">2024</span></div>
-      <p class="role">E-commerce &amp; on-demand services</p>
-      <ul class="bullets">
+      </div></div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <button class="tl-head" aria-expanded="false">
+        <span class="tl-t">
+          <span class="tl-title">Sehat Sathi — rural telemedicine</span>
+          <span class="tl-role">Team lead · 4th of 58 in the qualifier, 6th overall</span>
+        </span>
+        <span class="tl-when">SIH 2025</span>
+        <svg class="tl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="tl-body"><div class="tl-inner">
+        <ul class="bullets">
+        <li>Designed a telemedicine app for <strong>173 villages around Nabha</strong>, where the constraint is not the feature list — it is a connection that appears for thirty seconds and vanishes.</li>
+        <li><strong>Multilingual by design</strong>, not by translated labels: the flows, not just the strings, were built for users whose first language is not English and who may be using a smartphone for the first time.</li>
+        <li>Offline-capable consultation records, so a visit is not wasted when the network is not there.</li>
+        <li>Led a team of six under a 36-hour clock: set the interfaces early so people could work in parallel, and kept one thin end-to-end path working from the start.</li>
+      </ul>
+        
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">WebRTC</span><span class="chip">Offline-first</span><span class="chip">Multilingual</span><span class="chip">Team lead</span></div>
+        <div class="links">
+        <a href="https://github.com/SIH2025PS18/QBIT012025" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+      </div></div>
+    </div>
+    <div class="tl-item">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <button class="tl-head" aria-expanded="false">
+        <span class="tl-t">
+          <span class="tl-title">QuickGo</span>
+          <span class="tl-role">E-commerce &amp; on-demand services</span>
+        </span>
+        <span class="tl-when">2024</span>
+        <svg class="tl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="tl-body"><div class="tl-inner">
+        <ul class="bullets">
         <li>Three Flutter clients — customer, worker and admin — on a Node.js/Express and MongoDB backend.</li>
         <li>JWT role-based access per tier, Twilio OTP and passwordless email OTP sign-in, bcrypt hashing and rate limiting.</li>
         <li>Storefront end-to-end: catalog, search, cart, Stripe checkout, order tracking and OneSignal push on order status.</li>
       </ul>
-      <div class="chips"><span class="chip">Flutter</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">MongoDB</span><span class="chip">Stripe</span><span class="chip">OneSignal</span></div>
-      <div class="links">
+        
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">MongoDB</span><span class="chip">Stripe</span><span class="chip">OneSignal</span></div>
+        <div class="links">
         <a href="https://shaurya-8055.github.io/QUICKGO/emulator.html" target="_blank" rel="noopener">Live demo →</a>
         <a href="https://github.com/shaurya-8055/QUICKGO" target="_blank" rel="noopener">GitHub →</a>
       </div>
-    </article>
-
+      </div></div>
+    </div>
   </div>
 </section>
 
 <section id="apps" class="wrap reveal">
-  <div class="head"><span class="num">04</span><h2>Live apps you can play with</h2><span class="note">real builds — tap inside the phone</span></div>
+  <div class="head"><span class="num">03</span><h2>Live apps you can play with</h2><span class="note">real builds — tap inside the phone</span></div>
 
   <div class="lab">
     <div class="stage">
@@ -882,7 +812,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 </section>
 
 <section id="sites" class="wrap reveal">
-  <div class="head"><span class="num">05</span><h2>Websites, running live</h2><span class="note">real production sites</span></div>
+  <div class="head"><span class="num">04</span><h2>Websites, running live</h2><span class="note">real production sites</span></div>
   <div class="sites">
 
     <article class="browser">
@@ -918,7 +848,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 
 <section id="certificates" class="wrap reveal">
   <div class="head">
-    <span class="num">06</span><h2>Certificates</h2><span class="note">scroll →</span>
+    <span class="num">05</span><h2>Certificates</h2><span class="note">scroll →</span>
     <span class="sp">
       <button class="nav-btn" id="c-prev" aria-label="Previous certificates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
       <button class="nav-btn" id="c-next" aria-label="Next certificates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
@@ -973,7 +903,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 </section>
 
 <section id="skills" class="wrap reveal">
-  <div class="head"><span class="num">07</span><h2>Technical skills</h2></div>
+  <div class="head"><span class="num">06</span><h2>Technical skills</h2></div>
   <div class="skill-grid">
     <div class="card tilt"><h4>Languages</h4><div class="chips"><span class="chip">Go</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Dart</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">SQL</span></div></div>
     <div class="card tilt"><h4>Frameworks</h4><div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Node.js</span><span class="chip">NestJS</span><span class="chip">Express</span><span class="chip">FastAPI</span></div></div>
@@ -985,7 +915,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 </section>
 
 <section id="about" class="wrap reveal">
-  <div class="head"><span class="num">08</span><h2>Achievements</h2></div>
+  <div class="head"><span class="num">07</span><h2>Achievements</h2></div>
   <ul class="ach card tilt">
     <li><span class="mark">01</span><span><b>Smart India Hackathon 2025</b> — led Team QBIT to 4th of 58 in the IIIT Bhagalpur qualifier, 6th overall; sole author of the team's multilingual Flutter telemedicine app for 173 Nabha villages. <a href="https://github.com/SIH2025PS18/QBIT012025" target="_blank" rel="noopener">Repo</a></span></li>
     <li><span class="mark">02</span><span><b>Competitive programming</b> — 3-Star on CodeChef, 1613 peak rating (top 2.5%).</span></li>
@@ -995,7 +925,7 @@ footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; p
 </section>
 
 </main>
-<div class="kbd-hint" id="kbdhint"><kbd>T</kbd><b>theme</b> <kbd>D</kbd><b>design</b> <kbd>/</kbd><b>top</b></div>
+<div class="kbd-hint" id="kbdhint"><kbd>T</kbd><b>theme</b> <kbd>P</kbd><b>projects</b> <kbd>/</kbd><b>top</b></div>
 
 <footer>
   <div class="wrap foot">
@@ -1201,112 +1131,6 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), {threshold:.1, rootMargin:"0px 0px -40px 0px"});
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
-/* ============ playable design demos ============ */
-(function(){
-  /* ---- 1. pastel tones (real values from SynClock's pastel_palette.dart) ---- */
-  var TONES=[
-    {n:'mint',     f:'#C7F5D4', i:'#15703C', df:'#1E3328', di:'#9ED9B2'},
-    {n:'lavender', f:'#E7D5FF', i:'#5B2A9E', df:'#2C2540', di:'#C9B6EE'},
-    {n:'sky',      f:'#D5E8FF', i:'#14548F', df:'#1D2B3D', di:'#A8C6EC'},
-    {n:'butter',   f:'#FFE7A8', i:'#7A5400', df:'#362E1C', di:'#E6CD8A'},
-    {n:'blush',    f:'#FFD7E6', i:'#9C2457', df:'#3A2230', di:'#EBA8C1'},
-    {n:'peach',    f:'#FFDECF', i:'#8F3F14', df:'#3A2A22', di:'#EDBBA2'}
-  ];
-  var tRow=document.getElementById('tones'), tStage=document.getElementById('tone-stage'),
-      tWhy=document.getElementById('tone-why'), bL=document.getElementById('tl'), bD=document.getElementById('td');
-  if(tRow){
-    var cur=0, dark=false;
-    // contrast ratio, so the claim is demonstrated rather than asserted
-    function lum(h){var c=[1,3,5].map(function(i){var v=parseInt(h.substr(i,2),16)/255;
-      return v<=.03928? v/12.92 : Math.pow((v+.055)/1.055,2.4);});
-      return .2126*c[0]+.7152*c[1]+.0722*c[2];}
-    function ratio(a,b){var l1=lum(a),l2=lum(b);var hi=Math.max(l1,l2),lo=Math.min(l1,l2);
-      return ((hi+.05)/(lo+.05));}
-    TONES.forEach(function(t,k){
-      var b=document.createElement('button');
-      b.className='tone'; b.type='button'; b.title=t.n;
-      b.setAttribute('aria-pressed', k===0?'true':'false');
-      b.setAttribute('aria-label', t.n);
-      b.style.background=t.f; b.style.color=t.i; b.textContent='Aa';
-      b.addEventListener('click',function(){cur=k; paint();});
-      tRow.appendChild(b);
-    });
-    function paint(){
-      var t=TONES[cur], fill = dark ? t.df : t.f, ink = dark ? t.di : t.i;
-      [].forEach.call(tRow.children,function(el,k){
-        el.setAttribute('aria-pressed', k===cur?'true':'false');
-        el.style.background = dark?TONES[k].df:TONES[k].f;
-        el.style.color      = dark?TONES[k].di:TONES[k].i;
-      });
-      tStage.style.background = dark? '#14161a' : '#ffffff';
-      tStage.innerHTML =
-        '<div class="card-demo" style="background:'+fill+';color:'+ink+'">'+
-          '<span class="t">Take the 8 a.m. medicine</span>'+
-          '<span class="d">Repeats daily · 2 people</span>'+
-        '</div>'+
-        '<div><span class="chip-demo" style="background:'+fill+';color:'+ink+'">'+t.n+'</span></div>';
-      var r=ratio(fill,ink);
-      tWhy.innerHTML='<b>'+t.n+'</b> — fill <code>'+fill+'</code> with ink <code>'+ink+'</code>. '+
-        'Contrast <b>'+r.toFixed(1)+':1</b> — '+(r>=4.5?'<span class="tag-ok">passes WCAG AA</span>':'large text only')+'.';
-      bL.setAttribute('aria-pressed',(!dark).toString()); bD.setAttribute('aria-pressed',dark.toString());
-    }
-    bL.addEventListener('click',function(){dark=false;paint();});
-    bD.addEventListener('click',function(){dark=true;paint();});
-    paint();
-  }
-
-  /* ---- 2. bottom-nav iteration ---- */
-  var NAV=[
-    {tabs:['','','',''], why:'<b>v1 — docked bar.</b> Edge to edge, icons only. It worked, but it sat on top of the content and read as chrome rather than part of the app.'},
-    {tabs:['','','',''], why:'<b>v2 — floating pill.</b> Lifted off the bottom so content shows behind it. Better, but on real devices testers still could not tell two of the icons apart.'},
-    {tabs:['Home','Teams','Add','You'], why:'<b>v3 — labelled, and coloured.</b> Every tab named, each with its own tone. The icons were never the problem to solve twice — the label was the fix.'}
-  ];
-  var COL=['#15703C','#5B2A9E','#14548F','#9C2457'];
-  var mock=document.getElementById('navmock'), navWhy=document.getElementById('nav-why');
-  if(mock){
-    function drawNav(v){
-      var d=NAV[v-1];
-      mock.className='navmock v'+v;
-      mock.innerHTML=d.tabs.map(function(lbl,i){
-        var bg = v===3 ? COL[i] : 'color-mix(in srgb,var(--fg) 26%,transparent)';
-        return '<span><em style="background:'+bg+'"></em>'+(lbl?'<s>'+lbl+'</s>':'')+'</span>';
-      }).join('');
-      navWhy.innerHTML=d.why;
-      [].forEach.call(document.querySelectorAll('.nv'),function(b){
-        b.setAttribute('aria-pressed',(+b.dataset.v===v).toString());
-      });
-    }
-    [].forEach.call(document.querySelectorAll('.nv'),function(b){
-      b.addEventListener('click',function(){drawNav(+b.dataset.v);});
-    });
-    drawNav(1);
-  }
-
-  /* ---- 3. offline simulator ---- */
-  var trip=document.getElementById('trip'), bOn=document.getElementById('on'),
-      bOff=document.getElementById('off'), reason=document.getElementById('reason'),
-      tripM=document.getElementById('trip-m');
-  if(trip){
-    function setNet(online){
-      trip.classList.toggle('off',!online);
-      bOn.setAttribute('aria-pressed',online.toString());
-      bOff.setAttribute('aria-pressed',(!online).toString());
-      tripM.textContent = online ? 'Synced just now' : 'Saved copy · last synced 2 h ago';
-      reason.textContent = online ? "Everything's available." : 'Two actions are unavailable. Tap one to see why.';
-    }
-    bOn.addEventListener('click',function(){setNet(true);});
-    bOff.addEventListener('click',function(){setNet(false);});
-    [].forEach.call(trip.querySelectorAll('.act'),function(a){
-      a.addEventListener('click',function(){
-        var blocked = trip.classList.contains('off') && a.hasAttribute('data-net');
-        reason.textContent = blocked ? a.dataset.r : (a.dataset.r || 'Done.');
-        reason.style.opacity=0; setTimeout(function(){reason.style.opacity=1;},90);
-      });
-    });
-    setNet(true);
-  }
-})();
-
 /* ---- header lifts on scroll ---- */
 (function(){
   var h=document.querySelector('header');
@@ -1372,9 +1196,32 @@ document.querySelectorAll(".reveal").forEach(el => io.observe(el));
     var t=e.target.tagName; if(t==='INPUT'||t==='TEXTAREA') return;
     var k=e.key.toLowerCase();
     if(k==='t'){ var b=document.getElementById('theme'); if(b) b.click(); }
-    if(k==='d'){ var d=document.getElementById('design'); if(d) d.scrollIntoView({behavior:'smooth'}); }
+    if(k==='p'){ var d=document.getElementById('projects'); if(d) d.scrollIntoView({behavior:'smooth'}); }
     if(k==='/'){ e.preventDefault(); scrollTo({top:0,behavior:'smooth'}); }
   });
+})();
+
+
+/* ---- project timeline ---- */
+(function(){
+  var items=[].slice.call(document.querySelectorAll('.tl-item'));
+  if(!items.length) return;
+  function setH(it){
+    var b=it.querySelector('.tl-body');
+    b.style.maxHeight = it.classList.contains('open') ? (b.firstElementChild.offsetHeight+'px') : '0px';
+  }
+  items.forEach(function(it){
+    var head=it.querySelector('.tl-head');
+    setH(it);
+    head.addEventListener('click',function(){
+      var wasOpen=it.classList.contains('open');
+      items.forEach(function(o){ o.classList.remove('open'); o.querySelector('.tl-head').setAttribute('aria-expanded','false'); setH(o); });
+      if(!wasOpen){ it.classList.add('open'); head.setAttribute('aria-expanded','true'); setH(it); }
+    });
+  });
+  addEventListener('resize',function(){ items.forEach(setH); },{passive:true});
+  // re-measure once webfonts land, or the panel clips
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ items.forEach(setH); });
 })();
 
 </script>
