@@ -580,11 +580,7 @@ document.getElementById('theme').onclick = () => {
 };
 
 // Device chrome: keys, status bar and home bar, coloured to each screenshot.
-const COLORS = {"editor":["#ffffff","#ffffff"],"home":["#ffffff","#ffffff"],"home-dark":["#000000","#000000"],
-  "onb1":["#000000","#000000"],"onb2":["#000000","#000000"],"onb3":["#000000","#000000"],
-  "plan":["#ffffff","#ffffff"],"plan-dark":["#000000","#000000"],"settings":["#ffffff","#ffffff"],
-  "team-activity":["#ffffff","#ffffff"],"team-detail":["#ffffff","#ffffff"],"team-create":["#868686","#f0eff2"],
-  "team-create2":["#868686","#f0eff2"],"team-invite":["#767676","#f0eff2"],"team-settings":["#767676","#f0eff2"]};
+const COLORS = {"home-dark":["#0c2a45","#000000"],"home":["#16548e","#ffffff"],"plan-dark":["#0b381d","#000000"],"plan":["#16703d","#ffffff"],"settings":["#15548f","#ffffff"],"team-activity":["#8e3f13","#ffffff"],"team-detail":["#8e3f13","#ffffff"],"teams":["#8e3f13","#ffffff"],"tiko-welcome":["#ffffff","#ffffff"],"tiko":["#ffffff","#ffffff"],"voice":["#ffffff","#ffffff"]};
 const lum = h => { const n = parseInt(h.slice(1), 16); return (.299 * (n >> 16) + .587 * (n >> 8 & 255) + .114 * (n & 255)) / 255; };
 const nameOf = img => img.getAttribute('src').split('/').pop().replace('.webp', '');
 function paint(el, name) {
