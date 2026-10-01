@@ -201,6 +201,7 @@ ul.ticks b{color:var(--fg)}
 .panel.lav{background:var(--lav)}.panel.sky{background:var(--sky)}.panel.mint{background:var(--mint)}
 .panel.butter{background:var(--butter)}.panel.peach{background:var(--peach)}
 .panel .phone{--w:min(280px,62vw)}
+.panel video.launch{width:min(300px,68vw);height:auto;aspect-ratio:9/16;border-radius:32px;background:#14548F;display:block}
 .pills{display:flex;flex-wrap:wrap;gap:8px}
 .pill{font-size:.78rem;font-weight:700;padding:6px 12px;border-radius:100px;background:var(--card);color:var(--fg-2)}
 
@@ -289,7 +290,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
 <header id="hdr"><div class="wrap nav">
   <a class="logo" href="#top" aria-label="SynClock home"><img class="wm" src="wordmark.png" width="682" height="132" alt="SynClock"></a>
   <nav class="links">
-    <a href="#type">Just type it</a><a href="#teams">Teams</a><a href="#voice">Voice</a><a href="#built">How it works</a><a href="#privacy">Privacy</a>
+    <a href="#type">Just say it</a><a href="#teams">Teams</a><a href="#voice">Voice</a><a href="#built">How it works</a><a href="#privacy">Privacy</a>
   </nav>
   <div class="right">
     <button class="icon-btn" id="theme" aria-label="Toggle dark mode" title="Toggle dark mode">
@@ -303,22 +304,22 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
 
 <div class="wrap hero">
   <div>
-    <span class="tag"><i></i> v1.0.14 · Coming soon to Google Play</span>
-    <h1><span class="w">Type it.</span> <span class="w">Share it.</span> <span class="w"><span class="hl">Know it got done.</span></span></h1>
-    <p class="sub">SynClock turns “call mom tomorrow at 8pm” into a reminder that rings on time — even offline. Share it with family, and when someone keeps snoozing, the people who asked find out.</p>
+    <span class="tag"><i></i> v1.0.16 · Coming soon to Google Play</span>
+    <h1><span class="w">Say it.</span> <span class="w">Share it.</span> <span class="w"><span class="hl">Know it got done.</span></span></h1>
+    <p class="sub">Tell Tiko “BP tablet every day at 9” — typed or spoken, in English or हिंदी — and it’s saved the moment you say it, and it rings on time, even offline. Send reminders to family, and hear back the moment they’re done.</p>
     <div class="cta">
       <a class="btn solid" href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
         Download for Android</a>
-      <a class="btn lav" href="#type">See how it works</a>
+      <a class="btn lav" href="#video">Watch the 30-second tour</a>
     </div>
     <div class="meta"><span>Android 8.0+</span><span>Free · optional Pro</span><span>No ads</span><span>English &amp; Hindi voice</span></div>
   </div>
   <div class="stage">
     <div class="phone fade" id="heroPhone"><div class="scr">
-      <img class="on" src="shots/home.webp" alt="Home screen: greeting, next-up Standup call with Done and Snooze, quick add" width="600" height="1248">
-      <img src="shots/plan.webp" alt="Plan screen grouped into Daily, Today and This week" width="600" height="1248" loading="lazy">
-      <img src="shots/editor.webp" alt="Editor reading 'Take BP tablet every day at 9pm' as a daily 9 PM reminder" width="600" height="1248" loading="lazy">
+      <img class="on" src="shots/home.webp" alt="Home: SynClock wordmark with Tiko, the day's counts, Tell Tiko, a late Vitamin D with Done and Snooze, and Today" width="600" height="1248">
+      <img src="shots/tiko.webp" alt="Talk to Tiko: 'Drink water every 2 hours' saved at once as 8 reminders, 8 AM to 10 PM" width="600" height="1248" loading="lazy">
+      <img src="shots/team-detail.webp" alt="Sharma Family team: 12 days together, members Mom and Dad with Check in" width="600" height="1248" loading="lazy">
       <img src="shots/home-dark.webp" alt="Home screen in dark mode" width="600" height="1248" loading="lazy">
     </div></div>
     <div class="devsw" role="group" aria-label="Phone frame">
@@ -327,18 +328,36 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
     </div>
     <div class="chip c1">✓ <span>Mom marked it done<small>Take BP tablet · 9:00 PM</small></span></div>
     <div class="chip c2">⏰ <span>Snoozed 3× — family told<small>Pay electricity bill</small></span></div>
-    <div class="chip c3">🔁 <span>Daily at 9:00 PM<small>read from what you typed</small></span></div>
+    <div class="chip c3">🔁 <span>Every 2 hours, 8 AM–10 PM<small>saved the moment you said it</small></span></div>
   </div>
 </div>
 
 <div class="marquee" aria-hidden="true"><div class="track" id="track"></div></div>
 
+<!-- ── Video ────────────────────────────────────────────── -->
+<section id="video" class="wrap">
+  <div class="row">
+    <div class="copy reveal">
+      <p class="kicker">See it in 30 seconds</p>
+      <h2>From “just say it” to “Mom finished”</h2>
+      <p>Watch Tiko set a reminder the moment it’s said, a habit become one tidy row in Plan, a reminder go to Mom’s phone — and the done receipt come back.</p>
+      <ul class="ticks">
+        <li><span><b>Real app, sample family.</b> Recorded on a phone with the demo data of the Sharma family.</span></li>
+        <li><span><b>Sound on</b> for the music — it’s ours, written for SynClock.</span></li>
+      </ul>
+    </div>
+    <div class="panel sky reveal" data-d="1">
+      <video class="launch" src="video/synclock-launch.mp4" poster="video/poster.webp" controls playsinline preload="none" width="720" height="1280" aria-label="SynClock launch video, 37 seconds"></video>
+    </div>
+  </div>
+</section>
+
 <!-- ── Just type it ─────────────────────────────────────── -->
 <section id="type" class="wrap">
   <div class="center reveal">
-    <p class="kicker">Just type it</p>
+    <p class="kicker">Just say it</p>
     <h2>Write it the way you'd say it</h2>
-    <p class="lead">No date pickers, no repeat dropdowns. SynClock reads the sentence on your phone — in microseconds, with no network — and fills in the day, the time and how often it repeats. Watch:</p>
+    <p class="lead">No date pickers, no repeat dropdowns. Tiko reads the sentence on your phone — instantly, with no network — and fills in the day, the time and how often it repeats. Several at once works too: “call mom at 5 and gym at 7”. Watch:</p>
   </div>
   <div class="demo reveal" data-d="1" aria-live="polite">
     <div class="field"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg><span id="typed"></span><span class="caret"></span></div>
@@ -349,21 +368,21 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
       <span class="rep" id="rRep" hidden>Daily</span>
     </div>
   </div>
-  <p class="note reveal" data-d="2">Tricky phrasings (“the second Tuesday after Diwali”) fall back to Gemini through SynClock's own server.</p>
+  <p class="note reveal" data-d="2">Tricky phrasings (“the second Tuesday after Diwali”) fall back to Gemini through SynClock's own server. Abusive or offensive words are never saved — in English, Hindi or any Indian language.</p>
 
   <div class="row" style="margin-top:90px">
     <div class="copy reveal">
-      <p class="kicker">The editor</p>
+      <p class="kicker">Talk to Tiko</p>
       <h3>Fewer taps than a sticky note</h3>
-      <p>Type one line and press enter. That's the whole flow for most reminders. Everything else is one chip away and stays out of sight until you need it.</p>
+      <p>Say it or type it, then send. When Tiko understands, the reminder is saved right away — no Create button — and a card shows what was set, ready to tweak.</p>
       <ul class="ticks">
-        <li><span><b>Live reading.</b> The day and time pills fill in as you type, and a sparkle shows they came from your words.</span></li>
-        <li><span><b>Repeats understood.</b> “every day”, “weekly”, “every Monday”, “monthly” set the repeat and leave the title clean.</span></li>
-        <li><span><b>Quick moves.</b> +1 hour, Tonight and Tomorrow in one tap; the time turns pink if it's already passed.</span></li>
-        <li><span><b>Extras on demand.</b> Repeat, High priority, Team, Tag and Note — one opens at a time.</span></li>
+        <li><span><b>Tap to change.</b> Time, day and repeat are chips on the card; one tap fixes them, and Undo is right there.</span></li>
+        <li><span><b>Repeats understood.</b> “every day”, “every 2 hours”, “every Monday and Thursday”, “har roz” — and several reminders in one line.</span></li>
+        <li><span><b>Fix it in words.</b> “make it 8” or “no, tomorrow” changes the reminder you just made instead of adding another.</span></li>
+        <li><span><b>Starters for right now.</b> What’s left today, a reminder in an hour, or Busy — one tap from the welcome.</span></li>
       </ul>
     </div>
-    <div class="panel sky reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/editor.webp" alt="Reminder editor with Today, 9:00 PM and Daily selected" loading="lazy" width="600" height="1248"></div></div></div>
+    <div class="panel sky reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/tiko-welcome.webp" alt="Talk to Tiko: What should I remember? with quick starters" loading="lazy" width="600" height="1248"></div></div></div>
   </div>
 
   <div class="row flip">
@@ -378,7 +397,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
         <li><span><b>Home-screen widget</b> that shows what's next and updates live.</span></li>
       </ul>
     </div>
-    <div class="panel lav reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/plan.webp" alt="Plan screen with Next up, Daily, Today and This week sections" loading="lazy" width="600" height="1248"></div></div></div>
+    <div class="panel lav reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/plan.webp" alt="Plan: a late Vitamin D, Today and Tomorrow, with Drink water shown once as every 2 hours" loading="lazy" width="600" height="1248"></div></div></div>
   </div>
 </section>
 
@@ -391,17 +410,17 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
       <p class="lead">Make a team for your family, your flat or your work crew. Send a reminder straight to someone's phone — it rings for them, not you — and hear back the moment they tap Done.</p>
     </div>
     <div class="trio reveal" data-d="1">
-      <div class="phone"><div class="scr"><img src="shots/team-create2.webp" alt="Team notification rules: who hears about new, done and snoozed reminders" loading="lazy" width="600" height="1248"></div></div>
-      <div class="phone"><div class="scr"><img src="shots/team-detail.webp" alt="Team page with members, reminders and activity tabs" loading="lazy" width="600" height="1248"></div></div>
-      <div class="phone"><div class="scr"><img src="shots/team-invite.webp" alt="Invite code sheet with a share button" loading="lazy" width="600" height="1248"></div></div>
+      <div class="phone"><div class="scr"><img src="shots/teams.webp" alt="Teams: Sharma Family, College Friends and Design Team, each with what's next" loading="lazy" width="600" height="1248"></div></div>
+      <div class="phone"><div class="scr"><img src="shots/team-detail.webp" alt="Sharma Family: 12 days together, members with Check in" loading="lazy" width="600" height="1248"></div></div>
+      <div class="phone"><div class="scr"><img src="shots/team-activity.webp" alt="Team activity: Mom finished Morning medicine, Riya snoozed 3 times" loading="lazy" width="600" height="1248"></div></div>
     </div>
     <div class="rules">
       <div class="rule reveal"><div class="em t-lav">🏠</div><h4>Family, Work or Friends</h4><p>Each kind starts with sensible rules. Family reads aloud and can wake someone for medication; Work stays quiet in meetings.</p></div>
       <div class="rule reveal" data-d="1"><div class="em t-sky">📣</div><h4>Who hears what</h4><p>New reminders go to everyone, them and the admins, or just them. Done receipts go to everyone, admins, or nobody.</p></div>
       <div class="rule reveal" data-d="2"><div class="em t-butter">⏰</div><h4>Snooze escalation</h4><p>After 1, 2, 3 or 5 snoozes in a row the team is told — or never. Owners set it once for everyone.</p></div>
       <div class="rule reveal"><div class="em t-mint">🔑</div><h4>Invite codes</h4><p>An eight-character code that expires in 30 minutes. Only admins can make one; everyone else can share it.</p></div>
-      <div class="rule reveal" data-d="1"><div class="em t-peach">👋</div><h4>Nudges</h4><p>Tap Nudge on a member and they get an “Are you doing it?” with a one-tap “On it” reply.</p></div>
-      <div class="rule reveal" data-d="2"><div class="em t-blush">🌙</div><h4>Quiet hours</h4><p>Team pushes stay silent during your quiet hours — unless the team allows urgent reminders to break through.</p></div>
+      <div class="rule reveal" data-d="1"><div class="em t-peach">👋</div><h4>Check-ins</h4><p>Tap Check in on a member and they get an “Are you doing it?” with a one-tap “On it” reply — with a few seconds to undo a mis-tap.</p></div>
+      <div class="rule reveal" data-d="2"><div class="em t-blush">🌙</div><h4>Busy &amp; quiet hours</h4><p>Tap Busy or set nightly quiet hours: reminders arrive silently, and your team sees you’re busy — unless the team allows urgent ones to break through.</p></div>
     </div>
   </div>
 </section>
@@ -412,15 +431,15 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
     <div class="copy reveal">
       <p class="kicker">Hear it, say “done”</p>
       <h3>Made for parents and grandparents</h3>
-      <p>Reminders can be read aloud when they arrive — in English or Hindi — and answered by voice. With the app open, say “haan, ho gaya” and it's marked done, and whoever sent it hears back. “Not yet” and “nahi” are never mistaken for a yes.</p>
+      <p>Reminders can be read aloud when they arrive — in English or Hindi — and answered by voice. When the alarm opens, it stops ringing, asks “Did you do it?”, and listens: say “done” or “हो गया” and it’s marked done, and whoever sent it hears back. “Not yet” and “nahi” are never mistaken for a yes.</p>
       <ul class="ticks">
         <li><span><b>Easy-listening mode</b> speaks slower and lower, says the name first, and repeats once.</span></li>
-        <li><span><b>Voice quick add</b> — tap Speak on Home and say the reminder.</span></li>
+        <li><span><b>Talk to Tiko</b> — tap the mic on Home and say the reminder; pauses mid-sentence are fine.</span></li>
         <li><span><b>Urgent can wake</b> — medication reminders can ring through quiet hours if the family allows it.</span></li>
       </ul>
       <div class="pills"><span class="pill">text-to-speech</span><span class="pill">speech-to-text</span><span class="pill">Hindi</span><span class="pill">English</span></div>
     </div>
-    <div class="panel mint reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/onb3.webp" alt="A reminder read aloud in Hindi and answered by voice" loading="lazy" width="600" height="1200"></div></div></div>
+    <div class="panel mint reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/voice.webp" alt="Voice and language: English or Hindi, the words that mean done, and listening after reminders" loading="lazy" width="600" height="1248"></div></div></div>
   </div>
 </section>
 
@@ -457,10 +476,10 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
     <div class="grid">
       <div class="cell reveal"><div class="em t-sky">⚡</div><h4>Exact alarms</h4><p>Android's AlarmManager fires on the second, through Doze, and re-registers itself after a reboot. SynClock asks once, in plain words, and re-arms every alarm the moment you allow it.</p></div>
       <div class="cell reveal" data-d="1"><div class="em t-mint">📴</div><h4>Offline-first</h4><p>Everything is stored on the phone first (Hive) and synced when you're back online. An edit or a Done on one phone moves or cancels the alarm on the others too.</p></div>
-      <div class="cell reveal" data-d="2"><div class="em t-lav">🧠</div><h4>On-device parsing</h4><p>Everyday phrasings are read locally in microseconds. Only the genuinely ambiguous ones go to Gemini, with per-user daily limits and caching.</p></div>
+      <div class="cell reveal" data-d="2"><div class="em t-lav">🧠</div><h4>On-device parsing</h4><p>Everyday phrasings — repeats, several reminders in one line, Hinglish — are read locally. Only the genuinely ambiguous ones go to Gemini, with per-user daily limits, caching and a kind-language filter on what goes in and out.</p></div>
       <div class="cell reveal"><div class="em t-butter">🔔</div><h4>Actions in the shade</h4><p>Done, 15 minutes and Later work straight from the notification, even when the app is closed — handled in a background isolate.</p></div>
       <div class="cell reveal" data-d="1"><div class="em t-peach">☁️</div><h4>Own backend</h4><p>NestJS on Oracle Cloud with SQLite/libSQL, rotating JWT sessions, rate limits and push through Firebase Cloud Messaging. Repeating reminders keep going even when Done is tapped from the notification.</p></div>
-      <div class="cell reveal" data-d="2"><div class="em t-blush">🧩</div><h4>Widget &amp; deep links</h4><p>A live home-screen widget, and synclock:// links that open the exact reminder — never a blank duplicate.</p></div>
+      <div class="cell reveal" data-d="2"><div class="em t-blush">🧩</div><h4>Widget &amp; deep links</h4><p>Home-screen widgets for Next up, Today and Tell Tiko, and synclock:// links that open the exact reminder — never a blank duplicate.</p></div>
     </div>
   </div>
 </section>
@@ -473,14 +492,14 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
     <p class="lead">It scrolls by itself — hover to pause, or drag to look around.</p>
   </div>
   <div class="gallery reveal" data-d="1" id="gallery" tabindex="0" aria-label="App screens, scrolling">
-    <figure><div class="phone"><div class="scr"><img src="shots/onb1.webp" alt="Onboarding: Just type it" loading="lazy" width="600" height="1200"></div></div><figcaption>Welcome</figcaption></figure>
     <figure><div class="phone"><div class="scr"><img src="shots/home.webp" alt="Home" loading="lazy" width="600" height="1248"></div></div><figcaption>Home</figcaption></figure>
-    <figure><div class="phone"><div class="scr"><img src="shots/editor.webp" alt="New reminder" loading="lazy" width="600" height="1248"></div></div><figcaption>New reminder</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/tiko-welcome.webp" alt="Talk to Tiko" loading="lazy" width="600" height="1248"></div></div><figcaption>Talk to Tiko</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/tiko.webp" alt="Saved at once" loading="lazy" width="600" height="1248"></div></div><figcaption>Saved at once</figcaption></figure>
     <figure><div class="phone"><div class="scr"><img src="shots/plan.webp" alt="Plan" loading="lazy" width="600" height="1248"></div></div><figcaption>Plan</figcaption></figure>
-    <figure><div class="phone"><div class="scr"><img src="shots/team-create.webp" alt="Create a team" loading="lazy" width="600" height="1248"></div></div><figcaption>Create a team</figcaption></figure>
-    <figure><div class="phone"><div class="scr"><img src="shots/team-settings.webp" alt="Team settings" loading="lazy" width="600" height="1248"></div></div><figcaption>Team settings</figcaption></figure>
-    <figure><div class="phone"><div class="scr"><img src="shots/team-activity.webp" alt="Team activity" loading="lazy" width="600" height="1248"></div></div><figcaption>Activity</figcaption></figure>
-    <figure><div class="phone"><div class="scr"><img src="shots/onb2.webp" alt="Accountability" loading="lazy" width="600" height="1200"></div></div><figcaption>Accountability</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/teams.webp" alt="Teams" loading="lazy" width="600" height="1248"></div></div><figcaption>Teams</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/team-detail.webp" alt="Family team" loading="lazy" width="600" height="1248"></div></div><figcaption>Family team</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/team-activity.webp" alt="Activity" loading="lazy" width="600" height="1248"></div></div><figcaption>Done receipts</figcaption></figure>
+    <figure><div class="phone"><div class="scr"><img src="shots/voice.webp" alt="Voice and language" loading="lazy" width="600" height="1248"></div></div><figcaption>Voice &amp; language</figcaption></figure>
     <figure><div class="phone"><div class="scr"><img src="shots/settings.webp" alt="Settings" loading="lazy" width="600" height="1248"></div></div><figcaption>Settings</figcaption></figure>
     <figure><div class="phone"><div class="scr"><img src="shots/plan-dark.webp" alt="Plan in dark mode" loading="lazy" width="600" height="1248"></div></div><figcaption>Plan, dark</figcaption></figure>
   </div>
@@ -500,7 +519,7 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
         <li><span><b>Clear data-safety labels</b> — what is collected, why, and how to remove it, in the privacy policy.</span></li>
       </ul>
     </div>
-    <div class="panel peach reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/settings.webp" alt="Settings with profile, stats, dark mode and notification settings" loading="lazy" width="600" height="1248"></div></div></div>
+    <div class="panel peach reveal" data-d="1"><div class="phone"><div class="scr"><img src="shots/settings.webp" alt="Settings: profile and stats, notifications, voice and language, light or dark" loading="lazy" width="600" height="1248"></div></div></div>
   </div>
 </section>
 
