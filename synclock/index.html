@@ -202,6 +202,17 @@ ul.ticks b{color:var(--fg)}
 .panel.butter{background:var(--butter)}.panel.peach{background:var(--peach)}
 .panel .phone{--w:min(280px,62vw)}
 .panel video.launch{width:min(300px,68vw);height:auto;aspect-ratio:9/16;border-radius:32px;background:#14548F;display:block}
+.vwrap{position:relative;display:inline-block;line-height:0}
+.vsound{position:absolute;top:14px;right:14px;
+  display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  font:700 .78rem/1 inherit;color:#11223a;background:rgba(255,255,255,.94);
+  border:1px solid rgba(255,255,255,.75);border-radius:100px;padding:11px 14px;min-height:44px;
+  box-shadow:0 10px 26px -12px rgba(0,0,0,.55);backdrop-filter:blur(8px);
+  transition:transform .22s cubic-bezier(.34,1.5,.64,1),opacity .25s,background .2s}
+.vsound:hover{transform:translateY(-2px);background:#fff}
+.vsound:focus-visible{outline:3px solid #14548F;outline-offset:3px}
+.vsound[aria-pressed="true"]{opacity:0;pointer-events:none}
+@media(prefers-reduced-motion:reduce){.vsound{transition:none}}
 .pills{display:flex;flex-wrap:wrap;gap:8px}
 .pill{font-size:.78rem;font-weight:700;padding:6px 12px;border-radius:100px;background:var(--card);color:var(--fg-2)}
 
@@ -347,7 +358,14 @@ footer{border-top:1px solid var(--line);padding:40px 0 56px}
       </ul>
     </div>
     <div class="panel sky reveal" data-d="1">
-      <video class="launch" src="video/synclock-launch.mp4" poster="video/poster.webp" controls playsinline preload="none" width="720" height="1280" aria-label="SynClock launch video, 37 seconds"></video>
+      <div class="vwrap">
+        <video class="launch" id="tour" src="video/synclock-launch.mp4" poster="video/poster.webp"
+               controls loop muted autoplay playsinline preload="metadata"
+               width="720" height="1280" aria-label="SynClock launch video, 37 seconds"></video>
+        <button class="vsound" id="vsound" type="button" aria-pressed="false">
+          <span class="vs-ic" aria-hidden="true">🔇</span><span class="vs-tx">Sound on</span>
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -704,5 +722,42 @@ function show([, t, w, rep]) { rT.textContent = t; rW.textContent = w; rR.hidden
 // Light/dark compare slider.
 const cmp = document.getElementById('compare');
 cmp.querySelector('input').addEventListener('input', e => cmp.style.setProperty('--x', e.target.value + '%'));
+
+/* ---- launch video: loop, play when visible, one tap for sound ---- */
+(function(){
+  var v=document.getElementById('tour'), btn=document.getElementById('vsound');
+  if(!v) return;
+  v.loop=true; v.muted=true;                       // autoplay is only permitted muted
+  var wanted=false;                                 // has the user asked for sound?
+
+  function tryPlay(){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+
+  // only run while it is on screen - it is a 2.3 MB file
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting) tryPlay();
+        else if(!v.paused && !wanted) v.pause();
+      });
+    },{threshold:.25}).observe(v);
+  } else tryPlay();
+
+  if(btn){
+    btn.addEventListener('click',function(){
+      wanted=true; v.muted=false; v.volume=1;
+      btn.setAttribute('aria-pressed','true');
+      tryPlay();
+    });
+    // if they unmute with the native controls, retire the button too
+    v.addEventListener('volumechange',function(){
+      if(!v.muted){ wanted=true; btn.setAttribute('aria-pressed','true'); }
+    });
+  }
+  // a tab return should not leave it frozen
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden && v.getBoundingClientRect().top < innerHeight) tryPlay();
+  });
+})();
+
 </script>
 </body></html>
