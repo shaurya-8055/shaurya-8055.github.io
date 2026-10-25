@@ -136,7 +136,7 @@ section{padding:clamp(3.5rem, 8vw, 6.5rem) 0 0}
 .links a{font-weight:600; color:var(--ink); text-decoration-color:var(--k)}
 .links a:hover{color:var(--k)}
 .media{border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 14px 30px -18px rgba(35,33,58,.35)}
-.media img{width:100%; height:auto}
+.media img, .media video{width:100%; height:auto; display:block}
 .tile .split{display:grid; grid-template-columns:1.1fr 1fr; gap:1.4rem; align-items:start}
 @media (max-width: 720px){ .tile .split{grid-template-columns:1fr} }
 .phones{display:flex; gap:.8rem; justify-content:center}
@@ -339,14 +339,14 @@ footer a{color:var(--ink-2)}
         <span class="kind">Open source desktop app, version 1.2</span>
         <h3>SnapFloat</h3>
         <p>Screenshots that float, then disappear. A thumbnail floats in the corner; drag it into any app. Nothing piles up in your Screenshots folder unless you save it.</p>
-        <div class="media"><img src="https://raw.githubusercontent.com/shaurya-8055/snapfloat/main/docs/demo.gif" alt="SnapFloat demo: capture, mark up, hide private info and drag into a chat" loading="lazy"></div>
+        <div class="media"><video controls preload="none" playsinline poster="snapfloat/poster.webp" width="1280" height="720" aria-label="SnapFloat tour, two minutes, narrated, with captions"><source src="snapfloat/demo.mp4" type="video/mp4"></video></div>
         <ul>
           <li>Markup with one-click private-info blur, OCR text copy, QR reading, scrolling capture that stitches long pages, and screen recording.</li>
           <li>Runs on GNOME Wayland through a small Shell extension, and on Windows with a real installer.</li>
           <li>Every release is self-tested on CI before it's published: the AppImage, the exe and the installer.</li>
         </ul>
         <div class="chips"><span class="chip">Python</span><span class="chip">Qt / PySide6</span><span class="chip">GNOME Shell</span><span class="chip">GStreamer</span><span class="chip">GitHub Actions</span></div>
-        <div class="links"><a href="https://github.com/shaurya-8055/snapfloat" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/shaurya-8055/snapfloat/releases/latest" target="_blank" rel="noopener">Download</a></div>
+        <div class="links"><a href="https://github.com/shaurya-8055/snapfloat" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/shaurya-8055/snapfloat/releases/latest" target="_blank" rel="noopener">Download for Linux or Windows</a></div>
       </article>
 
       <article class="tile full" id="synclock" style="--c:var(--peach); --k:var(--peach-ink)">

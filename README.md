@@ -10,6 +10,7 @@ My portfolio as a software engineer and product designer: the products I've desi
 |---|---|
 | `index.html` | The whole portfolio: one static page with inline CSS and JavaScript, no build step |
 | `synclock/` | Product page for [SynClock](https://shaurya-8055.github.io/synclock/), my reminder app |
+| `snapfloat/` | The SnapFloat tour video and its poster frame |
 | `img/` | Photos and screenshots used on the page |
 | `certs/` | Certificate PDFs and images |
 
