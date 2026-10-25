@@ -1,1345 +1,552 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shaurya Shakya — Software Engineer &amp; Product Designer</title>
-<meta name="description" content="Software engineer and product designer. I build products end to end — travafa.com's interface from zero, a Go payment service, offline-first sync, design systems and bilingual Hindi/English UI. Five live apps you can run in the page.">
-<meta name="theme-color" content="#0a0b0d">
-<meta property="og:title" content="Shaurya Shakya — Software Engineer &amp; Product Designer">
-<meta property="og:description" content="Product interfaces, design systems and offline-first flows — plus payments and Go services. Playable demos and five live apps, right in the page.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://shaurya-8055.github.io/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%2312a594'/><text x='32' y='46' font-size='38' font-family='Inter,sans-serif' font-weight='700' fill='%23fff' text-anchor='middle'>S</text></svg>">
+<title>Shaurya Shakya, software engineer and product designer</title>
+<meta name="description" content="Shaurya Shakya designs interfaces and builds them end to end: travafa.com, a live e-pharmacy, SynClock and SnapFloat. Open to software engineering and product design roles.">
+<meta name="theme-color" content="#FBFAFF">
+<meta property="og:title" content="Shaurya Shakya, software engineer and product designer">
+<meta property="og:description" content="I design the interface, then build it. travafa.com, Army Medicine Supplier, SynClock, SnapFloat.">
+<meta property="og:image" content="https://shaurya-8055.github.io/img/shaurya.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='18' fill='%23DCD5FF'/><rect x='30' y='32' width='24' height='18' rx='5' fill='%235B4BD6'/><text x='12' y='40' font-size='30' font-family='Arial' font-weight='800' fill='%2323213A'>S</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ============ tokens ============ */
 :root{
-  --radius:16px; --max:1140px;
-  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-  --display:'Space Grotesk','Inter',system-ui,sans-serif;
-  --ps:.78;                        /* phone scale */
-  --app:#0F766E;                   /* live-app accent, set by JS */
+  --paper:#FBFAFF; --ink:#23213A; --ink-2:#4A4766; --ink-3:#6E6A8C; --line:#E7E3F5;
+  --link:#5B4BD6; --link-hover:#4535B8;
+  --lilac:#DCD5FF; --mint:#C9F0DD; --peach:#FFDCCB; --butter:#FFF0B5; --sky:#D3E8FF; --rose:#FFD6E4;
+  --lilac-ink:#4B3FB0; --mint-ink:#1F6B4A; --peach-ink:#9A4421; --butter-ink:#7A5C00; --sky-ink:#1E5A9C; --rose-ink:#A2325A;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --step--1:clamp(.84rem, .82rem + .1vw, .9rem);
+  --step-0:clamp(1rem, .97rem + .15vw, 1.09rem);
+  --step-1:clamp(1.2rem, 1.12rem + .4vw, 1.42rem);
+  --step-2:clamp(1.5rem, 1.32rem + .9vw, 2.05rem);
+  --step-3:clamp(2rem, 1.6rem + 2vw, 3.3rem);
+  --step-4:clamp(3rem, 2rem + 5.2vw, 6.6rem);
+  --wrap:min(1180px, 100% - 2.5rem);
 }
-/* One accent, used sparingly. Everything else is neutral ink and paper. */
-:root[data-theme="dark"]{
-  --bg:#0a0b0d; --bg-2:#101216; --bg-3:#171a20; --line:#20242b; --line-2:#2e333c;
-  --fg:#f2f3f5; --fg-2:#a0a6b0; --fg-3:#8b929c;
-  --accent:#12a594; --accent-soft:#1d7a70; --on-accent:#04201c; --accent-ink:#5fd8c7;
-  --glow:rgba(18,165,148,.22); --shadow:0 30px 70px -30px rgba(0,0,0,.85);
-  --stage-1:#0d0f12; --stage-2:#07080a;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *,*::before,*::after{animation:none !important; transition:none !important} }
+body{margin:0; background:var(--paper); color:var(--ink); font:400 var(--step-0)/1.6 var(--body); text-rendering:optimizeLegibility}
+img{max-width:100%; display:block}
+a{color:var(--link); text-decoration-thickness:.08em; text-underline-offset:.18em}
+a:hover{color:var(--link-hover)}
+:focus-visible{outline:3px solid var(--link); outline-offset:3px; border-radius:6px}
+.wrap{width:var(--wrap); margin-inline:auto}
+.skip{position:absolute; left:-999px; top:8px; background:var(--ink); color:#fff; padding:.5rem .9rem; border-radius:8px; z-index:99}
+.skip:focus{left:12px}
+h1,h2,h3{font-family:var(--display); color:var(--ink); margin:0; font-weight:750; letter-spacing:-.02em; line-height:1.05}
+h2{font-size:var(--step-3); font-variation-settings:"wdth" 88}
+h3{font-size:var(--step-2); font-variation-settings:"wdth" 92; letter-spacing:-.015em}
+p{margin:0 0 1em; max-width:68ch}
+.muted{color:var(--ink-3)}
+
+/* ---------- top bar ---------- */
+.top{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid transparent; transition:border-color .2s}
+.top.scrolled{border-bottom-color:var(--line)}
+.top .wrap{display:flex; align-items:center; gap:1.5rem; height:64px}
+.mark{display:flex; align-items:center; gap:.6rem; font:700 1.06rem/1 var(--display); color:var(--ink); text-decoration:none; letter-spacing:-.01em}
+.mark i{width:30px; height:30px; border-radius:10px; background:var(--lilac); position:relative; flex:none}
+.mark i::after{content:""; position:absolute; right:4px; bottom:5px; width:14px; height:10px; border-radius:3px; background:var(--link)}
+.nav{display:flex; gap:1.4rem; margin-left:auto}
+.nav a{color:var(--ink-2); text-decoration:none; font-weight:500; font-size:var(--step--1)}
+.nav a:hover{color:var(--ink)}
+.btn{display:inline-flex; align-items:center; gap:.5rem; padding:.62rem 1.1rem; border-radius:999px; font:600 var(--step--1)/1 var(--body); text-decoration:none; border:1.5px solid var(--ink); color:var(--ink); background:transparent; cursor:pointer}
+.btn:hover{background:var(--ink); color:var(--paper)}
+.btn.solid{background:var(--ink); color:var(--paper)}
+.btn.solid:hover{background:var(--link); border-color:var(--link); color:#fff}
+@media (max-width: 860px){ .nav{display:none} .top .btn{margin-left:auto} }
+
+/* ---------- hero ---------- */
+.hero{display:grid; grid-template-columns:1.05fr 1fr; gap:2rem; align-items:center; padding:clamp(2.5rem, 6vw, 5.5rem) 0 clamp(2rem, 4vw, 3.5rem)}
+.hello{display:flex; align-items:center; gap:.75rem; margin-bottom:1.4rem}
+.hello img{width:52px; height:52px; border-radius:16px; object-fit:cover; object-position:50% 18%; border:3px solid #fff; box-shadow:0 0 0 1.5px var(--line)}
+.hello span{font-weight:500; color:var(--ink-2); font-size:var(--step--1); line-height:1.35}
+.hello b{display:block; color:var(--ink); font-weight:600}
+.name{font-size:var(--step-4); font-weight:800; letter-spacing:-.045em; line-height:.9; font-variation-settings:"wdth" 80, "opsz" 96}
+.name span{display:block}
+.name span:last-child{padding-left:.55em}
+.line{font:600 var(--step-2)/1.2 var(--display); font-variation-settings:"wdth" 90; color:var(--ink-2); margin:1.4rem 0 1rem; letter-spacing:-.01em; max-width:20ch}
+.intro{color:var(--ink-2); max-width:52ch}
+.ctas{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.6rem}
+.open{display:inline-flex; align-items:center; gap:.55rem; margin-top:1.4rem; font-size:var(--step--1); color:var(--mint-ink); font-weight:600}
+.open::before{content:""; width:9px; height:9px; border-radius:50%; background:#2FB777; box-shadow:0 0 0 4px var(--mint)}
+
+/* the pile of floating windows: drag them around */
+.pile{position:relative; height:clamp(380px, 46vw, 540px); touch-action:none; user-select:none}
+.pile .hint{position:absolute; left:0; bottom:-1.6rem; font-size:var(--step--1); color:var(--ink-3)}
+.win{position:absolute; width:min(280px, 46%); border-radius:18px; background:var(--c, var(--lilac)); color:var(--ink); padding:.55rem .55rem .9rem; box-shadow:0 1px 0 rgba(35,33,58,.06), 0 18px 40px -18px var(--s, rgba(75,63,176,.45)); cursor:grab; transition:box-shadow .2s, transform .25s cubic-bezier(.2,.8,.2,1); text-decoration:none}
+.win:active{cursor:grabbing}
+.win.lift{box-shadow:0 1px 0 rgba(35,33,58,.06), 0 30px 60px -20px var(--s, rgba(75,63,176,.55)); transition:box-shadow .2s}
+.win .bar{display:flex; gap:5px; padding:.25rem .3rem .5rem}
+.win .bar i{width:9px; height:9px; border-radius:50%; background:rgba(35,33,58,.18)}
+.win .shot{border-radius:11px; overflow:hidden; background:#fff; aspect-ratio:16/10; position:relative}
+.win .shot img{width:100%; height:100%; object-fit:cover; object-position:top}
+.win .cap{display:flex; justify-content:space-between; align-items:baseline; gap:.5rem; padding:.65rem .35rem 0}
+.win .cap b{font:700 1.02rem/1.1 var(--display); letter-spacing:-.01em}
+.win .cap small{font-size:.78rem; color:var(--ink-2); text-align:right}
+.globe-art, .float-art{position:absolute; inset:0; display:grid; place-items:center}
+@media (prefers-reduced-motion: no-preference){
+  .win{animation:drop .7s cubic-bezier(.2,.9,.25,1.15) both; animation-delay:calc(var(--i) * 90ms + 150ms)}
+  @keyframes drop{from{opacity:0; translate:0 -26px; scale:.96}}
 }
-:root[data-theme="light"]{
-  --bg:#f7f7f5; --bg-2:#ffffff; --bg-3:#efefec; --line:#e4e4df; --line-2:#cfcfc8;
-  --fg:#101113; --fg-2:#4b5158; --fg-3:#5f656d;
-  --accent:#0b7a6b; --accent-soft:#0e9483; --on-accent:#ffffff; --accent-ink:#065f53;
-  --glow:rgba(11,122,107,.16); --shadow:0 24px 60px -30px rgba(20,24,28,.28);
-  --stage-1:#f1f1ee; --stage-2:#e6e6e1;
+@media (max-width: 900px){
+  .hero{grid-template-columns:1fr}
+  .pile{height:420px; margin-top:.5rem}
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  background:var(--bg); color:var(--fg);
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-  line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
-  transition:background .35s ease, color .35s ease;
-}
-/* a single, almost-invisible vignette — no colour wash */
-body::before{
-  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
-  background:radial-gradient(60rem 40rem at 70% -12%, color-mix(in srgb,var(--fg) 5%,transparent), transparent 70%);
-}
-.wrap{width:100%; max-width:var(--max); margin-inline:auto; padding-inline:20px; position:relative; z-index:1}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *{animation-duration:.001ms!important; transition-duration:.001ms!important}
+@media (max-width: 600px){ .win .cap small{display:none} .win .cap b{font-size:.95rem} }
+
+/* ---------- now strip ---------- */
+.now{background:var(--butter); border-radius:22px; padding:1.1rem 1.4rem; display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; align-items:baseline; margin-top:2.6rem}
+.now b{font:700 var(--step-0)/1.3 var(--display)}
+.now p{margin:0; color:var(--ink-2)}
+
+/* ---------- sections ---------- */
+section{padding:clamp(3.5rem, 8vw, 6.5rem) 0 0}
+.sec-head{display:flex; flex-wrap:wrap; align-items:end; justify-content:space-between; gap:1rem; margin-bottom:2rem}
+.sec-head p{margin:0; color:var(--ink-3); max-width:46ch}
+
+/* ---------- work tiles (sizes follow importance) ---------- */
+.work{display:grid; grid-template-columns:repeat(6, 1fr); gap:1.1rem}
+.tile{background:var(--c); border-radius:28px; padding:clamp(1.2rem, 2.4vw, 2rem); display:flex; flex-direction:column; gap:1rem; position:relative; overflow:hidden}
+.tile.big{grid-column:span 4; grid-row:span 2}
+.tile.full{grid-column:span 6}
+.tile.mid{grid-column:span 3}
+.tile.side{grid-column:span 2}
+.tile.small{grid-column:span 3}
+@media (max-width: 980px){ .tile.big, .tile.mid, .tile.side, .tile.small, .tile.full{grid-column:span 6; grid-row:auto} }
+.tile .kind{font-weight:600; font-size:var(--step--1); color:var(--k)}
+.tile h3{font-size:var(--step-2)}
+.tile p{color:var(--ink-2); margin:0}
+.tile ul{margin:0; padding-left:1.1em; color:var(--ink-2)}
+.tile li{margin:.3em 0}
+.tile li::marker{color:var(--k)}
+.facts{display:flex; flex-wrap:wrap; gap:.5rem 1.6rem; margin-top:.2rem}
+.facts div{display:flex; flex-direction:column}
+.facts strong{font:750 var(--step-2)/1 var(--display); font-variation-settings:"wdth" 85; color:var(--ink); letter-spacing:-.02em}
+.facts span{font-size:var(--step--1); color:var(--ink-2)}
+.chips{display:flex; flex-wrap:wrap; gap:.4rem}
+.chip{font-size:.8rem; font-weight:600; padding:.28rem .62rem; border-radius:999px; background:rgba(255,255,255,.62); color:var(--ink-2)}
+.links{display:flex; flex-wrap:wrap; gap:.4rem 1.1rem; margin-top:auto; padding-top:.3rem}
+.links a{font-weight:600; color:var(--ink); text-decoration-color:var(--k)}
+.links a:hover{color:var(--k)}
+.media{border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 14px 30px -18px rgba(35,33,58,.35)}
+.media img{width:100%; height:auto}
+.tile .split{display:grid; grid-template-columns:1.1fr 1fr; gap:1.4rem; align-items:start}
+@media (max-width: 720px){ .tile .split{grid-template-columns:1fr} }
+.phones{display:flex; gap:.8rem; justify-content:center}
+.phones img{width:46%; max-width:170px; border-radius:22px; border:5px solid #fff; box-shadow:0 14px 30px -16px rgba(35,33,58,.4)}
+.phones img:nth-child(2){margin-top:1.6rem}
+
+/* ---------- journey (a real sequence, so years mark it) ---------- */
+.journey{list-style:none; margin:0; padding:0; display:grid; gap:0; position:relative}
+.journey::before{content:""; position:absolute; left:calc(5.9rem - 1.5px); top:.4rem; bottom:.4rem; width:3px; border-radius:3px; background:linear-gradient(var(--lilac), var(--mint), var(--peach), var(--sky), var(--rose))}
+.journey li{display:grid; grid-template-columns:4.6rem 1fr; gap:2.6rem; padding:.9rem 0}
+.journey time{font:700 var(--step-1)/1.2 var(--display); color:var(--ink); text-align:right}
+.journey .ev{position:relative}
+.journey .ev::before{content:""; position:absolute; left:calc(-1.3rem - 7px); top:.42rem; width:14px; height:14px; border-radius:50%; background:var(--paper); border:3px solid var(--dot)}
+.journey b{font:700 var(--step-1)/1.25 var(--display); letter-spacing:-.01em}
+.journey p{margin:.25rem 0 0; color:var(--ink-2)}
+.journey details{margin-top:.4rem}
+.journey summary{cursor:pointer; color:var(--link); font-weight:600; font-size:var(--step--1); width:max-content}
+.journey details ul{margin:.5rem 0 0; padding-left:1.1em; color:var(--ink-2)}
+.journey details li{display:list-item; padding:.15rem 0}
+@media (max-width: 640px){
+  .journey::before{left:calc(.5rem - 1.5px)}
+  .journey li{grid-template-columns:1fr; gap:.2rem; padding-left:2rem; position:relative}
+  .journey time{text-align:left; font-size:var(--step-0)}
+  .journey li::after{content:""; position:absolute; left:calc(.5rem - 7px); top:1.25rem; width:14px; height:14px; border-radius:50%; background:var(--paper); border:3px solid var(--dot)}
+  .journey .ev::before{display:none}
 }
 
-/* ============ nav ============ */
-header{
-  position:sticky; top:0; z-index:60;
-  padding:14px 0 6px;
-  background:linear-gradient(to bottom, color-mix(in srgb,var(--bg) 88%,transparent) 45%, transparent);
-}
-/* the pill */
-header .nav{
-  position:relative;
-  display:flex; align-items:center; justify-content:space-between;
-  height:58px; gap:16px; padding:0 8px 0 18px;
-  border-radius:99px;
-  border:1px solid var(--line);
-  background:color-mix(in srgb,var(--bg-2) 78%,transparent);
-  backdrop-filter:blur(18px) saturate(150%); -webkit-backdrop-filter:blur(18px) saturate(150%);
-  box-shadow:0 10px 30px -20px rgba(0,0,0,.55), inset 0 1px 0 color-mix(in srgb,var(--fg) 7%,transparent);
-  transition:box-shadow .35s ease, border-color .35s ease, background .35s ease, transform .35s ease;
-}
-header.scrolled .nav{
-  border-color:var(--line-2);
-  background:color-mix(in srgb,var(--bg-2) 92%,transparent);
-  box-shadow:0 18px 44px -24px rgba(0,0,0,.72), inset 0 1px 0 color-mix(in srgb,var(--fg) 9%,transparent);
-}
-/* scroll progress rides the bottom curve of the pill */
-#bar{
-  position:absolute; left:14px; bottom:6px; height:2px; width:0;
-  max-width:calc(100% - 28px);
-  background:linear-gradient(90deg, color-mix(in srgb,var(--accent) 55%,transparent), var(--accent));
-  border-radius:99px; transition:width .1s linear; pointer-events:none;
-}
-.brand{font-weight:800; letter-spacing:-.03em; text-decoration:none; font-size:1.02rem; display:flex; align-items:center; gap:9px}
-.brand i{width:26px; height:26px; border-radius:8px; background:var(--accent); display:grid; place-items:center; color:var(--on-accent); font-size:.78rem; font-style:normal; font-weight:800}
-.brand span{color:var(--accent)}
-.nav-links{display:flex; gap:4px; align-items:center}
-.nav-links a.lnk{color:var(--fg-2); text-decoration:none; font-size:.875rem; padding:12px 13px; border-radius:99px; transition:color .2s, background .2s; white-space:nowrap; display:inline-flex; align-items:center; min-height:44px}
-.nav-links a.lnk:hover{color:var(--fg); background:var(--bg-3)}
-.nav-links a.lnk.on{color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,transparent)}
-@media(max-width:900px){.nav-links a.lnk{display:none}}
+/* ---------- live apps (phone) ---------- */
+.lab{display:grid; grid-template-columns:auto 1fr; gap:clamp(1.5rem, 4vw, 3.5rem); align-items:center; background:var(--sky); border-radius:32px; padding:clamp(1.4rem, 3vw, 2.6rem)}
+@media (max-width: 860px){ .lab{grid-template-columns:1fr; justify-items:center} }
+.phone{width:300px; height:620px; border-radius:46px; background:#fff; padding:12px; box-shadow:0 0 0 2px rgba(35,33,58,.08), 0 30px 60px -28px rgba(30,90,156,.55); position:relative}
+.phone .screen{width:100%; height:100%; border-radius:36px; overflow:hidden; position:relative; background:var(--paper)}
+.phone iframe{width:100%; height:100%; border:0; display:block; background:#fff}
+.phone .loader{position:absolute; inset:0; display:grid; place-items:center; background:var(--paper); color:var(--ink-2); font-weight:600; transition:opacity .3s}
+.phone .loader.off{opacity:0; pointer-events:none}
+.phone .start{position:absolute; inset:0; display:grid; place-items:center; align-content:center; gap:.8rem; background:var(--paper); text-align:center; padding:1.5rem}
+.phone .start p{color:var(--ink-2); margin:0}
+.phone .start[hidden]{display:none}
+.picker{display:grid; gap:.55rem; max-width:440px; width:100%}
+.picker button{display:flex; align-items:center; gap:.9rem; width:100%; text-align:left; background:rgba(255,255,255,.55); border:1.5px solid transparent; border-radius:18px; padding:.7rem .8rem; font:inherit; color:var(--ink); cursor:pointer}
+.picker button:hover{background:rgba(255,255,255,.85)}
+.picker button[aria-pressed="true"]{background:#fff; border-color:var(--ink)}
+.picker .ic{width:42px; height:42px; border-radius:13px; display:grid; place-items:center; font:800 1.1rem/1 var(--display); color:#fff; flex:none}
+.picker b{display:block; font-weight:600}
+.picker small{color:var(--ink-2)}
+.app-about{margin-top:1rem; min-height:5.5rem}
+.app-about p{margin:.2rem 0 .6rem; color:var(--ink-2)}
 
-.btn{
-  display:inline-flex; align-items:center; gap:8px; text-decoration:none; cursor:pointer;
-  font-size:.875rem; font-weight:600; padding:11px 18px; border-radius:99px; min-height:44px;
-  border:1px solid var(--line-2); color:var(--fg); background:var(--bg-2);
-  transition:transform .2s, border-color .2s, background .2s, box-shadow .2s;
-}
-.btn:hover{transform:translateY(-2px); border-color:var(--accent); box-shadow:0 10px 24px -12px var(--glow)}
-.btn.primary{background:var(--accent); border-color:var(--accent); color:var(--on-accent)}
-.btn.primary:hover{filter:brightness(1.1); box-shadow:0 14px 30px -12px var(--glow)}
-.icon-btn{
-  width:44px; height:44px; border-radius:99px; display:grid; place-items:center; cursor:pointer;
-  border:1px solid var(--line-2); background:var(--bg-2); color:var(--fg-2);
-  transition:transform .25s, color .2s, border-color .2s;
-}
-.icon-btn:hover{color:var(--accent); border-color:var(--accent); transform:rotate(-18deg) scale(1.06)}
-@media(max-width:900px){ header{padding:10px 0 4px} header .nav{height:54px; padding:0 8px 0 14px} }
-.icon-btn svg{width:17px; height:17px}
-:root[data-theme="dark"] .sun{display:block}  :root[data-theme="dark"] .moon{display:none}
-:root[data-theme="light"] .sun{display:none}  :root[data-theme="light"] .moon{display:block}
+/* ---------- certificates & skills ---------- */
+.certs{display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:1rem}
+.cert{border-radius:22px; padding:1.2rem 1.3rem; background:var(--c); display:flex; flex-direction:column; gap:.35rem}
+.cert b{font:700 var(--step-1)/1.2 var(--display); letter-spacing:-.01em}
+.cert span{color:var(--ink-2); font-size:var(--step--1)}
+.cert .links{padding-top:.5rem}
+.skills{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.6rem 2rem}
+.skills h3{font-size:var(--step-1); margin-bottom:.7rem}
+.skills .chips .chip{background:var(--c); color:var(--ink); font-size:.86rem; padding:.36rem .75rem}
 
-/* ============ hero ============ */
-.hero{padding-block:84px 62px}
-@media(max-width:700px){ .hero{padding-block:34px 44px} }
-.tag{
-  display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:.76rem;
-  color:var(--fg-2); border:1px solid var(--line); background:var(--bg-2);
-  padding:7px 14px; border-radius:99px; margin-bottom:26px;
-}
-.pulse{width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 60%,transparent); animation:pulse 2.4s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
-.hero-grid{display:grid; grid-template-columns:minmax(0,1fr) 344px; gap:56px; align-items:center; margin-bottom:52px}
-@media(max-width:900px){.hero-grid{grid-template-columns:1fr; gap:36px}}
-.eyebrow{
-  font-family:var(--mono); font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
-  color:var(--fg-3); margin-bottom:14px; display:block;
-}
-@media(max-width:700px){ .eyebrow{letter-spacing:.12em; font-size:.68rem} }
-h1{font-family:var(--display); font-size:clamp(2.1rem,5vw,3.1rem); line-height:1;
-   letter-spacing:-.035em; font-weight:700; margin-bottom:18px}
-/* the statement line — this is what carries the page */
-.claim{
-  font-family:var(--display); font-weight:700;
-  font-size:clamp(1.75rem,4vw,2.95rem); line-height:1.14; letter-spacing:-.035em;
-  margin-bottom:22px; max-width:19ch; text-wrap:balance;
-}
-.claim .hl{
-  background:var(--accent); color:var(--on-accent); padding:.02em .2em .09em;
-  border-radius:6px; white-space:nowrap;          /* never split a highlighted phrase */
-  box-decoration-break:clone; -webkit-box-decoration-break:clone;
-}
-.typed{font-family:var(--mono); font-size:clamp(.82rem,2vw,.94rem); color:var(--fg-3); margin-bottom:18px; min-height:1.7em}
-.typed b{color:var(--accent); font-weight:500}
-.caret{display:inline-block; width:8px; background:var(--accent); margin-left:2px; animation:blink 1s steps(1) infinite; color:transparent}
-@keyframes blink{50%{opacity:0}}
-.lede{font-size:clamp(1rem,2.1vw,1.1rem); color:var(--fg-2); max-width:56ch; margin-bottom:28px}
-.lede strong{color:var(--fg); font-weight:650}
-.cta{display:flex; flex-wrap:wrap; gap:12px}
-
-/* portrait */
-.portrait{position:relative; justify-self:center}
-.portrait img{
-  width:344px; max-width:78vw; height:auto; aspect-ratio:4/5; object-fit:cover;
-  object-position:50% 22%; display:block;
-  border-radius:20px; border:1px solid var(--line-2); box-shadow:var(--shadow); filter:saturate(.96);
-}
-.portrait figcaption{
-  position:absolute; left:-20px; bottom:26px; background:var(--bg-2);
-  border:1px solid var(--line); border-radius:12px; padding:11px 15px;
-  box-shadow:var(--shadow); max-width:82%;
-}
-@media(max-width:900px){.portrait figcaption{left:12px}}
-/* floating fact cards — the portfolio equivalent of SynClock's notification cards */
-.float{
-  position:absolute; z-index:3; display:flex; align-items:center; gap:9px;
-  background:color-mix(in srgb,var(--bg-2) 88%,transparent);
-  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  border:1px solid var(--line-2); border-radius:13px; padding:9px 13px;
-  box-shadow:0 18px 40px -20px rgba(0,0,0,.55);
-  font-size:.78rem; line-height:1.35; white-space:nowrap;
-  animation:bob 7s ease-in-out infinite;
-}
-.float b{display:block; font-size:.83rem; letter-spacing:-.01em}
-.float span{color:var(--fg-3); font-family:var(--mono); font-size:.68rem}
-.float .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
-           background:color-mix(in srgb,var(--accent) 22%,transparent); color:var(--accent-ink);
-           font-size:.8rem; flex-shrink:0}
-.f1{top:-22px;   right:-58px; animation-delay:-.8s}
-.f2{top:41%;     left:-118px; animation-delay:-3.1s}
-.f3{bottom:-40px; right:-64px; animation-delay:-1.9s}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@media(max-width:1180px){.float{display:none}}
-.portrait figcaption b{display:block; font-size:.86rem; letter-spacing:-.01em}
-.portrait figcaption span{font-size:.75rem; color:var(--fg-3); font-family:var(--mono)}
-.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow)}
-.stat{background:var(--bg-2); padding:22px; transition:background .25s}
-.stat:hover{background:var(--bg-3)}
-.stat b{display:block; font-size:1.7rem; letter-spacing:-.03em; font-weight:800}
-.stat span{font-size:.8rem; color:var(--fg-3)}
-
-/* ============ marquee ============ */
-.marquee{
-  overflow:hidden; border-block:1px solid var(--line);
-  background:color-mix(in srgb,var(--bg-2) 55%,transparent);
-  padding:13px 0; margin:6px 0 4px; position:relative; z-index:1;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-          mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-}
-.marquee .track{display:flex; gap:0; width:max-content; animation:slide 38s linear infinite}
-.marquee:hover .track{animation-play-state:paused}
-.marquee i{
-  font-style:normal; font-family:var(--mono); font-size:.8rem; color:var(--fg-2);
-  padding:0 18px; display:inline-flex; align-items:center; gap:18px; white-space:nowrap;
-}
-.marquee i::after{content:"◆"; color:var(--accent); font-size:.5rem; opacity:.7}
-@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* ============ sections ============ */
-section{padding:56px 0; scroll-margin-top:76px}
-.head{display:block; margin-bottom:30px}
-.head .num{display:block; font-family:var(--mono); font-size:.7rem; letter-spacing:.22em;
-           text-transform:uppercase; color:var(--accent); margin-bottom:7px}
-.head h2{display:inline-block; margin-right:14px}
-.head .note{font-family:var(--mono); font-size:.75rem; color:var(--fg-3)}
-.head .sp{float:right; display:flex; gap:8px}
-h2{font-family:var(--display); font-size:clamp(1.7rem,3.6vw,2.6rem); letter-spacing:-.035em; font-weight:700; line-height:1.08}
-h3{font-size:1.08rem; letter-spacing:-.015em; font-weight:700}
-
-.card{
-  position:relative; background:var(--bg-2); border:1px solid var(--line);
-  border-radius:var(--radius); padding:26px; overflow:hidden;
-  transition:border-color .25s, transform .25s, box-shadow .25s;
-}
-.card::before{
-  content:""; position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .3s;
-  background:radial-gradient(20rem 20rem at var(--mx,50%) var(--my,0%), color-mix(in srgb,var(--accent) 13%,transparent), transparent 60%);
-}
-.card:hover{border-color:var(--line-2); transform:translateY(-3px); box-shadow:var(--shadow)}
-.card:hover::before{opacity:1}
-.row{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:baseline}
-.muted{color:var(--fg-3); font-size:.84rem; font-family:var(--mono)}
-.role{color:var(--accent); font-size:.9rem; margin-bottom:16px; font-weight:550}
-ul.bullets{list-style:none; display:grid; gap:11px}
-ul.bullets li{padding-left:21px; position:relative; color:var(--fg-2); font-size:.93rem}
-ul.bullets li::before{content:""; position:absolute; left:2px; top:.6em; width:7px; height:7px; border-radius:50%; background:var(--accent); opacity:.6}
-ul.bullets li strong{color:var(--fg); font-weight:650}
-
-.grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
-.grid .card{display:flex; flex-direction:column}
-.grid .card .links{margin-top:auto; padding-top:18px}   /* footers line up across cards */
-.chips{display:flex; flex-wrap:wrap; gap:7px; margin-top:16px}
-.chip{font-family:var(--mono); font-size:.73rem; color:var(--fg-2); border:1px solid var(--line); border-radius:7px; padding:4px 9px; background:var(--bg); transition:border-color .2s}
-.card:hover .chip{border-color:var(--line-2)}
-.links{display:flex; gap:16px; margin-top:18px; flex-wrap:wrap}
-.links a{font-size:.85rem; text-decoration:none; color:var(--accent); font-weight:600; display:inline-flex; align-items:center; min-height:44px}
-.links a:hover{text-decoration:underline}
-.metric{display:grid; grid-template-columns:repeat(auto-fit,minmax(88px,1fr)); gap:10px 18px; margin:16px 0 2px; padding:14px 16px; border:1px dashed var(--line-2); border-radius:12px; background:var(--bg)}
-.metric div b{display:block; font-size:1.05rem; letter-spacing:-.02em}
-.metric div span{font-size:.72rem; color:var(--fg-3); font-family:var(--mono)}
-
-/* ============ live app lab ============ */
-.lab{
-  display:grid; grid-template-columns:minmax(0,1fr) 336px; gap:0; align-items:stretch;
-  border:1px solid var(--line); border-radius:22px; overflow:hidden; background:var(--bg-2);
-  box-shadow:var(--shadow);
-}
-@media(max-width:940px){.lab{grid-template-columns:1fr}}
-.stage{
-  position:relative; padding:32px 18px; display:grid; place-items:center;
-  background:radial-gradient(60% 55% at 50% 42%, color-mix(in srgb,var(--app) 22%,transparent) 0%, transparent 70%),
-             linear-gradient(160deg,var(--stage-1),var(--stage-2));
-  transition:background .5s ease;
-}
-.stage::before{
-  content:''; position:absolute; inset:0; pointer-events:none; opacity:.4;
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:46px 46px;
-  -webkit-mask-image:radial-gradient(72% 62% at 50% 50%,#000 0%,transparent 76%);
-          mask-image:radial-gradient(72% 62% at 50% 50%,#000 0%,transparent 76%);
-}
-.rig{display:flex; align-items:center; gap:16px; position:relative; z-index:2}
-.slot{width:calc(393px * var(--ps)); height:calc(852px * var(--ps)); flex-shrink:0}
-.scaler{width:393px; height:852px; transform:scale(var(--ps)); transform-origin:top left}
-@media(max-width:1200px){:root{--ps:.66}}
-@media(max-width:940px){:root{--ps:.74}}
-@media(max-width:560px){:root{--ps:.58}}
-
-/* iPhone 15 Pro — the same frame the standalone emulator uses */
-.frame{
-  width:393px; height:852px; border-radius:54px; background:#2b2b2b; padding:10px;
-  position:relative; z-index:10;
-  box-shadow:inset 0 0 0 2px #58585a, inset 0 0 0 6px #000, 0 0 0 3px #454545,
-             0 40px 90px rgba(0,0,0,.55), 0 0 120px -40px var(--app);
-  transition:box-shadow .5s ease, border-radius .4s, background .4s, width .4s, height .4s;
-}
-.frame::before{ /* Dynamic Island */
-  content:''; position:absolute; top:22px; left:50%; transform:translateX(-50%);
-  width:122px; height:36px; background:#000; border-radius:20px; z-index:30; pointer-events:none;
-}
-.key{position:absolute; background:#383838; border-radius:2px 0 0 2px; width:4px; box-shadow:inset -1px 0 1px rgba(255,255,255,.1); z-index:5}
-.k-act{top:110px; left:-4px; height:26px}
-.k-up{top:155px; left:-4px; height:45px}
-.k-dn{top:215px; left:-4px; height:45px}
-.k-pw{top:160px; right:-4px; height:80px; border-radius:0 2px 2px 0}
-
-.frame.android{width:384px; height:832px; border-radius:32px; background:#0d0d0d; padding:4px;
-  box-shadow:0 0 0 2px #4a4a4a, 0 40px 90px rgba(0,0,0,.55), 0 0 120px -40px var(--app)}
-.frame.android::before{width:11px; height:11px; top:14px; border-radius:50%; box-shadow:inset 0 0 0 1px #2a2a2a}
-.frame.android .key{display:none}
-.frame.android .screen,.frame.android .loader{border-radius:28px}
-.frame.android .screen{padding-top:34px; padding-bottom:18px}
-.frame.android .sys-top{height:34px; padding:0 18px 6px; font-size:13px}
-.frame.android .sys-bot{height:18px}
-.frame.android .sys-bot::after{width:110px; height:4px; bottom:6px}
-
-.screen{width:100%; height:100%; overflow:hidden; background:#fff; position:relative; border-radius:44px; padding-top:54px; padding-bottom:22px}
-.screen iframe{width:100%; height:100%; border:none; display:block; background:#fff}
-
-/* the app runs in an iframe and cannot read real safe-area insets, so the frame paints them */
-.sys-top,.sys-bot{position:absolute; left:0; right:0; z-index:25; pointer-events:none}
-.sys-top{
-  top:0; height:54px; background:var(--app); color:#fff;
-  display:flex; align-items:flex-end; justify-content:space-between;
-  padding:0 30px 9px; font-size:15px; font-weight:600; letter-spacing:.2px;
-  transition:background .5s ease;
-}
-.sys-top .ico{display:flex; align-items:center; gap:6px}
-.sys-top svg{display:block}
-.sys-bot{bottom:0; height:22px; background:#fff}
-.sys-bot::after{content:''; position:absolute; bottom:7px; left:50%; transform:translateX(-50%); width:138px; height:5px; background:#0d0d0d; border-radius:3px; opacity:.85}
-
-.loader{position:absolute; inset:0; background:#0b1211; display:grid; place-content:center; justify-items:center; gap:12px; color:#9FB0AD; font-size:13px; z-index:40; transition:opacity .45s; border-radius:44px}
-.loader.off{opacity:0; pointer-events:none}
-.spin{width:28px; height:28px; border:3px solid rgba(255,255,255,.14); border-top-color:var(--app); border-radius:50%; animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-.tools{display:flex; flex-direction:column; gap:12px; padding:13px 8px; z-index:50;
-  background:color-mix(in srgb,var(--fg) 6%,transparent); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-  border-radius:30px; border:1px solid var(--line); box-shadow:0 20px 40px -22px rgba(0,0,0,.6)}
-.tool{width:40px; height:40px; border-radius:50%; border:1px solid var(--line); cursor:pointer;
-  background:color-mix(in srgb,var(--fg) 5%,transparent); color:var(--fg-2);
-  display:grid; place-items:center; transition:.18s}
-.tool:hover{background:var(--app); border-color:var(--app); color:#fff; transform:scale(1.08)}
-.tool:active{transform:scale(.94)}
-.tool.on{background:var(--app); border-color:var(--app); color:#fff}
-.tool svg{width:16px; height:16px}
-
-.rail{padding:26px 24px; display:flex; flex-direction:column; border-left:1px solid var(--line)}
-@media(max-width:940px){.rail{border-left:none; border-top:1px solid var(--line)}}
-.rail h4{font-family:var(--mono); font-size:.72rem; color:var(--fg-3); text-transform:uppercase; letter-spacing:.1em; font-weight:500; margin-bottom:10px}
-.app-btn{
-  display:flex; align-items:center; gap:13px; width:100%; text-align:left; cursor:pointer;
-  border:1px solid transparent; background:transparent; border-radius:13px; padding:9px 10px;
-  color:var(--fg-2); font-family:inherit; font-size:.9rem; transition:.2s;
-}
-.app-btn:hover{background:var(--bg-3); color:var(--fg)}
-.app-btn.on{background:var(--bg-3); border-color:var(--line-2); color:var(--fg)}
-.app-btn .ic{width:38px; height:38px; border-radius:11px; flex-shrink:0; display:grid; place-items:center; color:#fff; font-weight:800; font-size:.95rem; text-shadow:0 1px 2px rgba(0,0,0,.35)}
-.app-btn small{display:block; color:var(--fg-3); font-size:.75rem; font-weight:400}
-.app-btn.on .nm{font-weight:650}
-.rail .about{margin-top:16px; padding-top:16px; border-top:1px solid var(--line)}
-.rail .about p.d{color:var(--fg-2); font-size:.89rem}
-
-/* ============ website previews ============ */
-.sites{display:grid; gap:20px; grid-template-columns:1fr 1fr}
-@media(max-width:860px){.sites{grid-template-columns:1fr}}
-.browser{
-  border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--bg-2);
-  box-shadow:var(--shadow); transition:transform .25s, border-color .25s;
-}
-.browser:hover{transform:translateY(-3px); border-color:var(--line-2)}
-.browser .bar{display:flex; align-items:center; gap:10px; padding:10px 13px; background:var(--bg-3); border-bottom:1px solid var(--line)}
-.dots{display:flex; gap:6px; flex-shrink:0}
-.dots i{width:10px; height:10px; border-radius:50%; background:var(--line-2); display:block}
-.url{
-  flex:1; min-width:0; font-family:var(--mono); font-size:.72rem; color:var(--fg-3);
-  background:var(--bg); border:1px solid var(--line); border-radius:99px; padding:4px 12px;
-  text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-}
-.view{position:relative; aspect-ratio:1280/860; overflow:hidden; background:#fff}
-.view iframe{
-  width:1280px; height:860px; border:0; position:absolute; top:0; left:0;
-  transform:scale(var(--bs,.4)); transform-origin:top left;
-}
-.view .veil{position:absolute; inset:0; cursor:pointer; display:grid; place-items:center}  /* the preview scrolls the page, not the frame */
-.view.shot img{width:100%; height:100%; object-fit:cover; object-position:top center; display:block}
-.view.shot .veil span{
-  opacity:0; transform:translateY(6px); transition:.25s; font-size:.85rem; font-weight:600; color:#fff;
-  background:color-mix(in srgb,var(--accent) 92%,#000); padding:9px 18px; border-radius:99px;
-  box-shadow:0 14px 34px -12px rgba(0,0,0,.6);
-}
-.view.shot:hover .veil{background:rgba(6,10,12,.45)}
-.view.shot:hover .veil span{opacity:1; transform:none}
-.view .boot{position:absolute; inset:0; display:grid; place-items:center; background:var(--bg-3); color:var(--fg-3); font-size:.8rem; transition:opacity .4s}
-.view .boot.off{opacity:0; pointer-events:none}
-.browser .meta{display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:15px 18px 17px; flex-wrap:wrap}
-.browser .meta b{font-size:.97rem; letter-spacing:-.015em}
-.browser .meta p{width:100%; color:var(--fg-2); font-size:.87rem; margin-top:2px}
-.browser .meta a{font-size:.83rem; color:var(--accent); text-decoration:none; font-weight:600; white-space:nowrap}
-.browser .meta a:hover{text-decoration:underline}
-
-/* ============ certificates slider ============ */
-.slider{position:relative}
-.track{
-  display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory;
-  padding:4px 4px 18px; scroll-behavior:smooth; scrollbar-width:thin;
-  scrollbar-color:var(--line-2) transparent;
-}
-.track::-webkit-scrollbar{height:8px}
-.track::-webkit-scrollbar-thumb{background:var(--line-2); border-radius:99px}
-.track::-webkit-scrollbar-track{background:transparent}
-.slide{
-  scroll-snap-align:start; flex:0 0 352px; display:flex; flex-direction:column;
-  background:var(--bg-2); border:1px solid var(--line); border-radius:var(--radius);
-  overflow:hidden; transition:transform .25s, border-color .25s, box-shadow .25s;
-}
-@media(max-width:480px){.slide{flex:0 0 86vw}}
-.slide:hover{transform:translateY(-4px); border-color:var(--line-2); box-shadow:var(--shadow)}
-.slide .art{
-  aspect-ratio:1.41/1; display:grid; place-items:center; overflow:hidden;
-  background:#0b2739; border-bottom:1px solid var(--line);
-}
-.slide .art img.doc{width:100%; height:100%; object-fit:cover; object-position:top center; display:block}
-.slide .art img.badge{width:142px; height:142px; object-fit:contain}
-.slide .art.plain{background:#fff}
-.slide .art.tile{background:var(--bg-3); color:var(--accent); font-size:3.2rem; border-bottom:1px solid var(--line)}
-.slide .body{padding:17px 19px 19px; display:flex; flex-direction:column; gap:3px; flex:1}
-.slide .body b{font-size:.96rem; letter-spacing:-.015em}
-.slide .body span{font-size:.81rem; color:var(--fg-3)}
-.slide .body .go{margin-top:auto; padding-top:13px; display:flex; gap:14px; flex-wrap:wrap}
-.slide .body .go a{font-size:.82rem; color:var(--accent); text-decoration:none; font-weight:600}
-.slide .body .go a:hover{text-decoration:underline}
-
-/* lightbox */
-.lb{position:fixed; inset:0; z-index:200; background:rgba(4,6,12,.86); backdrop-filter:blur(6px);
-  display:none; place-items:center; padding:24px}
-.lb.on{display:grid}
-.lb img{max-width:min(1000px,94vw); max-height:88vh; border-radius:12px; box-shadow:0 40px 90px rgba(0,0,0,.6)}
-.lb .x{position:absolute; top:18px; right:20px; width:44px; height:44px; border-radius:99px; cursor:pointer;
-  border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.1); color:#fff; font-size:1.2rem; display:grid; place-items:center}
-.nav-btn{min-width:44px; min-height:44px; 
-  width:36px; height:36px; border-radius:99px; display:grid; place-items:center; cursor:pointer;
-  border:1px solid var(--line-2); background:var(--bg-2); color:var(--fg-2); transition:.2s;
-}
-.nav-btn:hover{color:var(--on-accent); background:var(--accent); border-color:var(--accent)}
-.nav-btn svg{width:16px; height:16px}
-
-/* ============ skills / achievements / footer ============ */
-.skill-grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
-.skill-grid h4{font-size:.74rem; font-family:var(--mono); color:var(--fg-3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:12px; font-weight:500}
-.ach{display:grid; gap:14px}
-.ach li{list-style:none; display:flex; gap:13px; align-items:flex-start; color:var(--fg-2); font-size:.93rem}
-.ach b{color:var(--fg)}
-.ach a{color:var(--accent); text-decoration:none}
-.ach a:hover{text-decoration:underline}
-.ach .mark{color:var(--accent); font-family:var(--mono); font-size:.78rem; padding-top:.2em}
-footer{border-top:1px solid var(--line); padding:54px 0 42px; margin-top:36px; position:relative; z-index:1}
-.foot{display:flex; justify-content:space-between; gap:22px; flex-wrap:wrap; align-items:center}
-.foot p{color:var(--fg-3); font-size:.85rem}
-.foot nav{display:flex; gap:18px; flex-wrap:wrap}
-.foot nav a{color:var(--fg-2); text-decoration:none; font-size:.88rem}
-.foot nav a:hover{color:var(--accent)}
-
-/* ============ reveal ============ */
-
-
-
-/* ============ journey path ============ */
-.jwrap{position:relative; margin-top:30px}
-.jline{position:absolute; left:50%; top:8px; bottom:8px; width:3px; transform:translateX(-50%);
-  background:var(--line); border-radius:99px; overflow:hidden}
-.jfill{position:absolute; inset:0 0 auto 0; height:0; border-radius:99px;
-  background:linear-gradient(180deg,#4338ca,#b45309,#be123c,#0f766e,#6d28d9,#047857,#475569);
-  transition:height .12s linear}
-.jlist{list-style:none; margin:0; padding:0; display:grid; gap:26px}
-.ms{position:relative; display:grid; grid-template-columns:1fr 1fr; align-items:start; gap:0}
-.ms.l .ms-card{grid-column:1; margin-right:46px}
-.ms.r .ms-card{grid-column:2; margin-left:46px}
-.ms-dot{position:absolute; left:50%; top:22px; transform:translateX(-50%); width:20px; height:20px;
-  border-radius:99px; background:var(--bg); border:3px solid var(--line-2); z-index:2;
-  display:grid; place-items:center; transition:border-color .45s ease, box-shadow .45s ease, transform .45s cubic-bezier(.34,1.56,.64,1)}
-.ms-dot i{width:7px; height:7px; border-radius:99px; background:var(--line-2); transition:background .45s ease, transform .45s ease}
-.ms.seen .ms-dot{border-color:var(--mc); box-shadow:0 0 0 6px color-mix(in srgb,var(--mc) 16%,transparent); transform:translateX(-50%) scale(1.06)}
-.ms.seen .ms-dot i{background:var(--mc); transform:scale(1.25)}
-.ms-card{border:1px solid var(--line); border-radius:16px; background:var(--bg-2); overflow:hidden;
-  transition:border-color .3s, box-shadow .3s, transform .3s; position:relative}
-.ms-card::before{content:""; position:absolute; inset:0 auto 0 0; width:3px; background:var(--mc); opacity:0; transition:opacity .3s}
-.ms.seen .ms-card{border-color:color-mix(in srgb,var(--mc) 26%,var(--line))}
-.ms.open .ms-card{box-shadow:0 20px 48px -30px color-mix(in srgb,var(--mc) 70%,transparent)}
-.ms.open .ms-card::before{opacity:1}
-.ms-card:hover{transform:translateY(-3px)}
-.ms-head{width:100%; display:grid; gap:3px; text-align:left; cursor:pointer; font:inherit; color:var(--fg);
-  background:transparent; border:0; padding:16px 18px}
-.ms-kind{font-family:var(--mono); font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mc); font-weight:600}
-.ms-title{font-family:var(--display); font-weight:700; font-size:1.12rem; letter-spacing:-.025em; line-height:1.2}
-.ms-role{font-size:.83rem; color:var(--fg-2); line-height:1.45}
-.ms-foot{display:flex; align-items:center; justify-content:space-between; margin-top:7px}
-.ms-year{font-family:var(--mono); font-size:.68rem; color:var(--fg-3)}
-.ms-chev{width:16px; height:16px; color:var(--fg-3); transition:transform .35s cubic-bezier(.4,0,.2,1), color .25s}
-.ms.open .ms-chev{transform:rotate(180deg); color:var(--mc)}
-.ms-body{max-height:0; overflow:hidden; transition:max-height .5s cubic-bezier(.4,0,.2,1)}
-.ms-in{padding:2px 18px 16px}
-.ms-in .bullets{margin:0}
-.ms-in .chips{margin-top:13px}
-@media(max-width:820px){
-  .jline{left:11px; transform:none}
-  .ms{grid-template-columns:1fr}
-  .ms.l .ms-card,.ms.r .ms-card{grid-column:1; margin:0 0 0 38px}
-  .ms-dot{left:11px; transform:translateX(-50%)}
-  .ms.seen .ms-dot{transform:translateX(-50%) scale(1.06)}
-}
-
-
-.ms-ghost{position:absolute; top:14px; font-family:var(--display); font-weight:800;
-  font-size:2.6rem; letter-spacing:-.04em; color:var(--mc); opacity:.13; pointer-events:none;
-  transition:opacity .5s ease, transform .5s ease; transform:translateY(6px); white-space:nowrap}
-.ms.seen .ms-ghost{opacity:.22; transform:none}
-.ms.l .ms-ghost{grid-column:2; left:calc(50% + 46px)}
-.ms.r .ms-ghost{grid-column:1; right:calc(50% + 46px); text-align:right}
-@media(max-width:820px){ .ms-ghost{display:none} }
-
-/* ============ project timeline ============ */
-.tl{position:relative; margin-top:26px; padding-left:46px}
-.tl::before{
-  content:""; position:absolute; left:15px; top:14px; bottom:14px; width:2px; border-radius:2px;
-  background:linear-gradient(180deg, var(--line) 0%, var(--line-2) 22%, var(--line-2) 78%, var(--line) 100%);
-}
-.tl-item{position:relative; margin-bottom:11px}
-.tl-dot{
-  position:absolute; left:-37px; top:22px; width:14px; height:14px; border-radius:99px; z-index:2;
-  background:var(--bg); border:2px solid var(--line-2);
-  transition:background .3s, border-color .3s, box-shadow .3s, transform .3s;
-}
-.tl-item.open .tl-dot{background:var(--accent); border-color:var(--accent); box-shadow:0 0 0 5px var(--glow); transform:scale(1.12)}
-.tl-head{
-  width:100%; display:flex; align-items:center; gap:14px; cursor:pointer; text-align:left;
-  background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:15px 17px;
-  color:var(--fg); font:inherit;
-  transition:border-color .25s, background .25s, box-shadow .25s, transform .25s;
-}
-.tl-head:hover{border-color:var(--line-2); transform:translateX(3px)}
-.tl-item.open .tl-head{
-  border-color:color-mix(in srgb,var(--accent) 42%,var(--line));
-  box-shadow:0 14px 34px -26px var(--glow);
-}
-.tl-t{display:flex; flex-direction:column; gap:2px; flex:1; min-width:0}
-.tl-title{font-family:var(--display); font-weight:700; font-size:1.02rem; letter-spacing:-.02em}
-.tl-role{font-size:.8rem; color:var(--fg-2)}
-.tl-when{font-family:var(--mono); font-size:.68rem; color:var(--fg-3); white-space:nowrap}
-.tl-chev{width:17px; height:17px; color:var(--fg-3); flex:none; transition:transform .35s cubic-bezier(.4,0,.2,1), color .25s}
-.tl-item.open .tl-chev{transform:rotate(180deg); color:var(--accent)}
-.tl-body{max-height:0; overflow:hidden; transition:max-height .5s cubic-bezier(.4,0,.2,1)}
-.tl-inner{padding:16px 18px 6px 4px}
-.tl-inner .bullets{margin:0}
-@media(max-width:600px){
-  .tl{padding-left:30px}
-  .tl::before{left:7px}
-  .tl-dot{left:-30px; width:12px; height:12px}
-    .tl-when{display:none}
-}
-
-/* ============ global interaction polish ============ */
-.card, .demo{position:relative}
-.card::after, .demo::after{
-  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-  opacity:0; transition:opacity .35s ease;
-  background:radial-gradient(22rem 22rem at var(--mx,50%) var(--my,50%), var(--glow), transparent 62%);
-}
-.card:hover::after, .demo:hover::after{opacity:1}
-.btn, .icon-btn, .act, .tone, .swap button{will-change:transform}
-.magnetic{transition:transform .18s cubic-bezier(.33,1,.68,1)}
-/* keyboard hint pill */
-.kbd-hint{
-  position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(140%);
-  display:flex; align-items:center; gap:9px; z-index:70;
-  background:color-mix(in srgb,var(--bg-2) 92%,transparent); border:1px solid var(--line-2);
-  border-radius:99px; padding:9px 15px; box-shadow:0 18px 40px -22px rgba(0,0,0,.7);
-  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-  font-size:.78rem; color:var(--fg-2); transition:transform .45s cubic-bezier(.34,1.3,.64,1), opacity .35s; opacity:0;
-}
-.kbd-hint.show{transform:translateX(-50%); opacity:1}
-.kbd-hint kbd{
-  font:600 .72rem/1 var(--mono); background:var(--bg-3); border:1px solid var(--line-2);
-  border-bottom-width:2px; border-radius:6px; padding:3px 6px; color:var(--fg);
-}
-.kbd-hint b{color:var(--fg); font-weight:600}
-.h4{font-size:.95rem !important; font-weight:700 !important}
-.reveal{opacity:0; transform:translateY(16px); transition:opacity .65s ease, transform .65s ease}
-.reveal.in{opacity:1; transform:none}
+/* ---------- contact ---------- */
+.contact{margin-top:clamp(4rem, 9vw, 7rem); background:var(--lilac); border-radius:36px; padding:clamp(2rem, 5vw, 4rem); display:grid; grid-template-columns:1.3fr 1fr; gap:2rem; align-items:end}
+@media (max-width: 820px){ .contact{grid-template-columns:1fr} }
+.contact h2{font-size:var(--step-4); line-height:.92; letter-spacing:-.045em; font-variation-settings:"wdth" 80}
+.contact p{color:var(--ink-2)}
+.contact .mail{font:700 var(--step-1)/1.2 var(--display); color:var(--ink); word-break:break-all}
+footer{padding:2rem 0 3rem; color:var(--ink-3); font-size:var(--step--1)}
+footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem}
+footer a{color:var(--ink-2)}
 </style>
 </head>
 <body>
+<a class="skip" href="#work">Skip to the work</a>
 
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="#top"><i>S</i>shaurya<span>.dev</span></a>
-    <nav class="nav-links">
-      <a class="lnk" href="#journey">Journey</a>
-      <a class="lnk" href="#apps">Live apps</a>
-      <a class="lnk" href="#sites">Websites</a>
-      <a class="lnk" href="#certificates">Certificates</a>
-      <a class="lnk" href="#skills">Skills</a>
-      <button class="icon-btn" id="theme" aria-label="Toggle colour theme" title="Toggle theme">
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-      </button>
-      <a class="btn primary" href="https://drive.google.com/file/d/1AfOTH5OsW7kgqP7TEAhF5GTGTvBErhaZ/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="mark" href="#top"><i aria-hidden="true"></i>Shaurya Shakya</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#journey">Journey</a>
+      <a href="#apps">Try the apps</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#skills">Skills</a>
     </nav>
-    <div id="bar"></div>
+    <a class="btn" href="https://drive.google.com/file/d/1AfOTH5OsW7kgqP7TEAhF5GTGTvBErhaZ/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
   </div>
 </header>
 
-<main id="top">
-
-<section class="hero wrap">
-  <div class="hero-grid">
+<main>
+<div class="wrap">
+  <div class="hero">
     <div>
-      <span class="tag"><span class="pulse"></span> Open to software engineering &amp; product design roles</span>
-      <span class="eyebrow">Software Engineer &amp; Product Designer &middot; IIIT Bhagalpur &middot; 2027</span>
-      <h1>Shaurya Shakya</h1>
-      <p class="claim">I design the interface, then <span class="hl">build it.</span></p>
-      <p class="typed">Currently building <b><span id="tw"></span></b><span class="caret" aria-hidden="true">.</span></p>
-      <p class="lede">I build products end to end &mdash; <strong>travafa.com</strong>&rsquo;s interface from zero, a <strong>Go payment service</strong>, an offline-first sync layer, and a design system used across a whole app. Currently a <strong>Software Engineer Intern at Travafa</strong> and founder of a live e-pharmacy.</p>
-      <div class="cta">
-        <a class="btn primary" href="mailto:iiitianshauryashakya8055@gmail.com">Get in touch</a>
-        <a class="btn" href="#journey">See the work ↓</a>
+      <div class="hello">
+        <img src="img/shaurya.jpg" alt="Shaurya Shakya" width="52" height="52">
+        <span><b>Software engineer and product designer</b>B.Tech CSE at IIIT Bhagalpur, graduating 2027</span>
+      </div>
+      <h1 class="name"><span>Shaurya</span><span>Shakya</span></h1>
+      <p class="line">I design the interface, then build it.</p>
+      <p class="intro">I take products from the first sketch to production: travafa.com's interface from zero, a Go payment service, an offline-first sync layer, a live e-pharmacy I founded, and open source tools like SnapFloat.</p>
+      <div class="ctas">
+        <a class="btn solid" href="mailto:iiitianshauryashakya8055@gmail.com">Email me</a>
+        <a class="btn" href="#work">See the work</a>
         <a class="btn" href="https://github.com/shaurya-8055" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/shaurya-shakya8055" target="_blank" rel="noopener">LinkedIn</a>
       </div>
+      <p class="open">Open to software engineering and product design roles</p>
     </div>
-    <figure class="portrait">
-      <img src="img/shaurya.jpg" alt="Shaurya Shakya" width="800" height="1000" fetchpriority="high">
-      <figcaption><b>Design + frontend</b><span>Travafa · Dec 2025 — Present</span></figcaption>
 
-      <div class="float f1"><span class="ic">◈</span><span><b>Go payment service</b><span>96 files · ~11K LOC</span></span></div>
-      <div class="float f2"><span class="ic">◆</span><span><b>travafa.com</b><span>interface built from zero</span></span></div>
-      <div class="float f3"><span class="ic">▲</span><span><b>Design system</b><span>6 tones · 15 components</span></span></div>
-    </figure>
-  </div>
-  <div class="stats">
-    <div class="stat"><b class="cnt" data-to="5">0</b><span>products shipped end to end</span></div>
-    <div class="stat"><b class="cnt" data-to="550" data-suffix="+">0</b><span>commits · 7 production repos</span></div>
-    <div class="stat"><b class="cnt" data-to="102">0</b><span>pages designed · travafa.com</span></div>
-    <div class="stat"><b class="cnt" data-to="2">0</b><span>app stores shipped</span></div>
-  </div>
-</section>
-
-
-<div class="marquee" aria-hidden="true">
-  <div class="track"><i>Go</i><i>TypeScript</i><i>Flutter</i><i>Next.js</i><i>React</i><i>NestJS</i><i>PostgreSQL</i><i>Figma</i><i>Rive</i><i>Design systems</i><i>Offline-first</i><i>gRPC</i><i>Docker</i><i>AWS</i><i>Redis</i><i>Accessibility</i><i>Go</i><i>TypeScript</i><i>Flutter</i><i>Next.js</i><i>React</i><i>NestJS</i><i>PostgreSQL</i><i>Figma</i><i>Rive</i><i>Design systems</i><i>Offline-first</i><i>gRPC</i><i>Docker</i><i>AWS</i><i>Redis</i><i>Accessibility</i></div>
-</div>
-
-<section id="journey" class="wrap reveal">
-  <div class="head"><span class="num">01</span><h2>The journey</h2><span class="note">2023 &rarr; now &middot; tap any milestone</span></div>
-  <div class="jwrap">
-    <div class="jline" aria-hidden="true"><span class="jfill" id="jfill"></span></div>
-    <ol class="jlist">
-    <li class="ms l" data-c="#4338ca" data-cd="#a5b4fc" id="ms-edu">
-      <span class="ms-ghost" aria-hidden="true">2023</span>
-      <span class="ms-dot"><i></i></span>
-      <div class="ms-card">
-        <button class="ms-head" aria-expanded="false" aria-controls="body-edu">
-          <span class="ms-kind">Education</span>
-          <span class="ms-title">IIIT Bhagalpur</span>
-          <span class="ms-role">B.Tech, Computer Science &amp; Engineering</span>
-          <span class="ms-foot"><span class="ms-year">Aug 2023</span><svg class="ms-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-        </button>
-        <div class="ms-body" id="body-edu"><div class="ms-in">
-          <ul class="bullets"><li>Started a CSE degree at an Indian Institute of Information Technology. <strong>CGPA 8.51/10</strong>.</li><li>Coursework that actually shows up in the work: DSA, DBMS, Operating Systems, Computer Networks, OOP, Software Engineering.</li></ul>
-          <div class="chips"><span class="chip">C++</span><span class="chip">DSA</span><span class="chip">DBMS</span><span class="chip">OS</span><span class="chip">Networks</span></div>
-        </div></div>
-      </div>
-    </li>
-    <li class="ms r" data-c="#b45309" data-cd="#fbbf24" id="ms-quickgo">
-      <span class="ms-ghost" aria-hidden="true">2024</span>
-      <span class="ms-dot"><i></i></span>
-      <div class="ms-card">
-        <button class="ms-head" aria-expanded="false" aria-controls="body-quickgo">
-          <span class="ms-kind">First full product</span>
-          <span class="ms-title">QuickGo</span>
-          <span class="ms-role">E-commerce &amp; on-demand services</span>
-          <span class="ms-foot"><span class="ms-year">2024</span><svg class="ms-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-        </button>
-        <div class="ms-body" id="body-quickgo"><div class="ms-in">
-          <ul class="bullets"><li>Three Flutter clients — customer, worker and admin — on a Node.js/Express and MongoDB backend.</li>
-        <li>JWT role-based access per tier, Twilio OTP and passwordless email OTP sign-in, bcrypt hashing and rate limiting.</li>
-        <li>Storefront end-to-end: catalog, search, cart, Stripe checkout, order tracking and OneSignal push on order status.</li></ul>
-          <div class="chips"><span class="chip">Flutter</span><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">MongoDB</span><span class="chip">Stripe</span><span class="chip">OneSignal</span></div><div class="links"><a href="https://shaurya-8055.github.io/QUICKGO/emulator.html" target="_blank" rel="noopener">Live demo →</a>
-        <a href="https://github.com/shaurya-8055/QUICKGO" target="_blank" rel="noopener">GitHub →</a></div>
-        </div></div>
-      </div>
-    </li>
-    <li class="ms l" data-c="#be123c" data-cd="#fb7185" id="ms-sih">
-      <span class="ms-ghost" aria-hidden="true">2025</span>
-      <span class="ms-dot"><i></i></span>
-      <div class="ms-card">
-        <button class="ms-head" aria-expanded="false" aria-controls="body-sih">
-          <span class="ms-kind">Smart India Hackathon</span>
-          <span class="ms-title">Sehat Sathi</span>
-          <span class="ms-role">Team lead · 4th of 58 in the qualifier, 6th overall</span>
-          <span class="ms-foot"><span class="ms-year">2025</span><svg class="ms-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-        </button>
-        <div class="ms-body" id="body-sih"><div class="ms-in">
-          <ul class="bullets"><li>Designed a telemedicine app for <strong>173 villages around Nabha</strong>, where the constraint is not the feature list — it is a connection that appears for thirty seconds and vanishes.</li>
-        <li><strong>Multilingual by design</strong>, not by translated labels: the flows, not just the strings, were built for users whose first language is not English and who may be using a smartphone for the first time.</li>
-        <li>Offline-capable consultation records, so a visit is not wasted when the network is not there.</li>
-        <li>Led a team of six under a 36-hour clock: set the interfaces early so people could work in parallel, and kept one thin end-to-end path working from the start.</li></ul>
-          <div class="chips"><span class="chip">Flutter</span><span class="chip">WebRTC</span><span class="chip">Offline-first</span><span class="chip">Multilingual</span><span class="chip">Team lead</span></div><div class="links"><a href="https://github.com/SIH2025PS18/QBIT012025" target="_blank" rel="noopener">GitHub →</a></div>
-        </div></div>
-      </div>
-    </li>
-    <li class="ms r" data-c="#0b7a6b" data-cd="#2dd4bf" id="ms-travafa">
-      <span class="ms-ghost" aria-hidden="true">2025</span>
-      <span class="ms-dot"><i></i></span>
-      <div class="ms-card">
-        <button class="ms-head" aria-expanded="false" aria-controls="body-travafa">
-          <span class="ms-kind">Internship &middot; current</span>
-          <span class="ms-title">Travafa</span>
-          <span class="ms-role">Software Engineer Intern &middot; design + frontend &middot; Remote</span>
-          <span class="ms-foot"><span class="ms-year">Dec 2025</span><svg class="ms-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-        </button>
-        <div class="ms-body" id="body-travafa"><div class="ms-in">
-          <ul class="bullets">
-      <li><strong>Closed two money-correctness bugs pre-release</strong> after auditing the wallet-service ledger: a refund path that could double-credit a customer after a debit reversal, and a compensating-reversal worker that was fully built but never started from any entrypoint.</li>
-      <li><strong>Built the payment-service from scratch in Go</strong> (96 files, ~11K LOC, 7 milestones in 3 weeks): protobuf codegen, domain/repository layer, Razorpay webhook signature verification, a transactional outbox worker on Pub/Sub, an authenticated gRPC server and an admin API binary.</li>
-      <li><strong>Shipped the app's read-only offline layer</strong> — local cache, connectivity seeding, write-gating across every trip mutation, offline pack download and sync progress — then fixed sync tripping the server rate limiter.</li>
-      <li><strong>Designed the AI-assistant distribution layer</strong>: an MCP connector over the .NET booking APIs with OAuth 2.1, signed price quotes and idempotent writes, serving ChatGPT, Claude and Copilot from one deployment.</li>
-      <li>Delivered days-per-destination trip planning end-to-end, and led a JavaScript → TypeScript migration of the professional dashboard.</li>
-      <li><strong>Built travafa.com's product interface from zero</strong> — Explore, Profile, Friends, group Discussions and chat, AI and manual trip creation, itinerary, Group Travel, Transfers and trip-helper services — designing the flows, layouts and shared component library.</li>
-      <li>Designed and shipped the <strong>interactive 3D globe</strong>, the product's signature surface: route arcs, journal pins and lit countries, "been there" read apart from "want to go", a friends view and fullscreen.</li>
-      <li>Drove a <strong>design-system consolidation</strong> across the site, redesigning home, product pages, globe and transfers onto shared components so the same problem is answered the same way everywhere.</li>
-      <li><strong>Ran manual UX audits across the web product</strong> (102 pages, 397 components) against a launch-readiness checklist, walking flows screen by screen and turning failed cases into shipped fixes.</li>
-    </ul>
-          <div class="metric">
-      <div><b>407</b><span>commits · 9 months</span></div>
-      <div><b>7</b><span>production repos</span></div>
-      <div><b>3</b><span>QA rounds cleared</span></div>
-      <div><b>2</b><span>app stores shipped</span></div></div><div class="chips"><span class="chip">Go</span><span class="chip">gRPC</span><span class="chip">Protocol Buffers</span><span class="chip">GCP Pub/Sub</span><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">Next.js</span><span class="chip">NestJS</span><span class="chip">MCP</span><span class="chip">OAuth 2.1</span></div><div class="links">
-      <a href="https://play.google.com/store/apps/details?id=com.letztrip.app" target="_blank" rel="noopener">Play Store →</a>
-      <a href="https://apps.apple.com/us/app/travafa/id6670797525" target="_blank" rel="noopener">App Store →</a>
-      <a href="https://travafa.com" target="_blank" rel="noopener">travafa.com →</a>
+    <div class="pile" id="pile" aria-label="Some of my products, as floating windows you can drag around">
+      <a class="win" href="#travafa" style="--c:var(--sky); --s:rgba(30,90,156,.45); --i:0; left:0%; top:3%; rotate:-4deg">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <div class="shot" style="background:#EAF3FF">
+          <div class="globe-art" aria-hidden="true">
+            <svg viewBox="0 0 200 125" width="100%" height="100%"><circle cx="100" cy="66" r="46" fill="#fff" stroke="#1E5A9C" stroke-width="2.5"/><ellipse cx="100" cy="66" rx="20" ry="46" fill="none" stroke="#1E5A9C" stroke-width="2"/><path d="M54 66h92M60 44h80M60 88h80" stroke="#1E5A9C" stroke-width="2" fill="none"/><path d="M70 50 Q100 18 132 56" stroke="#5B4BD6" stroke-width="3" fill="none" stroke-dasharray="5 5"/><circle cx="70" cy="50" r="5" fill="#FF8FB1"/><circle cx="132" cy="56" r="5" fill="#2FB777"/></svg>
+          </div>
+        </div>
+        <div class="cap"><b>travafa.com</b><small>interface built from zero</small></div>
+      </a>
+      <a class="win" href="#ams" style="--c:var(--mint); --s:rgba(31,107,74,.45); --i:1; left:50%; top:0%; rotate:3deg">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <div class="shot"><img src="img/armymedicinesupplier.jpg" alt="" loading="eager"></div>
+        <div class="cap"><b>Army Medicine Supplier</b><small>founder, live</small></div>
+      </a>
+      <a class="win" href="#snapfloat" style="--c:var(--lilac); --s:rgba(75,63,176,.5); --i:2; left:6%; top:50%; rotate:2deg">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <div class="shot"><img src="https://raw.githubusercontent.com/shaurya-8055/snapfloat/main/docs/demo.gif" alt="" loading="lazy"></div>
+        <div class="cap"><b>SnapFloat</b><small>open source, v1.2</small></div>
+      </a>
+      <a class="win" href="#synclock" style="--c:var(--peach); --s:rgba(154,68,33,.42); --i:3; left:56%; top:46%; rotate:-3deg">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <div class="shot"><img src="synclock/shots/home.webp" alt="" loading="eager"></div>
+        <div class="cap"><b>SynClock</b><small>Android</small></div>
+      </a>
+      <span class="hint">Drag the windows around. Click one to jump to it.</span>
     </div>
-        </div></div>
-      </div>
-    </li>
-    <li class="ms l" data-c="#0f766e" data-cd="#5eead4" id="ms-travafaweb">
-      <span class="ms-ghost" aria-hidden="true">2026</span>
-      <span class="ms-dot"><i></i></span>
-      <div class="ms-card">
-        <button class="ms-head" aria-expanded="false" aria-controls="body-travafaweb">
-          <span class="ms-kind">The web product</span>
-          <span class="ms-title">travafa.com</span>
-          <span class="ms-role">Built the product interface from zero · Live</span>
-          <span class="ms-foot"><span class="ms-year">2026</span><svg class="ms-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-        </button>
-        <div class="ms-body" id="body-travafaweb"><div class="ms-in">
-          <ul class="bullets"><li>Designed and built the surfaces people actually use: <strong>Explore &amp; destination search, Profile, Friends, group Discussions and chat, AI and manual trip creation, the trip itinerary, Group Travel, Transfers</strong> and trip-helper services.</li>
-        <li>The <strong>interactive 3D globe</strong> — route arcs, journal pins and lit countries, with "been there" read apart from "want to go", a friends view, fullscreen and loading skeletons. A travelog that fails to load no longer looks identical to an empty one.</li>
-        <li>Drove a <strong>design-system consolidation</strong>: home, product pages, globe and transfers rebuilt onto shared components, replacing one-off screens.</li>
-        <li>Owned the <strong>information architecture</strong> for destination guides — answer blocks, internal linking and navigation structure across the location pages.</li></ul>
-          <div class="metric">
-        <div><b>102</b><span>pages designed</span></div>
-        <div><b>397</b><span>components</span></div>
-        <div><b>30</b><span>feature modules</span></div>
-      </div><div class="chips"><span class="chip">Next.js</span><span class="chip">React</span><span class="chip">Tailwind</span><span class="chip">Design system</span><span class="chip">UX audit</span><span class="chip">IA</span></div><div class="links"><a href="https://travafa.com" target="_blank" rel="noopener">Visit site →</a></div>
-        </div></div>
-      </div>
-    </li>
-    <li class="ms r" data-c="#6d28d9" data-cd="#c4b5fd" id="ms-synclock">
-      <span class="ms-ghost" aria-hidden="true">2026</span>
-      <span class="ms-dot"><i></i></span>
-      <div class="ms-card">
-        <button class="ms-head" aria-expanded="false" aria-controls="body-synclock">
-          <span class="ms-kind">Solo product</span>
-          <span class="ms-title">SynClock</span>
-          <span class="ms-role">Family reminders with accountability</span>
-          <span class="ms-foot"><span class="ms-year">Feb 2026</span><svg class="ms-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-        </button>
-        <div class="ms-body" id="body-synclock"><div class="ms-in">
-          <ul class="bullets"><li>Android reminder app where a typed or spoken line becomes an exact alarm: an on-device parser handles everyday phrasing and repeats in microseconds, with Gemini as a rate-limited, cached fallback.</li>
-        <li>Offline-first Flutter client (Riverpod, Hive) with AlarmManager exact alarms, notification actions handled in a background isolate, a live home-screen widget and read-aloud reminders in Hindi and English.</li>
-        <li>Family and work teams with owner-set notification rules, snooze escalation and nudges, served by a NestJS API on Oracle Cloud (SQLite/libSQL, JWT, rate limits, FCM) deployed by GitHub Actions.</li>
-        <li>Hardened end to end: rotating refresh tokens with replay detection, server-side recurrence and alarm reconciliation across devices, Pro plans enforced from RevenueCat webhooks, CI with a test gate, health check and rollback — about 320 automated tests.</li></ul>
-          <div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">Hive</span><span class="chip">NestJS</span><span class="chip">Oracle Cloud</span><span class="chip">SQLite</span><span class="chip">FCM</span><span class="chip">Gemini</span><span class="chip">RevenueCat</span></div><div class="links"><a href="./synclock/">Product page →</a>
-        <a href="https://github.com/shaurya-8055/synclock-app" target="_blank" rel="noopener">GitHub →</a>
-        <a href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">Download APK →</a></div>
-        </div></div>
-      </div>
-    </li>
-    <li class="ms l" data-c="#047857" data-cd="#34d399" id="ms-echs">
-      <span class="ms-ghost" aria-hidden="true">2026</span>
-      <span class="ms-dot"><i></i></span>
-      <div class="ms-card">
-        <button class="ms-head" aria-expanded="false" aria-controls="body-echs">
-          <span class="ms-kind">Founder &middot; live</span>
-          <span class="ms-title">Army Medicine Supplier</span>
-          <span class="ms-role">Founder · Live in production</span>
-          <span class="ms-foot"><span class="ms-year">2026</span><svg class="ms-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-        </button>
-        <div class="ms-body" id="body-echs"><div class="ms-in">
-          <ul class="bullets"><li>A customer photographs a prescription and ECHS card, a pharmacist verifies it and prices a quote, and medicines reach the door — cash on delivery or Razorpay, live tracking, in-app chat, bilingual English/Hindi.</li>
-        <li>The prescription-to-doorstep flow is a <strong>pure, unit-tested 15-state machine</strong> where illegal transitions throw, with idempotency keys on every payment path and an audit row behind every status change.</li>
-        <li>Built and run both apps solo: 26 NestJS modules, 159 endpoints, 35 Prisma models, 5 JWT-secured roles, and CI typechecking, testing and building both apps on every push.</li></ul>
-          <div class="metric">
-        <div><b>76K</b><span>impressions / 3 months</span></div>
-        <div><b>980</b><span>organic clicks</span></div>
-        <div><b>7.4</b><span>avg. search position</span></div>
-      </div><div class="chips"><span class="chip">Next.js</span><span class="chip">NestJS</span><span class="chip">PostgreSQL</span><span class="chip">Prisma</span><span class="chip">Redis</span><span class="chip">BullMQ</span><span class="chip">Razorpay</span><span class="chip">AWS</span></div><div class="links"><a href="https://armymedicinesupplier.in" target="_blank" rel="noopener">Visit site →</a>
-        <a href="https://github.com/shaurya-8055/army-medicine-supplier" target="_blank" rel="noopener">GitHub →</a></div>
-        </div></div>
-      </div>
-    </li>
-    <li class="ms r" data-c="#475569" data-cd="#94a3b8" id="ms-next">
-      <span class="ms-ghost" aria-hidden="true">2027</span>
-      <span class="ms-dot"><i></i></span>
-      <div class="ms-card">
-        <button class="ms-head" aria-expanded="false" aria-controls="body-next">
-          <span class="ms-kind">What's next</span>
-          <span class="ms-title">Graduating</span>
-          <span class="ms-role">Looking for roles where I own something end to end</span>
-          <span class="ms-foot"><span class="ms-year">May 2027</span><svg class="ms-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-        </button>
-        <div class="ms-body" id="body-next"><div class="ms-in">
-          <ul class="bullets"><li>Open to <strong>software engineering</strong> and <strong>product design</strong> internships and new-grad roles.</li><li>Most interested in the boundary between them: correctness-critical systems with an interface a real person has to use.</li></ul>
-          <div class="links"><a href="mailto:iiitianshauryashakya8055@gmail.com">Get in touch →</a></div>
-        </div></div>
-      </div>
-    </li>
+  </div>
+
+  <div class="now">
+    <b>Right now</b>
+    <p>Software engineer intern at Travafa, running Army Medicine Supplier, and shipping SnapFloat 1.2 for Linux and Windows.</p>
+  </div>
+
+  <!-- ================= work ================= -->
+  <section id="work" aria-labelledby="work-h">
+    <div class="sec-head">
+      <h2 id="work-h">Selected work</h2>
+      <p>Products I designed and built end to end, from the first screen to production.</p>
+    </div>
+
+    <div class="work">
+      <article class="tile big" id="travafa" style="--c:var(--sky); --k:var(--sky-ink)">
+        <span class="kind">Software engineer intern, design and frontend, since Dec 2025</span>
+        <h3>Travafa and travafa.com</h3>
+        <p>Built travafa.com's product interface from zero and the backend pieces it relies on, in a remote team.</p>
+        <ul>
+          <li>Designed and built Explore, Profile, Friends, group chat, AI and manual trip creation, itineraries, Group Travel and Transfers, on a shared component library.</li>
+          <li>The interactive 3D globe, the product's signature surface: route arcs, journal pins and lit countries.</li>
+          <li>Built the payment service from scratch in Go (96 files, about 11K lines) with Razorpay webhooks, a transactional outbox on Pub/Sub and an authenticated gRPC server.</li>
+          <li>Found and closed two money-correctness bugs in the wallet ledger before release, and shipped the app's offline layer.</li>
+          <li>Designed the AI-assistant layer: an MCP connector with OAuth 2.1 serving ChatGPT, Claude and Copilot from one deployment.</li>
+        </ul>
+        <div class="facts">
+          <div><strong>102</strong><span>pages designed</span></div>
+          <div><strong>397</strong><span>components</span></div>
+          <div><strong>407</strong><span>commits in 9 months</span></div>
+          <div><strong>2</strong><span>app stores shipped</span></div>
+        </div>
+        <div class="chips"><span class="chip">Next.js</span><span class="chip">React</span><span class="chip">Go</span><span class="chip">gRPC</span><span class="chip">Flutter</span><span class="chip">NestJS</span><span class="chip">MCP</span></div>
+        <div class="links"><a href="https://travafa.com" target="_blank" rel="noopener">Visit travafa.com</a><a href="https://play.google.com/store/apps/details?id=com.letztrip.app" target="_blank" rel="noopener">Play Store</a><a href="https://apps.apple.com/us/app/travafa/id6670797525" target="_blank" rel="noopener">App Store</a></div>
+      </article>
+
+      <article class="tile side" style="--c:var(--rose); --k:var(--rose-ink)">
+        <span class="kind">Smart India Hackathon 2025, team lead</span>
+        <h3>Sehat Sathi</h3>
+        <p>A telemedicine app for 173 villages around Nabha, built for a connection that appears for thirty seconds and vanishes: offline consultation records and flows designed for first-time smartphone users in their own language.</p>
+        <div class="facts"><div><strong>4th</strong><span>of 58 in the qualifier</span></div><div><strong>6</strong><span>teammates, 36 hours</span></div></div>
+        <div class="links"><a href="https://github.com/SIH2025PS18/QBIT012025" target="_blank" rel="noopener">GitHub</a></div>
+      </article>
+
+      <article class="tile side" style="--c:var(--butter); --k:var(--butter-ink)">
+        <span class="kind">First full product, 2024</span>
+        <h3>QuickGo</h3>
+        <p>E-commerce and on-demand services with three Flutter clients (customer, worker, admin) on Node.js and MongoDB: OTP sign-in, Stripe checkout, order tracking and push updates.</p>
+        <div class="chips"><span class="chip">Flutter</span><span class="chip">Node.js</span><span class="chip">MongoDB</span><span class="chip">Stripe</span></div>
+        <div class="links"><a href="#apps" data-app="0">Try it below</a><a href="https://github.com/shaurya-8055/QUICKGO" target="_blank" rel="noopener">GitHub</a></div>
+      </article>
+      <article class="tile mid" id="ams" style="--c:var(--mint); --k:var(--mint-ink)">
+        <span class="kind">Founder, live in production</span>
+        <h3>Army Medicine Supplier</h3>
+        <p>An e-pharmacy for ECHS beneficiaries: photograph a prescription and ECHS card, a pharmacist verifies and quotes it, and medicines reach the door with live tracking, in English and Hindi.</p>
+        <div class="media"><img src="img/armymedicinesupplier.jpg" alt="The Army Medicine Supplier website" loading="lazy" width="1280" height="860"></div>
+        <ul>
+          <li>The prescription-to-doorstep flow is a unit-tested 15-state machine where illegal transitions throw.</li>
+          <li>Built and run solo: 26 NestJS modules, 159 endpoints, 35 Prisma models, 5 roles.</li>
+        </ul>
+        <div class="facts"><div><strong>76K</strong><span>search impressions in 3 months</span></div><div><strong>980</strong><span>organic clicks</span></div></div>
+        <div class="chips"><span class="chip">Next.js</span><span class="chip">NestJS</span><span class="chip">PostgreSQL</span><span class="chip">Prisma</span><span class="chip">Razorpay</span><span class="chip">AWS</span></div>
+        <div class="links"><a href="https://armymedicinesupplier.in" target="_blank" rel="noopener">Visit the site</a><a href="https://github.com/shaurya-8055/army-medicine-supplier" target="_blank" rel="noopener">GitHub</a></div>
+      </article>
+
+      <article class="tile mid" id="snapfloat" style="--c:var(--lilac); --k:var(--lilac-ink)">
+        <span class="kind">Open source desktop app, version 1.2</span>
+        <h3>SnapFloat</h3>
+        <p>Screenshots that float, then disappear. A thumbnail floats in the corner; drag it into any app. Nothing piles up in your Screenshots folder unless you save it.</p>
+        <div class="media"><img src="https://raw.githubusercontent.com/shaurya-8055/snapfloat/main/docs/demo.gif" alt="SnapFloat demo: capture, mark up, hide private info and drag into a chat" loading="lazy"></div>
+        <ul>
+          <li>Markup with one-click private-info blur, OCR text copy, QR reading, scrolling capture that stitches long pages, and screen recording.</li>
+          <li>Runs on GNOME Wayland through a small Shell extension, and on Windows with a real installer.</li>
+          <li>Every release is self-tested on CI before it's published: the AppImage, the exe and the installer.</li>
+        </ul>
+        <div class="chips"><span class="chip">Python</span><span class="chip">Qt / PySide6</span><span class="chip">GNOME Shell</span><span class="chip">GStreamer</span><span class="chip">GitHub Actions</span></div>
+        <div class="links"><a href="https://github.com/shaurya-8055/snapfloat" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/shaurya-8055/snapfloat/releases/latest" target="_blank" rel="noopener">Download</a></div>
+      </article>
+
+      <article class="tile full" id="synclock" style="--c:var(--peach); --k:var(--peach-ink)">
+        <span class="kind">Solo product, Android, since Feb 2026</span>
+        <div class="split">
+          <div>
+            <h3>SynClock</h3>
+            <p style="margin-top:.8rem">Family reminders with accountability. Type or say a line and it becomes an exact alarm: an on-device parser handles everyday phrasing in microseconds, with Gemini as a cached fallback.</p>
+            <ul style="margin-top:.8rem">
+              <li>Offline-first Flutter client with exact alarms, a live home-screen widget and reminders read aloud in Hindi and English.</li>
+              <li>Family and work teams with notification rules, snooze escalation and nudges, on a NestJS API deployed by GitHub Actions.</li>
+              <li>Rotating refresh tokens with replay detection and about 320 automated tests.</li>
+            </ul>
+            <div class="chips" style="margin-top:1rem"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">NestJS</span><span class="chip">FCM</span><span class="chip">Gemini</span><span class="chip">RevenueCat</span></div>
+            <div class="links" style="margin-top:1rem"><a href="./synclock/">Product page</a><a href="https://github.com/shaurya-8055/synclock-app" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/shaurya-8055/synclock-app/releases/latest/download/SynClock.apk">Download the APK</a></div>
+          </div>
+          <div class="phones"><img src="synclock/shots/home.webp" alt="SynClock home screen" loading="lazy"><img src="synclock/shots/teams.webp" alt="SynClock teams screen" loading="lazy"></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================= journey ================= -->
+  <section id="journey" aria-labelledby="journey-h">
+    <div class="sec-head">
+      <h2 id="journey-h">How I got here</h2>
+      <p>From a first Flutter app to production systems, in order.</p>
+    </div>
+    <ol class="journey">
+      <li style="--dot:var(--lilac-ink)"><time>2023</time><div class="ev"><b>Started B.Tech CSE at IIIT Bhagalpur</b><p>CGPA 8.51. The coursework that shows up in the work: DSA, DBMS, operating systems, networks, software engineering.</p></div></li>
+      <li style="--dot:var(--butter-ink)"><time>2024</time><div class="ev"><b>Shipped QuickGo, my first full product</b><p>Three clients and a backend, with payments and role-based access.</p></div></li>
+      <li style="--dot:var(--rose-ink)"><time>2025</time><div class="ev"><b>Led a team at Smart India Hackathon</b><p>Sehat Sathi, a telemedicine app for rural Punjab: 4th of 58 in the qualifier, 6th overall.</p></div></li>
+      <li style="--dot:var(--sky-ink)"><time>2025</time><div class="ev"><b>Joined Travafa as a software engineer intern</b><p>Design and frontend for travafa.com and the apps, plus a Go payment service.</p>
+        <details><summary>What I did there</summary><ul>
+          <li>Closed two money-correctness bugs before release after auditing the wallet ledger.</li>
+          <li>Built the payment service in Go in three weeks: protobuf, Razorpay webhooks, an outbox worker on Pub/Sub, gRPC and an admin API.</li>
+          <li>Shipped the app's read-only offline layer and fixed sync tripping the server's rate limiter.</li>
+          <li>Drove a design-system consolidation and ran UX audits across 102 pages and 397 components.</li>
+          <li>Led a JavaScript to TypeScript migration of the professional dashboard.</li>
+        </ul></details></div></li>
+      <li style="--dot:var(--peach-ink)"><time>2026</time><div class="ev"><b>Built SynClock, solo</b><p>An Android reminder app for families and teams, from parser to backend to Play-ready release.</p></div></li>
+      <li style="--dot:var(--mint-ink)"><time>2026</time><div class="ev"><b>Founded Army Medicine Supplier</b><p>A live e-pharmacy for ECHS beneficiaries, built and run end to end.</p></div></li>
+      <li style="--dot:var(--lilac-ink)"><time>2026</time><div class="ev"><b>Released SnapFloat as open source</b><p>A desktop screenshot tool for Linux and Windows, with a GNOME Shell extension and tested release builds.</p></div></li>
+      <li style="--dot:var(--ink-3)"><time>2027</time><div class="ev"><b>Graduating in May</b><p>Looking for software engineering and product design roles, especially correctness-critical systems with an interface a real person has to use.</p></div></li>
     </ol>
-  </div>
-</section>
+  </section>
 
-<section id="apps" class="wrap reveal">
-  <div class="head"><span class="num">02</span><h2>Live apps you can play with</h2><span class="note">real builds — tap inside the phone</span></div>
-
-  <div class="lab">
-    <div class="stage">
-      <div class="rig">
-        <div class="slot">
-          <div class="scaler">
-            <div class="frame" id="frame">
-              <span class="key k-act"></span><span class="key k-up"></span><span class="key k-dn"></span><span class="key k-pw"></span>
-              <div class="screen">
-                <div class="sys-top">
-                  <span id="clock">9:41</span>
-                  <span class="ico">
-                    <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" width="3" height="11" rx="1"/></svg>
-                    <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 11.2 6.1 9.1a2.8 2.8 0 0 1 3.8 0L8 11.2Zm3.6-3.9a6 6 0 0 0-7.2 0L2.9 5.6a8.2 8.2 0 0 1 10.2 0l-1.5 1.7ZM15 3.9a10.6 10.6 0 0 0-14 0L-.4 2.2a12.8 12.8 0 0 1 16.8 0L15 3.9Z"/></svg>
-                    <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="20" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".5"/><rect x="2.2" y="2.2" width="16.8" height="7.6" rx="1.8" fill="currentColor"/><path d="M22.4 4.2v3.6a2 2 0 0 0 0-3.6Z" fill="currentColor" fill-opacity=".5"/></svg>
-                  </span>
-                </div>
-                <iframe id="screen" title="Live app demo" src="about:blank" loading="lazy"></iframe>
-                <div class="sys-bot"></div>
-                <div class="loader" id="loader"><div class="spin"></div><span id="loadtxt">Booting…</span></div>
-              </div>
-            </div>
-          </div>
+  <!-- ================= live apps ================= -->
+  <section id="apps" aria-labelledby="apps-h">
+    <div class="sec-head">
+      <h2 id="apps-h">Try the apps</h2>
+      <p>Real web builds of my Flutter apps, running inside the phone. Pick one and tap around.</p>
+    </div>
+    <div class="lab">
+      <div class="phone">
+        <div class="screen">
+          <iframe id="screen" title="Live app demo" src="about:blank"></iframe>
+          <div class="loader off" id="loader">Loading…</div>
+          <div class="start" id="start"><p>Pick an app to start it here.</p><button class="btn solid" id="boot" type="button">Start QuickGo</button></div>
         </div>
-        <div class="tools">
-          <button class="tool on" id="t-ios" title="iPhone 15 Pro" aria-label="iPhone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18.5h2"/></svg></button>
-          <button class="tool" id="t-and" title="Android" aria-label="Android"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M10 18h4"/></svg></button>
-          <button class="tool" id="t-rel" title="Reload" aria-label="Reload"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg></button>
-          <button class="tool" id="t-new" title="Open full screen" aria-label="Open in a new tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></button>
-        </div>
+      </div>
+      <div>
+        <div class="picker" id="picker" role="group" aria-label="Apps"></div>
+        <div class="app-about" id="about" aria-live="polite"></div>
       </div>
     </div>
+  </section>
 
-    <div class="rail">
-      <h3 class="h4">Pick an app</h3>
-      <div id="dock"></div>
-      <div class="about">
-        <div class="row"><h3 id="a-name">—</h3><span class="muted" id="a-num">01</span></div>
-        <p class="role" id="a-kind">—</p>
-        <p class="d" id="a-desc">—</p>
-        <div class="chips" id="a-chips"></div>
-        <div class="links"><a id="a-open" href="#" target="_blank" rel="noopener">Open full screen →</a></div>
-      </div>
+  <!-- ================= certificates ================= -->
+  <section id="certificates" aria-labelledby="cert-h">
+    <div class="sec-head"><h2 id="cert-h">Certificates and awards</h2></div>
+    <div class="certs">
+      <div class="cert" style="--c:var(--mint)"><b>Certified System Administrator</b><span>ServiceNow, issued June 2026</span><div class="links"><a href="certs/servicenow-csa.pdf" target="_blank" rel="noopener">PDF</a><a href="https://www.credly.com/badges/2a6b351f-b708-4a08-bc20-9db665229be5/public_url" target="_blank" rel="noopener">Verify on Credly</a></div></div>
+      <div class="cert" style="--c:var(--sky)"><b>Certified Application Developer</b><span>ServiceNow</span><div class="links"><a href="certs/servicenow-cad.pdf" target="_blank" rel="noopener">PDF</a><a href="https://www.credly.com/badges/26af645c-f417-4f49-96af-ba0b49a7696d/public_url" target="_blank" rel="noopener">Verify on Credly</a></div></div>
+      <div class="cert" style="--c:var(--peach)"><b>Introduction to Cybersecurity</b><span>Cisco Networking Academy</span><div class="links"><a href="https://www.credly.com/badges/f8393e3c-0b43-4348-9df0-b4ea452ae819/public_url" target="_blank" rel="noopener">Verify on Credly</a></div></div>
+      <div class="cert" style="--c:var(--rose)"><b>Smart India Hackathon 2025</b><span>4th of 58 in the IIIT Bhagalpur qualifier, 6th overall</span><div class="links"><a href="https://drive.google.com/file/d/1iYqEE91WQVqWy-DlZs4BEFO1AIyZ5A33/view?usp=sharing" target="_blank" rel="noopener">View certificate</a></div></div>
+      <div class="cert" style="--c:var(--butter)"><b>CodeChef 3-star</b><span>1613 peak rating, top 2.5%</span><div class="links"><a href="https://www.codechef.com/users/shaurya_8055" target="_blank" rel="noopener">View profile</a></div></div>
+    </div>
+  </section>
+
+  <!-- ================= skills ================= -->
+  <section id="skills" aria-labelledby="skills-h">
+    <div class="sec-head"><h2 id="skills-h">What I work with</h2></div>
+    <div class="skills">
+      <div style="--c:var(--lilac)"><h3>Design and frontend</h3><div class="chips"><span class="chip">Figma</span><span class="chip">Design systems</span><span class="chip">Accessibility</span><span class="chip">Rive</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Tailwind</span><span class="chip">TypeScript</span></div></div>
+      <div style="--c:var(--mint)"><h3>Backend</h3><div class="chips"><span class="chip">Go</span><span class="chip">NestJS</span><span class="chip">Node.js</span><span class="chip">gRPC</span><span class="chip">PostgreSQL</span><span class="chip">Prisma</span><span class="chip">Redis</span><span class="chip">MongoDB</span></div></div>
+      <div style="--c:var(--peach)"><h3>Mobile and desktop</h3><div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">Offline-first</span><span class="chip">Python</span><span class="chip">Qt</span><span class="chip">GNOME Shell</span></div></div>
+      <div style="--c:var(--sky)"><h3>Infrastructure</h3><div class="chips"><span class="chip">Docker</span><span class="chip">AWS</span><span class="chip">GCP Pub/Sub</span><span class="chip">Oracle Cloud</span><span class="chip">GitHub Actions</span><span class="chip">C++ and DSA</span></div></div>
+    </div>
+  </section>
+
+  <!-- ================= contact ================= -->
+  <div class="contact" id="contact">
+    <div>
+      <h2>Let's build the next one.</h2>
+      <p style="margin-top:1rem">I'm graduating in May 2027 and open to software engineering and product design internships and new-grad roles. Email is the quickest way to reach me.</p>
+    </div>
+    <div>
+      <a class="mail" href="mailto:iiitianshauryashakya8055@gmail.com">iiitianshauryashakya8055@gmail.com</a>
+      <div class="ctas"><a class="btn solid" href="mailto:iiitianshauryashakya8055@gmail.com">Email me</a><a class="btn" href="https://drive.google.com/file/d/1AfOTH5OsW7kgqP7TEAhF5GTGTvBErhaZ/view?usp=sharing" target="_blank" rel="noopener">Resume</a></div>
     </div>
   </div>
-</section>
-
-<section id="sites" class="wrap reveal">
-  <div class="head"><span class="num">03</span><h2>Websites, running live</h2><span class="note">real production sites</span></div>
-  <div class="sites">
-
-    <article class="browser">
-      <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">armymedicinesupplier.in</span></div>
-      <!-- the live site sends x-frame-options: DENY (it takes payments), so this is a real screenshot -->
-      <div class="view shot">
-        <img src="img/armymedicinesupplier.jpg" alt="Army Medicine Supplier home page" loading="lazy" width="1280" height="860">
-        <a class="veil" href="https://armymedicinesupplier.in" target="_blank" rel="noopener" aria-label="Open Army Medicine Supplier"><span>Open the live site →</span></a>
-      </div>
-      <div class="meta">
-        <b>Army Medicine Supplier</b>
-        <a href="https://armymedicinesupplier.in" target="_blank" rel="noopener">Open site →</a>
-        <p>The live e-pharmacy: prescription upload, pharmacist review, quoting and doorstep delivery for ECHS beneficiaries.</p>
-      </div>
-    </article>
-
-    <article class="browser">
-      <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">shaurya-8055.github.io/synclock</span></div>
-      <div class="view" data-src="./synclock/">
-        <iframe title="SynClock product site" loading="lazy" scrolling="no" src="about:blank"></iframe>
-        <div class="boot">Loading site…</div>
-        <a class="veil" href="./synclock/" aria-label="Open the SynClock site"></a>
-      </div>
-      <div class="meta">
-        <b>SynClock</b>
-        <a href="./synclock/">Open site →</a>
-        <p>Product site for the reminder app: features, team collaboration, screenshots and the APK download.</p>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-<section id="certificates" class="wrap reveal">
-  <div class="head">
-    <span class="num">04</span><h2>Certificates</h2><span class="note">scroll →</span>
-    <span class="sp">
-      <button class="nav-btn" id="c-prev" aria-label="Previous certificates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-      <button class="nav-btn" id="c-next" aria-label="Next certificates"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
-    </span>
-  </div>
-  <div class="slider">
-    <div class="track" id="certs">
-      <article class="slide">
-        <div class="art"><img class="doc zoom" src="certs/servicenow-csa-cert.png" alt="ServiceNow Certified System Administrator certificate awarded to Shaurya Shakya" loading="lazy" width="900" height="637"></div>
-        <div class="body">
-          <b>Certified System Administrator</b><span>ServiceNow · issued June 2026</span>
-          <div class="go">
-            <a href="certs/servicenow-csa.pdf" target="_blank" rel="noopener">PDF →</a>
-            <a href="https://www.credly.com/badges/26af645c-f417-4f49-96af-ba0b49a7696d/public_url" target="_blank" rel="noopener">Verify on Credly →</a>
-          </div>
-        </div>
-      </article>
-      <article class="slide">
-        <div class="art"><img class="doc zoom" src="certs/servicenow-cad-cert.png" alt="ServiceNow Certified Application Developer certificate awarded to Shaurya Shakya" loading="lazy" width="900" height="637"></div>
-        <div class="body">
-          <b>Certified Application Developer</b><span>ServiceNow · CAD</span>
-          <div class="go">
-            <a href="certs/servicenow-cad.pdf" target="_blank" rel="noopener">PDF →</a>
-            <a href="https://www.credly.com/badges/2a6b351f-b708-4a08-bc20-9db665229be5/public_url" target="_blank" rel="noopener">Verify on Credly →</a>
-          </div>
-        </div>
-      </article>
-      <article class="slide">
-        <div class="art plain"><img class="badge zoom" src="certs/cisco-cyber.png" alt="Cisco Introduction to Cybersecurity badge" loading="lazy" width="142" height="142"></div>
-        <div class="body">
-          <b>Introduction to Cybersecurity</b><span>Cisco Networking Academy</span>
-          <div class="go"><a href="https://www.credly.com/badges/f8393e3c-0b43-4348-9df0-b4ea452ae819/public_url" target="_blank" rel="noopener">Verify on Credly →</a></div>
-        </div>
-      </article>
-      <article class="slide">
-        <div class="art tile">🏆</div>
-        <div class="body">
-          <b>Smart India Hackathon 2025</b><span>4th of 58 in the IIIT Bhagalpur qualifier, 6th overall</span>
-          <div class="go"><a href="https://drive.google.com/file/d/1iYqEE91WQVqWy-DlZs4BEFO1AIyZ5A33/view?usp=sharing" target="_blank" rel="noopener">View certificate →</a></div>
-        </div>
-      </article>
-      <article class="slide">
-        <div class="art tile">★</div>
-        <div class="body">
-          <b>CodeChef 3-Star</b><span>1613 peak rating · top 2.5%</span>
-          <div class="go"><a href="https://www.codechef.com/users/shaurya_8055" target="_blank" rel="noopener">View profile →</a></div>
-        </div>
-      </article>
-    </div>
-  </div>
-  <div class="lb" id="lb"><button class="x" aria-label="Close">✕</button><img id="lb-img" src="" alt=""></div>
-</section>
-
-<section id="skills" class="wrap reveal">
-  <div class="head"><span class="num">05</span><h2>Technical skills</h2></div>
-  <div class="skill-grid">
-    <div class="card tilt"><h3 class="h4">Languages</h3><div class="chips"><span class="chip">Go</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Dart</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">SQL</span></div></div>
-    <div class="card tilt"><h3 class="h4">Frameworks</h3><div class="chips"><span class="chip">Flutter</span><span class="chip">Riverpod</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Node.js</span><span class="chip">NestJS</span><span class="chip">Express</span><span class="chip">FastAPI</span></div></div>
-    <div class="card tilt"><h3 class="h4">Data</h3><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MongoDB</span><span class="chip">Redis</span><span class="chip">Prisma</span><span class="chip">SQLite / Drift</span><span class="chip">Firebase</span></div></div>
-    <div class="card tilt"><h3 class="h4">Cloud &amp; tooling</h3><div class="chips"><span class="chip">AWS Lambda</span><span class="chip">S3</span><span class="chip">GCP Pub/Sub</span><span class="chip">Docker</span><span class="chip">BullMQ</span><span class="chip">Socket.IO</span><span class="chip">Sentry</span><span class="chip">GitHub Actions</span></div></div>
-    <div class="card tilt"><h3 class="h4">APIs &amp; integrations</h3><div class="chips"><span class="chip">REST</span><span class="chip">gRPC</span><span class="chip">Protocol Buffers</span><span class="chip">MCP</span><span class="chip">OAuth 2.1</span><span class="chip">JWT</span><span class="chip">Razorpay</span><span class="chip">Stripe</span><span class="chip">Gemini API</span><span class="chip">FCM</span></div></div>
-    <div class="card tilt"><h3 class="h4">Education</h3><p style="color:var(--fg-2);font-size:.92rem">B.Tech Computer Science &amp; Engineering<br>IIIT Bhagalpur · 2023 — 2027<br><span class="muted">CGPA 8.51 / 10</span></p></div>
-  </div>
-</section>
-
-<section id="about" class="wrap reveal">
-  <div class="head"><span class="num">06</span><h2>Achievements</h2></div>
-  <ul class="ach card tilt">
-    <li><span class="mark">01</span><span><b>Smart India Hackathon 2025</b> — led Team QBIT to 4th of 58 in the IIIT Bhagalpur qualifier, 6th overall; sole author of the team's multilingual Flutter telemedicine app for 173 Nabha villages. <a href="https://github.com/SIH2025PS18/QBIT012025" target="_blank" rel="noopener">Repo</a></span></li>
-    <li><span class="mark">02</span><span><b>Competitive programming</b> — 3-Star on CodeChef, 1613 peak rating (top 2.5%).</span></li>
-    <li><span class="mark">03</span><span><b>Mentorship</b> — mentored 5 juniors in DSA and led competitive-programming workshops for 30+ students.</span></li>
-    <li><span class="mark">04</span><span><b>Founder</b> — Army Medicine Supplier, a licensed e-pharmacy serving ECHS beneficiaries, live and growing on organic search.</span></li>
-  </ul>
-</section>
-
+</div>
 </main>
-<div class="kbd-hint" id="kbdhint"><kbd>T</kbd><b>theme</b> <kbd>J</kbd><b>journey</b> <kbd>/</kbd><b>top</b></div>
 
 <footer>
-  <div class="wrap foot">
-    <div>
-      <p style="color:var(--fg);font-size:1.05rem;font-weight:700;margin-bottom:6px">Let's build something.</p>
-      <p><a href="mailto:iiitianshauryashakya8055@gmail.com" style="color:var(--accent);text-decoration:none">iiitianshauryashakya8055@gmail.com</a> · +91 90265 08435 · Farrukhabad, UP</p>
-    </div>
-    <nav>
-      <a href="https://github.com/shaurya-8055" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.linkedin.com/in/shaurya-shakya8055" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://drive.google.com/file/d/1AfOTH5OsW7kgqP7TEAhF5GTGTvBErhaZ/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
-      <a href="./synclock/">SynClock</a>
-    </nav>
+  <div class="wrap">
+    <span>Shaurya Shakya, 2026. Designed and built by me.</span>
+    <span><a href="https://github.com/shaurya-8055" target="_blank" rel="noopener">GitHub</a> &nbsp; <a href="https://www.linkedin.com/in/shaurya-shakya8055" target="_blank" rel="noopener">LinkedIn</a> &nbsp; <a href="./synclock/">SynClock</a></span>
   </div>
 </footer>
 
 <script>
-/* ---------- theme ---------- */
-const root = document.documentElement;
-const saved = (() => { try { return localStorage.getItem("theme"); } catch (e) { return null; } })();
-setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
-function setTheme(t){
-  root.dataset.theme = t;
-  const m = document.querySelector('meta[name="theme-color"]');
-  if (m) m.content = t === "dark" ? "#0a0b0d" : "#f7f7f5";
-  try { localStorage.setItem("theme", t); } catch (e) {}
-}
-document.getElementById("theme").onclick = () =>
-  setTheme(root.dataset.theme === "dark" ? "light" : "dark");
+/* top bar gets a hairline once you scroll */
+const topbar = document.getElementById("top");
+addEventListener("scroll", () => topbar.classList.toggle("scrolled", scrollY > 8), {passive: true});
 
-/* ---------- scroll progress + active nav ---------- */
-const bar = document.getElementById("bar");
-const links = [...document.querySelectorAll(".nav-links a.lnk")];
-addEventListener("scroll", () => {
-  const h = document.documentElement;
-  bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
-}, {passive:true});
-const spy = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  links.forEach(l => l.classList.toggle("on", l.getAttribute("href") === "#" + e.target.id));
-}), {rootMargin:"-45% 0px -50% 0px"});
-["experience","projects","apps","sites","certificates","skills"].forEach(id => {
-  const el = document.getElementById(id); if (el) spy.observe(el);
-});
-
-/* ---------- typewriter ---------- */
-const ROLES = ["travafa.com's product interface","a Go payment service","offline-first sync","a 6-tone design system"];
-const tw = document.getElementById("tw");
-let ri = 0, ci = 0, del = false;
-(function type(){
-  const word = ROLES[ri];
-  ci += del ? -1 : 1;
-  tw.textContent = word.slice(0, ci);
-  if (!del && ci === word.length){ del = true; return setTimeout(type, 1500); }
-  if (del && ci === 0){ del = false; ri = (ri + 1) % ROLES.length; }
-  setTimeout(type, del ? 26 : 62);
+/* ---------- the pile: drag the windows like SnapFloat thumbnails ---------- */
+(() => {
+  const pile = document.getElementById("pile");
+  let z = 10;
+  pile.querySelectorAll(".win").forEach(win => {
+    let sx = 0, sy = 0, ox = 0, oy = 0, moved = false, id = null;
+    win.addEventListener("pointerdown", e => {
+      if (e.button !== 0) return;
+      id = e.pointerId; moved = false;
+      sx = e.clientX; sy = e.clientY;
+      ox = win.offsetLeft; oy = win.offsetTop;
+      win.style.zIndex = ++z;
+      win.classList.add("lift");
+      win.setPointerCapture(id);
+    });
+    win.addEventListener("pointermove", e => {
+      if (e.pointerId !== id) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy;
+      if (!moved && Math.hypot(dx, dy) < 5) return;
+      moved = true;
+      const maxX = pile.clientWidth - win.offsetWidth * .4, maxY = pile.clientHeight - win.offsetHeight * .4;
+      win.style.left = Math.max(-win.offsetWidth * .3, Math.min(maxX, ox + dx)) + "px";
+      win.style.top = Math.max(-20, Math.min(maxY, oy + dy)) + "px";
+    });
+    const end = e => { if (e.pointerId === id) { id = null; win.classList.remove("lift"); } };
+    win.addEventListener("pointerup", end);
+    win.addEventListener("pointercancel", end);
+    win.addEventListener("click", e => { if (moved) e.preventDefault(); });  // a drag isn't a click
+    win.addEventListener("dragstart", e => e.preventDefault());
+  });
 })();
 
-/* ---------- count-up stats ---------- */
-const nums = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  nums.unobserve(e.target);
-  const el = e.target, to = +el.dataset.to, dec = +(el.dataset.dec || 0);
-  const pre = el.dataset.prefix || "", suf = el.dataset.suffix || "";
-  const t0 = performance.now(), dur = 1100;
-  (function step(t){
-    const p = Math.min(1, (t - t0) / dur), e2 = 1 - Math.pow(1 - p, 3);
-    el.textContent = pre + (to * e2).toFixed(dec) + suf;
-    if (p < 1) requestAnimationFrame(step);
-  })(t0);
-}), {threshold:.6});
-document.querySelectorAll(".cnt").forEach(el => nums.observe(el));
+/* ---------- live apps in the phone ---------- */
+(() => {
+  const APPS = [
+    {name: "QuickGo", kind: "Commerce and logistics", slug: "QUICKGO", color: "#0F766E", ic: "Q",
+     desc: "Storefront, cart, Stripe checkout and order tracking across customer, worker and admin clients.", tech: ["Flutter", "Node.js", "MongoDB"]},
+    {name: "Adhyan", kind: "Education technology", slug: "adhyan", color: "#4F46E5", ic: "A",
+     desc: "An interactive learning platform with course navigation and real-time progress tracking.", tech: ["Flutter", "Firebase"]},
+    {name: "WoSafe", kind: "Safety", slug: "wosafe", color: "#E11D48", ic: "W",
+     desc: "A women's safety app with one-tap SOS alerts, live location sharing and an emergency resource directory.", tech: ["Flutter", "Maps", "FCM"]},
+    {name: "Expense Tracker", kind: "Personal finance", slug: "expense_tracker_app", color: "#059669", ic: "₹",
+     desc: "Daily spending with categorised expenses and visual breakdowns of where the money goes.", tech: ["Flutter", "SQLite"]},
+    {name: "FauranFix", kind: "Service marketplace", slug: "fauranfix", color: "#D97706", ic: "F",
+     desc: "Connects homeowners with skilled professionals, from plumbing to same-day repairs.", tech: ["Flutter", "Firebase"]},
+  ];
+  const url = s => `https://shaurya-8055.github.io/${s}/`;
+  const picker = document.getElementById("picker"), about = document.getElementById("about");
+  const screen = document.getElementById("screen"), loader = document.getElementById("loader");
+  const start = document.getElementById("start"), boot = document.getElementById("boot");
+  let cur = 0, running = false, timer;
 
-/* ---------- cursor spotlight ---------- */
-document.querySelectorAll(".tilt").forEach(c => {
-  c.addEventListener("pointermove", e => {
-    const r = c.getBoundingClientRect();
-    c.style.setProperty("--mx", (e.clientX - r.left) + "px");
-    c.style.setProperty("--my", (e.clientY - r.top) + "px");
-  });
-});
+  picker.innerHTML = APPS.map((a, i) => `
+    <button type="button" data-i="${i}" aria-pressed="${i === 0}">
+      <span class="ic" style="background:${a.color}" aria-hidden="true">${a.ic}</span>
+      <span><b>${a.name}</b><small>${a.kind}</small></span>
+    </button>`).join("");
 
-/* ---------- website previews ---------- */
-/* Render each site at a 1280px desktop viewport, then scale it down to the card. */
-document.querySelectorAll(".view[data-src]").forEach(view => {
-  const frame = view.querySelector("iframe");
-  const boot  = view.querySelector(".boot");
-  const fit = () => view.style.setProperty("--bs", view.clientWidth / 1280);
-  fit();
-  new ResizeObserver(fit).observe(view);
-  frame.addEventListener("load", () => {
-    if (frame.src !== "about:blank") boot.classList.add("off");
-  });
-  new IntersectionObserver((es, o) => es.forEach(e => {
-    if (!e.isIntersecting) return;
-    o.disconnect();
-    frame.src = view.dataset.src;
-    setTimeout(() => boot.classList.add("off"), 12000);   // don't strand the placeholder
-  }), {rootMargin:"300px"}).observe(view);
-});
-
-/* ---------- certificates slider ---------- */
-const certs = document.getElementById("certs");
-const step = () => (certs.querySelector(".slide")?.offsetWidth || 352) + 16;
-document.getElementById("c-prev").onclick = () => certs.scrollBy({left:-step() * 2, behavior:"smooth"});
-document.getElementById("c-next").onclick = () => certs.scrollBy({left: step() * 2, behavior:"smooth"});
-certs.addEventListener("wheel", e => {                 // let a vertical wheel scroll the rail
-  if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-  const before = certs.scrollLeft;
-  certs.scrollLeft += e.deltaY;
-  if (certs.scrollLeft !== before) e.preventDefault();
-}, {passive:false});
-
-/* click a certificate to see it full size */
-const lb = document.getElementById("lb"), lbImg = document.getElementById("lb-img");
-certs.addEventListener("click", e => {
-  const img = e.target.closest("img.zoom"); if (!img) return;
-  lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add("on");
-});
-const closeLb = () => { lb.classList.remove("on"); lbImg.src = ""; };
-lb.addEventListener("click", closeLb);
-addEventListener("keydown", e => { if (e.key === "Escape") closeLb(); });
-
-/* ---------- live app lab ---------- */
-const APPS = [
-  {name:"QuickGo", kind:"Commerce & logistics", slug:"QUICKGO", color:"#0F766E", ic:"Q",
-   desc:"Storefront, cart, Stripe checkout and order tracking across customer, worker and admin clients.",
-   tech:["Flutter","Node.js","MongoDB"]},
-  {name:"Adhyan", kind:"Education technology", slug:"adhyan", color:"#4F46E5", ic:"A",
-   desc:"An interactive learning platform with course navigation and real-time progress tracking.",
-   tech:["Flutter","Firebase"]},
-  {name:"WoSafe", kind:"Social impact & safety", slug:"wosafe", color:"#E11D48", ic:"W",
-   desc:"Women's safety app with one-tap SOS alerts, live location sharing and an emergency resource directory.",
-   tech:["Flutter","Maps","FCM"]},
-  {name:"Expense Tracker", kind:"FinTech utility", slug:"expense_tracker_app", color:"#059669", ic:"₹",
-   desc:"Daily spend monitoring with categorised expenses and visual breakdowns of financial habits.",
-   tech:["Flutter","SQLite"]},
-  {name:"FauranFix", kind:"Service marketplace", slug:"fauranfix", color:"#D97706", ic:"F",
-   desc:"Connects homeowners with skilled professionals, from plumbing to same-day repairs.",
-   tech:["Flutter","Firebase"]},
-];
-const url = s => `https://shaurya-8055.github.io/${s}/`;
-const dock = document.getElementById("dock");
-const screen = document.getElementById("screen");
-const loader = document.getElementById("loader");
-const frame = document.getElementById("frame");
-let cur = 0, booted = false;
-
-dock.innerHTML = APPS.map((a,i) => `
-  <button class="app-btn${i === 0 ? " on" : ""}" data-i="${i}">
-    <span class="ic" style="background:${a.color}">${a.ic}</span>
-    <span><span class="nm">${a.name}</span><small>${a.kind}</small></span>
-  </button>`).join("");
-
-function load(i, fetchIt){
-  const a = APPS[i];
-  cur = i;
-  document.querySelectorAll(".app-btn").forEach(b => b.classList.toggle("on", +b.dataset.i === i));
-  root.style.setProperty("--app", a.color);
-  document.getElementById("a-name").textContent  = a.name;
-  document.getElementById("a-num").textContent   = "0" + (i + 1);
-  document.getElementById("a-kind").textContent  = a.kind;
-  document.getElementById("a-desc").textContent  = a.desc;
-  document.getElementById("a-chips").innerHTML   = a.tech.map(t => `<span class="chip">${t}</span>`).join("");
-  document.getElementById("a-open").href         = url(a.slug);
-  document.getElementById("loadtxt").textContent = "Loading " + a.name + "…";
-  if (fetchIt || booted){
+  function show(i){
+    cur = i;
+    const a = APPS[i];
+    picker.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i));
+    about.innerHTML = `<p>${a.desc}</p><div class="chips">${a.tech.map(t => `<span class="chip" style="background:#fff">${t}</span>`).join("")}</div>
+      <div class="links" style="margin-top:.8rem"><a href="${url(a.slug)}" target="_blank" rel="noopener">Open ${a.name} full screen</a></div>`;
+    boot.textContent = "Start " + a.name;
+    if (running) run();
+  }
+  function run(){
+    running = true;
+    start.hidden = true;
     loader.classList.remove("off");
-    screen.src = url(a.slug);
-    clearTimeout(load.t);                       // never leave the spinner up forever
-    load.t = setTimeout(() => loader.classList.add("off"), 14000);
+    loader.textContent = "Loading " + APPS[cur].name + "…";
+    screen.src = url(APPS[cur].slug);
+    clearTimeout(timer);
+    timer = setTimeout(() => loader.classList.add("off"), 9000);  // never leave the spinner up forever
   }
-}
-screen.addEventListener("load", () => {
-  if (screen.src !== "about:blank") loader.classList.add("off");
-});
-dock.addEventListener("click", e => {
-  const b = e.target.closest(".app-btn"); if (b) load(+b.dataset.i, true);
-});
-document.getElementById("t-rel").onclick = () => load(cur, true);
-document.getElementById("t-new").onclick = () => open(url(APPS[cur].slug), "_blank", "noopener");
-const ios = document.getElementById("t-ios"), and = document.getElementById("t-and");
-ios.onclick = () => { frame.classList.remove("android"); ios.classList.add("on");  and.classList.remove("on"); };
-and.onclick = () => { frame.classList.add("android");    and.classList.add("on");  ios.classList.remove("on"); };
-
-load(0, false);                       // paint the panel now, fetch nothing yet
-new IntersectionObserver((es, o) => es.forEach(e => {
-  if (!e.isIntersecting) return;      // only boot the phone once it is scrolled near
-  o.disconnect(); booted = true; load(cur, true);
-}), {rootMargin:"250px"}).observe(document.getElementById("apps"));
-
-/* status-bar clock, like a real handset */
-(function tick(){
-  const d = new Date();
-  const h = d.getHours() % 12 || 12;
-  document.getElementById("clock").textContent = h + ":" + String(d.getMinutes()).padStart(2, "0");
-  setTimeout(tick, 15000);
+  screen.addEventListener("load", () => { if (running) { clearTimeout(timer); loader.classList.add("off"); } });
+  picker.addEventListener("click", e => { const b = e.target.closest("button"); if (b) show(+b.dataset.i); });
+  boot.addEventListener("click", run);
+  document.querySelectorAll("[data-app]").forEach(a => a.addEventListener("click", () => { show(+a.dataset.app); run(); }));
+  show(0);
 })();
-
-/* ---------- reveal ---------- */
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
-}), {threshold:.1, rootMargin:"0px 0px -40px 0px"});
-document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-
-/* ---- header lifts on scroll ---- */
-(function(){
-  var h=document.querySelector('header');
-  if(!h) return;
-  var f=function(){ h.classList.toggle('scrolled', window.scrollY>12); };
-  addEventListener('scroll',f,{passive:true}); f();
-})();
-
-/* ---- metrics count up when they scroll into view ---- */
-(function(){
-  if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting) return;
-      var el=e.target, raw=el.textContent.trim();
-      var m=raw.match(/^(\d+(?:\.\d+)?)(.*)$/); if(!m){io.unobserve(el);return;}
-      var end=parseFloat(m[1]), suf=m[2]||'', dec=(m[1].split('.')[1]||'').length, t0=null;
-      function step(ts){ t0=t0||ts; var p=Math.min((ts-t0)/900,1);
-        el.textContent=(end*(1-Math.pow(1-p,3))).toFixed(dec)+suf;
-        if(p<1) requestAnimationFrame(step); }
-      requestAnimationFrame(step); io.unobserve(el);
-    });
-  },{threshold:.6});
-  document.querySelectorAll('.metric b').forEach(function(el){io.observe(el);});
-})();
-
-
-/* ---- cursor spotlight on cards ---- */
-(function(){
-  if(matchMedia('(pointer:coarse)').matches) return;
-  document.querySelectorAll('.card,.demo').forEach(function(c){
-    c.addEventListener('pointermove',function(e){
-      var r=c.getBoundingClientRect();
-      c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
-      c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
-    });
-  });
-})();
-
-/* ---- magnetic buttons ---- */
-(function(){
-  if(matchMedia('(pointer:coarse)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  document.querySelectorAll('.btn,.icon-btn,.tone,.act,.swap button').forEach(function(el){
-    el.classList.add('magnetic');
-    el.addEventListener('pointermove',function(e){
-      var r=el.getBoundingClientRect();
-      var x=(e.clientX-(r.left+r.width/2))/r.width, y=(e.clientY-(r.top+r.height/2))/r.height;
-      el.style.transform='translate('+(x*7).toFixed(2)+'px,'+(y*7).toFixed(2)+'px)';
-    });
-    el.addEventListener('pointerleave',function(){ el.style.transform=''; });
-  });
-})();
-
-/* ---- keyboard shortcuts ---- */
-(function(){
-  var hint=document.getElementById('kbdhint');
-  if(hint){
-    setTimeout(function(){hint.classList.add('show');},2400);
-    setTimeout(function(){hint.classList.remove('show');},9000);
-  }
-  addEventListener('keydown',function(e){
-    if(e.metaKey||e.ctrlKey||e.altKey) return;
-    var t=e.target.tagName; if(t==='INPUT'||t==='TEXTAREA') return;
-    var k=e.key.toLowerCase();
-    if(k==='t'){ var b=document.getElementById('theme'); if(b) b.click(); }
-    if(k==='j'){ var d=document.getElementById('journey'); if(d) d.scrollIntoView({behavior:'smooth'}); }
-    if(k==='/'){ e.preventDefault(); scrollTo({top:0,behavior:'smooth'}); }
-  });
-})();
-
-
-/* ---- project timeline ---- */
-(function(){
-  var items=[].slice.call(document.querySelectorAll('.tl-item'));
-  if(!items.length) return;
-  function setH(it){
-    var b=it.querySelector('.tl-body');
-    b.style.maxHeight = it.classList.contains('open') ? (b.firstElementChild.offsetHeight+'px') : '0px';
-  }
-  items.forEach(function(it){
-    var head=it.querySelector('.tl-head');
-    setH(it);
-    head.addEventListener('click',function(){
-      var wasOpen=it.classList.contains('open');
-      items.forEach(function(o){ o.classList.remove('open'); o.querySelector('.tl-head').setAttribute('aria-expanded','false'); setH(o); });
-      if(!wasOpen){ it.classList.add('open'); head.setAttribute('aria-expanded','true'); setH(it); }
-    });
-  });
-  addEventListener('resize',function(){ items.forEach(setH); },{passive:true});
-  // re-measure once webfonts land, or the panel clips
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ items.forEach(setH); });
-})();
-
-
-/* ---- journey: per-milestone colour, scroll fill, expand ---- */
-(function(){
-  var list=[].slice.call(document.querySelectorAll('.ms'));
-  if(!list.length) return;
-  var dark=function(){return document.documentElement.dataset.theme!=='light';};
-  function paint(){ list.forEach(function(m){ m.style.setProperty('--mc', dark()?m.dataset.cd:m.dataset.c); }); }
-  paint();
-  new MutationObserver(paint).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-
-  function setH(m){
-    var b=m.querySelector('.ms-body');
-    b.style.maxHeight = m.classList.contains('open') ? (b.firstElementChild.offsetHeight+'px') : '0px';
-  }
-  list.forEach(function(m){
-    var head=m.querySelector('.ms-head');
-    head.addEventListener('click',function(){
-      var was=m.classList.contains('open');
-      list.forEach(function(o){ o.classList.remove('open'); o.querySelector('.ms-head').setAttribute('aria-expanded','false'); setH(o); });
-      if(!was){ m.classList.add('open'); head.setAttribute('aria-expanded','true'); setH(m); }
-    });
-    setH(m);
-  });
-  addEventListener('resize',function(){ list.forEach(setH); },{passive:true});
-  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ list.forEach(setH); });
-
-  // light the dot when a milestone reaches the middle of the viewport
-  function lite(){
-    var mark=innerHeight*0.62;
-    list.forEach(function(m){
-      if(m.getBoundingClientRect().top < mark) m.classList.add('seen');
-    });
-  }
-  addEventListener('scroll',lite,{passive:true}); addEventListener('resize',lite,{passive:true}); lite();
-
-  // the path fills as you travel down it
-  var wrap=document.querySelector('.jwrap'), fill=document.getElementById('jfill');
-  function draw(){
-    if(!wrap||!fill) return;
-    var r=wrap.getBoundingClientRect(), mid=innerHeight*0.55;
-    var p=(mid-r.top)/r.height;
-    fill.style.height=Math.max(0,Math.min(1,p))*100+'%';
-  }
-  addEventListener('scroll',draw,{passive:true}); addEventListener('resize',draw,{passive:true}); draw();
-  // open the current role by default
-  var cur=document.getElementById('ms-travafa');
-  if(cur){ cur.classList.add('open'); cur.querySelector('.ms-head').setAttribute('aria-expanded','true'); setH(cur); }
-})();
-
 </script>
 </body>
 </html>
