@@ -30,6 +30,7 @@
   --wrap:min(1180px, 100% - 2.5rem);
   --hand:"Shantell Sans", "Comic Sans MS", cursive;
   --pop:0 4px 0 var(--ink);
+  --ease-pounce:cubic-bezier(.34,1.56,.64,1); --ease-silk:cubic-bezier(.22,1,.36,1); --ease-snap:cubic-bezier(.7,0,.2,1);
   --pop-lg:0 6px 0 var(--ink);
 }
 *{box-sizing:border-box}
@@ -246,6 +247,54 @@ body{background:
 .reveal{opacity:0; transform:translateY(20px)}
 .reveal.in{opacity:1; transform:none; transition:opacity .66s ease, transform .66s cubic-bezier(.22,1,.36,1)}
 @media (prefers-reduced-motion: reduce){ .reveal{opacity:1 !important; transform:none !important} }
+
+/* ===== doors ===== */
+.corridor-hint{text-align:center; color:var(--ink-3); font-size:var(--step--1); margin:.2rem 0 1.1rem}
+.corridor{list-style:none; margin:0 0 2.4rem; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:clamp(.45rem,1.3vw,1rem); align-items:end}
+.door{position:relative; rotate:var(--tilt)}
+.door__link{display:block; text-decoration:none; border-radius:1rem}
+.door__plate{display:block; text-align:center; margin-bottom:.55rem}
+.door__name{display:block; font:800 var(--step--1)/1.1 var(--display); color:var(--ink); letter-spacing:-.01em}
+.door__meta{display:block; margin-top:.12rem; font-size:.68rem; font-weight:600; color:var(--ink-3); line-height:1.25}
+.door__frame{display:block; position:relative; aspect-ratio:4/5.2; border:3px solid var(--ink); border-bottom:0; border-radius:999px 999px 0 0; background:#3B2215}
+.door__frame::after{content:""; position:absolute; left:-.5rem; right:-.5rem; bottom:-.6rem; height:.55rem; border:3px solid var(--ink); border-radius:.35rem; background:#DC9A52}
+.door__way{position:absolute; inset:-3px -3px 0; border-radius:999px 999px 0 0; overflow:hidden; perspective:700px; perspective-origin:0; --door-open:78deg}
+.door__room{position:absolute; inset:0; border-radius:inherit; display:grid; place-items:center; padding:.45rem;
+  background:
+    radial-gradient(120% 75% at 0% 55%, color-mix(in srgb, var(--door) 70%, #FFE2B0) 0%, transparent 62%),
+    linear-gradient(165deg, #4A2A18 0%, #2B170C 85%);
+  box-shadow:inset 0 0 1.4rem #00000066}
+.door__room-label{font:700 .72rem/1.2 var(--body); color:#FFEBD2; text-align:center; letter-spacing:.01em;
+  text-shadow:0 1px 2px #00000055}
+.door__leaf{position:absolute; inset:0; transform-origin:0; border:3px solid var(--ink); border-bottom:0; border-radius:999px 999px 0 0;
+  background:repeating-linear-gradient(90deg, transparent 0 calc(25% - 1.5px), #2a170e2e calc(25% - 1.5px) 25%), var(--door);
+  transition:transform .62s var(--ease-silk)}
+.door__leaf::before{content:""; position:absolute; inset:12% 14% 9%; border:2.5px solid #fffdf847; border-radius:999px 999px .5rem .5rem}
+.door__knob{position:absolute; top:56%; right:11%; width:.68rem; aspect-ratio:1; border:2.5px solid var(--ink); border-radius:50%; background:#F5C86B}
+.door__link:is(:hover,:focus-visible) .door__leaf, .door[data-open="true"] .door__leaf{transform:rotateY(var(--door-open))}
+.door__link:is(:hover,:focus-visible) .door__name{color:var(--link)}
+@supports (animation-timeline: view()){
+  /* name the timeline on .door: .door__way is overflow:hidden, so view() there
+     resolves against that clipped box and pins progress at 1. */
+  .door{view-timeline-name:--doorline; view-timeline-axis:block}
+  .door__leaf{animation:door-open linear both; animation-timeline:--doorline; animation-range:entry 60% cover 42%}
+}
+@keyframes door-open{0%{transform:rotateY(0)} 100%{transform:rotateY(var(--door-open))}}
+@media (max-width:880px){ .corridor{grid-template-columns:repeat(3,1fr); gap:1rem 1.2rem} }
+
+/* ===== section motion ===== */
+@keyframes stamp-in{0%{opacity:0; scale:1.7; rotate:calc(var(--tilt,0deg) - 16deg)} 55%{opacity:1; scale:.93} 75%{scale:1.03} 100%{opacity:1; scale:1; rotate:var(--tilt,0deg)}}
+@keyframes pop-up{0%{opacity:.5; translate:0 108%; scale:.92} 65%{opacity:1; scale:1.04} 100%{opacity:1; translate:0; scale:1}}
+@keyframes step-in{0%{opacity:0; translate:0 1.25rem; rotate:1.5deg} 100%{opacity:1; translate:0; rotate:0deg}}
+[data-anim]{opacity:0}
+[data-anim].in{opacity:1}
+[data-anim="stamp"].in{animation:stamp-in .72s var(--ease-pounce) both}
+[data-anim="step"].in{animation:step-in .6s var(--ease-silk) both}
+[data-anim="pop"].in{animation:pop-up .62s var(--ease-pounce) both}
+@media (prefers-reduced-motion: reduce){
+  [data-anim]{opacity:1 !important; animation:none !important}
+  .door__leaf{animation:none !important; transform:rotateY(var(--door-open)) !important; transition:none !important}
+}
 </style>
 </head>
 <body>
@@ -326,6 +375,57 @@ body{background:
       <p>Products I designed and built end to end, from the first screen to production.</p>
     </div>
 
+    <p class="corridor-hint">Six projects, six doors. They open as you scroll, or when you point at one.</p>
+    <ul class="corridor" aria-label="Projects"><li class="door" style="--door:var(--sky); --tilt:0.8deg">
+        <a class="door__link" href="#travafa">
+          <span class="door__plate"><span class="door__name">Travafa</span><span class="door__meta">Intern, since Dec 2025</span></span>
+          <span class="door__frame"><span class="door__way">
+            <span class="door__room"><span class="door__room-label">travafa.com</span></span>
+            <span class="door__leaf"><span class="door__knob"></span></span>
+          </span></span>
+        </a>
+      </li><li class="door" style="--door:var(--mint); --tilt:-0.8deg">
+        <a class="door__link" href="#ams">
+          <span class="door__plate"><span class="door__name">Army Medicine</span><span class="door__meta">Founder, live</span></span>
+          <span class="door__frame"><span class="door__way">
+            <span class="door__room"><span class="door__room-label">e-pharmacy</span></span>
+            <span class="door__leaf"><span class="door__knob"></span></span>
+          </span></span>
+        </a>
+      </li><li class="door" style="--door:var(--peach); --tilt:0.8deg">
+        <a class="door__link" href="#synclock">
+          <span class="door__plate"><span class="door__name">SynClock</span><span class="door__meta">Solo, Android</span></span>
+          <span class="door__frame"><span class="door__way">
+            <span class="door__room"><span class="door__room-label">reminders</span></span>
+            <span class="door__leaf"><span class="door__knob"></span></span>
+          </span></span>
+        </a>
+      </li><li class="door" style="--door:var(--lilac); --tilt:-0.8deg">
+        <a class="door__link" href="#snapfloat">
+          <span class="door__plate"><span class="door__name">SnapFloat</span><span class="door__meta">Open source v1.2</span></span>
+          <span class="door__frame"><span class="door__way">
+            <span class="door__room"><span class="door__room-label">screenshots</span></span>
+            <span class="door__leaf"><span class="door__knob"></span></span>
+          </span></span>
+        </a>
+      </li><li class="door" style="--door:var(--rose); --tilt:0.8deg">
+        <a class="door__link" href="#sehat">
+          <span class="door__plate"><span class="door__name">Sehat Sathi</span><span class="door__meta">SIH 2025, lead</span></span>
+          <span class="door__frame"><span class="door__way">
+            <span class="door__room"><span class="door__room-label">telemedicine</span></span>
+            <span class="door__leaf"><span class="door__knob"></span></span>
+          </span></span>
+        </a>
+      </li><li class="door" style="--door:var(--butter); --tilt:-0.8deg">
+        <a class="door__link" href="#quickgo">
+          <span class="door__plate"><span class="door__name">QuickGo</span><span class="door__meta">First product, 2024</span></span>
+          <span class="door__frame"><span class="door__way">
+            <span class="door__room"><span class="door__room-label">e-commerce</span></span>
+            <span class="door__leaf"><span class="door__knob"></span></span>
+          </span></span>
+        </a>
+      </li></ul>
+
     <div class="work">
       <article class="tile big" id="travafa" style="--c:var(--sky); --k:var(--sky-ink)">
         <span class="kind">Software engineer intern, design and frontend, since Dec 2025</span>
@@ -348,7 +448,7 @@ body{background:
         <div class="links"><a href="https://travafa.com" target="_blank" rel="noopener">Visit travafa.com</a><a href="https://play.google.com/store/apps/details?id=com.letztrip.app" target="_blank" rel="noopener">Play Store</a><a href="https://apps.apple.com/us/app/travafa/id6670797525" target="_blank" rel="noopener">App Store</a></div>
       </article>
 
-      <article class="tile side" style="--c:var(--rose); --k:var(--rose-ink)">
+      <article class="tile side" id="sehat" style="--c:var(--rose); --k:var(--rose-ink)">
         <span class="kind">Smart India Hackathon 2025, team lead</span>
         <h3>Sehat Sathi</h3>
         <p>A telemedicine app for 173 villages around Nabha, built for a connection that appears for thirty seconds and vanishes: offline consultation records and flows designed for first-time smartphone users in their own language.</p>
@@ -356,7 +456,7 @@ body{background:
         <div class="links"><a href="https://github.com/SIH2025PS18/QBIT012025" target="_blank" rel="noopener">GitHub</a></div>
       </article>
 
-      <article class="tile side" style="--c:var(--butter); --k:var(--butter-ink)">
+      <article class="tile side" id="quickgo" style="--c:var(--butter); --k:var(--butter-ink)">
         <span class="kind">First full product, 2024</span>
         <h3>QuickGo</h3>
         <p>E-commerce and on-demand services with three Flutter clients (customer, worker, admin) on Node.js and MongoDB: OTP sign-in, Stripe checkout, order tracking and push updates.</p>
@@ -592,13 +692,38 @@ addEventListener("scroll", () => topbar.classList.toggle("scrolled", scrollY > 8
 </script>
 <script>
 (function(){
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var els=document.querySelectorAll('.tile, .hero > div, .facts, section > h2, .card, li');
-  els.forEach(function(e,i){ e.classList.add('reveal'); e.style.transitionDelay=(Math.min(i%6,5)*55)+'ms'; });
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target);} });
-  },{rootMargin:'0px 0px -8% 0px', threshold:.06});
-  els.forEach(function(e){ io.observe(e); });
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  // per-section motion
+  function tag(sel, kind, root){
+    (root||document).querySelectorAll(sel).forEach(function(e,i){
+      // content inside a closed <details> never intersects, so it would stay
+      // at opacity:0 even after the user expands it. Leave it alone.
+      if (e.closest('details')) return;
+      e.setAttribute('data-anim', kind);
+      e.style.animationDelay = (Math.min(i,7)*70) + 'ms';
+    });
+  }
+  tag('#certificates li, #certificates .cert', 'stamp');
+  tag('#journey li', 'step');
+  tag('#skills .chip, #skills li', 'pop');
+  document.querySelectorAll('.tile').forEach(function(e,i){
+    e.setAttribute('data-anim','step'); e.style.animationDelay=(Math.min(i,5)*80)+'ms';
+  });
+
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
+  }, {rootMargin:'0px 0px -6% 0px', threshold:.08});
+  document.querySelectorAll('[data-anim]').forEach(function(e){ io.observe(e); });
+
+  // doors: scroll-driven CSS where supported, observer everywhere else
+  if (!(CSS.supports && CSS.supports('animation-timeline','view()'))){
+    var dio = new IntersectionObserver(function(es){
+      es.forEach(function(x){ if(x.isIntersecting){ x.target.setAttribute('data-open','true'); dio.unobserve(x.target); } });
+    }, {rootMargin:'0px 0px -18% 0px', threshold:.3});
+    document.querySelectorAll('.door').forEach(function(d){ dio.observe(d); });
+  }
 })();
 </script>
 </body>
