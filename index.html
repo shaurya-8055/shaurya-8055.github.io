@@ -215,8 +215,10 @@ body{background:
   repeating-linear-gradient(-45deg, rgba(180,83,31,.030) 0 1px, transparent 1px 22px),
   var(--paper);}
 .hero{position:relative}
-.hero::before{content:""; position:absolute; inset:-14% -50% 8%; z-index:-1; pointer-events:none;
-  background:radial-gradient(60% 70% at 50% 35%, #FFEBD4 0%, rgba(255,235,212,.45) 45%, transparent 72%);}
+.hero::before{content:""; position:absolute; inset:-14% -4% 8%; z-index:-1; pointer-events:none;
+  background:radial-gradient(90% 72% at 50% 35%, #FFEBD4 0%, rgba(255,235,212,.45) 48%, transparent 76%);}
+/* belt and braces: no element should ever add sideways scroll */
+html, body{overflow-x:clip}
 
 /* chunky pill buttons with a hard offset shadow */
 .btn{border-width:2px; border-radius:999px; padding:.78rem 1.4rem; font-weight:700;
@@ -256,16 +258,19 @@ body{background:
 .door__plate{display:block; text-align:center; margin-bottom:.55rem}
 .door__name{display:block; font:800 var(--step--1)/1.1 var(--display); color:var(--ink); letter-spacing:-.01em}
 .door__meta{display:block; margin-top:.12rem; font-size:.68rem; font-weight:600; color:var(--ink-3); line-height:1.25}
-.door__frame{display:block; position:relative; aspect-ratio:4/5.2; border:3px solid var(--ink); border-bottom:0; border-radius:999px 999px 0 0; background:#3B2215}
+.door__frame{display:block; position:relative; aspect-ratio:4/5.2; border:3px solid var(--ink); border-bottom:0; border-radius:999px 999px 0 0; background:#F3E3C9}
 .door__frame::after{content:""; position:absolute; left:-.5rem; right:-.5rem; bottom:-.6rem; height:.55rem; border:3px solid var(--ink); border-radius:.35rem; background:#DC9A52}
+/* .door__way sits at inset -3px and hides the frame border, so draw the arch
+   outline on top of everything to keep the outlined style consistent */
+.door__frame::before{content:""; position:absolute; inset:-3px; border:3px solid var(--ink); border-bottom:0;
+  border-radius:999px 999px 0 0; pointer-events:none; z-index:3}
 .door__way{position:absolute; inset:-3px -3px 0; border-radius:999px 999px 0 0; overflow:hidden; perspective:700px; perspective-origin:0; --door-open:78deg}
 .door__room{position:absolute; inset:0; border-radius:inherit; display:grid; place-items:center; padding:.45rem;
   background:
-    radial-gradient(120% 75% at 0% 55%, color-mix(in srgb, var(--door) 70%, #FFE2B0) 0%, transparent 62%),
-    linear-gradient(165deg, #4A2A18 0%, #2B170C 85%);
-  box-shadow:inset 0 0 1.4rem #00000066}
-.door__room-label{font:700 .72rem/1.2 var(--body); color:#FFEBD2; text-align:center; letter-spacing:.01em;
-  text-shadow:0 1px 2px #00000055}
+    radial-gradient(135% 85% at 0% 52%, #FFF8E9 0%, color-mix(in srgb, var(--door) 45%, #FFF6E6) 58%,
+      color-mix(in srgb, var(--door) 75%, #E6C79E) 100%);
+  box-shadow:inset 0 0 1rem rgba(122,72,32,.16)}
+.door__room-label{font:700 .72rem/1.2 var(--body); color:var(--ink); text-align:center; letter-spacing:.01em}
 .door__leaf{position:absolute; inset:0; transform-origin:0; border:3px solid var(--ink); border-bottom:0; border-radius:999px 999px 0 0;
   background:repeating-linear-gradient(90deg, transparent 0 calc(25% - 1.5px), #2a170e2e calc(25% - 1.5px) 25%), var(--door);
   transition:transform .62s var(--ease-silk)}
